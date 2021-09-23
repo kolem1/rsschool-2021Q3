@@ -1,0 +1,55 @@
+@import url(_normalize.scss);
+@import url(_fonts.scss);
+@import url(_global.scss);
+
+/*------------------------------- HEADER -------------------------------*/
+
+.header {
+  padding: 58px 0;
+
+  font-weight: 200;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  font-size: 28px;
+  text-transform: uppercase;
+  &__img {
+    margin-right: 25px;
+  }
+}
+
+.header-nav {
+
+  &__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    
+    &:not(:last-child) {
+      margin-right: 55px;
+    }
+  }
+
+  &__link {
+    transition: color 0.3s;
+    &:hover {
+      color: #9D8665;
+    }
+    &:active {
+      color: #7E6C51;
+    }
+  }
+}
