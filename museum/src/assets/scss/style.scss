@@ -58,17 +58,34 @@
 
 .section {
   padding: 75px 0;
+
   &--welcome {
     padding: 0 0 60px;
   }
+
   &--even {
     color: #000000;
 
     background-color: #ffffff;
+
+    .section-title {
+      color: #9D8665;
+    }
+  }
+
+  &__heading-separator {
+    height: 3px;
+    margin: 0;
+    margin-bottom: 75px;
+
+    background-color: #710707;
   }
 }
 
 .section-title {
+  margin: 0;
+  margin-bottom: 25px;
+
   font-family: 'Forum', cursive;
   font-size: 80px;
   line-height: 90px;
@@ -216,5 +233,68 @@
     &:hover {
       background-color: #9D8665;
     }
+  }
+}
+
+.virtual-tours {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 75px 60px;
+  }
+}
+
+.tour-card {
+  display: block;
+
+  font-weight: 200;
+
+  &:hover {
+    .tour-card__title::after {
+      width: 100%;
+    }
+  }
+
+  &__img {
+    margin-bottom: 25px;
+  }
+
+  &__title {
+    position: relative;
+
+    padding: 0 0 10px;
+    margin: 0;
+
+    font-family: 'Forum', cursive;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 35px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      height: 2px;
+      width: 68%;
+
+      background-color: #710707;
+
+      transition: width 0.4s ease-in-out;
+    }
+  }
+
+  &__subtitle {
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    margin: 0;
+
+    font-size: 18px;
   }
 }
