@@ -124,7 +124,13 @@
     padding: 25px 66px;
 
     background: #710707;
-    border-radius: 10px;  
+    border-radius: 10px;
+
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #9D8665;
+    }
   }
   &__slider-wrapper {
     max-width: 1000px;

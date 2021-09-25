@@ -53,6 +53,10 @@ module.exports = ({ development }) => ({
   plugins: [
     new MiniCssExtractPlugin({ filename: '[contenthash].css' }),
     new HtmlWebpackPlugin({ template: './index.html' }),
+    new HtmlWebpackPlugin({
+      filename: 'tour1.html',
+      template: './tour1.html'
+    }),
     new CopyPlugin({
       patterns: [
         {
