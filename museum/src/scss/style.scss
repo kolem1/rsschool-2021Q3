@@ -530,3 +530,40 @@
   }
 }
 
+.gallery {
+  &__container {
+    position: relative;
+
+    max-height: 1960px;
+
+    overflow: hidden;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      height: 360px;
+
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);;
+    }
+  }
+
+  &__inner-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 24px 36px;
+    height: 3044px;
+  }
+
+  &__img {
+    width: calc(33% - 24px);
+    &:first-child {
+      margin-top: 50px;
+    }
+  }
+}
