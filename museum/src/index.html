@@ -51,9 +51,9 @@
                         <a class="welcome-section__button" href="welcome-tour.html" target="_blank">Discover the Louvre</a>
                     </div>
                     <div class="welcome-section__slider-wrapper">
-                        <div class="welcome-slider">
-                            <div class="welcome-slider__wrapper">
-                                <div class="welcome-slider__slides">
+                        <div class="welcome-slider slider">
+                            <div class="welcome-slider__wrapper slider__wrapper">
+                                <div class="welcome-slider__slides slider__slides">
                                     <div class="welcome-slider__slide welcome-slide">
                                         <img class="welcome-slide__img" src="assets/img/welcome-slider/1.jpg" alt="">
                                     </div>
@@ -102,8 +102,7 @@
         </section>
         <section class="section section--even virtual-tours">
             <div class="container">
-                <h2 class="section-title">Virtual tour</h2>
-                <hr class="section__heading-separator">
+                <h2 class="section-title section-title--underline">Virtual tour</h2>
                 <div class="virtual-tours__grid">
                     <a class="virtual-tours__tour tour-card" href="tour1.html" target="_blank">
                         <img class="tour-card__img" src="assets/img/virtual-tour/01.jpg" alt="" width="440" height="285">
@@ -148,8 +147,7 @@
             <div class="container">
                 <div class="section__inner">
                     <div class="section__column section__column--first section__text">
-                        <h2 class="section-title">Picture Explore</h2>
-                        <hr class="section__heading-separator">
+                        <h2 class="section-title section-title--underline">Picture Explore</h2>
                         <p>Las Meninas is a 1656 painting by Diego Velázquez, the leading artist of the Spanish Golden Age.</p>
                         <p>It was cleaned in 1984 to remove a <a href="#">"yellow veil"</a> of dust that had gathered since the previous restoration in the 19th century.</p>
                         <p>The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
@@ -160,9 +158,87 @@
                 </div>
             </div>
         </section>
-        <section class="section section--even"></section>
-        <section class="section"></section>
-        <section class="section section--even"></section>
+        <section class="section section--even video-section">
+            <div class="container">
+                <div class="section__inner section__inner--vertical-centre">
+                    <div class="section__column section__column--first">
+                        <h2 class="section-title">Video journey</h2>
+                    </div>
+                    <div class="section__column section__column--second section__text">
+                        <p>Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
+                    </div>
+                </div>
+                <div class="video video-section__video">
+                    <img class="video__poster" src="assets/video/poster0.jpg" alt="">
+                    <div class="video__control-panel video-control">
+                        <button class="video-control__item video-control__button video-control__play">
+                            <svg width="23" height="31">
+                                <use xlink:href="assets/svg/sprite.svg#play"></use>
+                            </svg>
+                        </button>
+                        <input class="video-control__item video-control__range video-control__progress styled-range" value="50" type="range" min="0" max="100" step="1">
+                        <button class="video-control__item video-control__button video-control__mute">
+                            <svg width="38" height="31">
+                                <use xlink:href="assets/svg/sprite.svg#volume"></use>
+                            </svg>
+                        </button>
+                        <input class="video-control__item video-control__range video-control__volume styled-range" value="50" type="range" min="0" max="100" step="1">
+                        <button class="video-control__item video-control__button video-control__fullscreen">
+                            <svg width="35" height="35">
+                                <use xlink:href="assets/svg/sprite.svg#fullscreen"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-section__slider video-slider slider">
+                    <div class="video-slider__wrapper slider__wrapper">
+                        <div class="video-slider__slides slider__slides">
+                            <div class="video-slider__slide video-slide">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-slider__slide video-slide">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-slider__slide video-slide">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-slider__slide video-slide">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="video-slider__slide video-slide">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-slider__pagination">
+                        <button class="video-slider__arrow video-slider__arrow-prev">
+                            <span class="visually-hidden">Previous slide</span>
+                            <svg width="10" height="12">
+                                <use xlink:href="assets/svg/sprite.svg#video-arrow"></use>
+                            </svg>
+                        </button>
+                        <div class="video-slider__dots slider-dots">
+                            <button class="video-slider__dot active"><span class="visually-hidden">1</span></button>
+                            <button class="video-slider__dot"><span class="visually-hidden">2</span></button>
+                            <button class="video-slider__dot"><span class="visually-hidden">3</span></button>
+                            <button class="video-slider__dot"><span class="visually-hidden">4</span></button>
+                            <button class="video-slider__dot"><span class="visually-hidden">5</span></button>
+                        </div>
+                        <button class="video-slider__arrow video-slider__arrow-next">
+                            <span class="visually-hidden">Previous slide</span>
+                            <svg width="10" height="12">
+                                <use xlink:href="assets/svg/sprite.svg#video-arrow"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section gallery">
+        </section>
+        <section class="section section--even">
+
+        </section>
     </main>
     <footer class="footer">
         
