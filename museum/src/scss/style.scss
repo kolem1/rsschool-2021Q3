@@ -102,19 +102,53 @@
     &--tickets {
       flex-grow: 1;
     }
+
+    &--map {
+      max-width: 960px;
+    }
   }
 
   &__text {
 
 
     line-height: 38px;
-    a {
+    span {
       color: #caaa7d;
     }
 
     p {
       margin: 0;
       margin-bottom: 25px;
+    }
+  }
+
+  &__contacts {
+    h3 {
+      margin: 0;
+      margin-bottom: 50px;
+
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    p {
+      margin: 25px 0;
+    }
+
+    a {
+      transition: color 0.3s;
+
+      &:hover {
+        color: #9d8665;
+      }
+
+      &:active {
+        color: #7E6C51;
+      }
     }
   }
 }
@@ -689,6 +723,16 @@
 
     border: none;
     background-color: #000000;
+    
+    cursor: pointer;
+
+    transition: color 0.3s, background-color 0.3s;
+
+    &:hover {
+      color: #000000;
+
+      background-color: #9D8665;
+    }
   }
 }
 
@@ -709,6 +753,8 @@
 
     background-color: transparent;
     border: 3px solid #000000;
+
+    cursor: pointer;
   }
 
   &__minus {
