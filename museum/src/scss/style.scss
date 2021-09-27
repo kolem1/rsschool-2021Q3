@@ -73,6 +73,10 @@
     }
   }
 
+  &--gallery {
+    padding-bottom: 0;
+  }
+
   &__inner {
     display: flex;
     justify-content: space-between;
@@ -90,9 +94,13 @@
       margin-right: 60px;
     }
 
-    &--second {
+    &--bigger {
       width: 50%;
       flex-shrink: 0;
+    }
+
+    &--tickets {
+      flex-grow: 1;
     }
   }
 
@@ -167,8 +175,9 @@
     z-index: 1;
 
     max-width: 600px;
+    width: 100%;
     padding-top: 150px;
-    flex-shrink: 0;
+    
 
     letter-spacing: 2px;
   }
@@ -566,4 +575,174 @@
       margin-top: 50px;
     }
   }
+}
+
+.tickets-buy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__title {
+    margin: 0;
+    margin-bottom: 50px;
+
+    font-size: 28px;
+
+    &--right {
+      text-align: right;
+      margin-bottom: 25px;
+    }
+  }
+
+  &__radio {
+    &:not(:disabled):not(:checked) + label:hover span::after {
+      opacity: 0.5;
+    }
+
+    &:not(:disabled):active + label span::after {
+      opacity: 0.9;
+    }
+
+    &:focus + label span {
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.25);
+    }
+
+    &:checked + label span::after {
+      opacity: 1;
+    }
+
+    &:disabled + label span {
+      opacity: 0.7;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+
+    user-select: none;
+
+    span {
+      position: relative;
+
+      box-sizing: border-box;
+      width: 17px;
+      height: 17px;
+      margin-right: 23px;
+
+      border: 2px solid #000000;
+      border-radius: 50%;
+
+      &::after {
+        content: '';
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+        background-color: #000000;
+        opacity: 0;
+
+        transform: translate(-50%, -50%);
+
+        transition: opacity 0.3s;
+      }
+    }
+  }
+
+  &__amount {
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__amount-label {
+    display: block;
+    margin-bottom: 17px;
+  }
+
+  &__total {
+    width: 100%;
+    margin: 40px 0 60px;
+
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1.65px;
+    text-align: right;
+  }
+
+  &__button {
+    min-height: 50px;
+    padding: 5px 37px;
+    margin-left: auto;
+
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 2px;
+
+    border: none;
+    background-color: #000000;
+  }
+}
+
+.amount {
+  width: 150px;
+  display: flex;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &__button {
+    width: 40px;
+    height: 50px;
+
+    font-size: 32px;
+    font-weight: 400;
+
+    background-color: transparent;
+    border: 3px solid #000000;
+  }
+
+  &__minus {
+    border-right: none;
+  }
+
+  &__plus {
+    border-left: none;
+  }
+
+  &__field {
+    text-align: center;
+    width: 70px;
+    height: 50px;
+
+    border: none;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+  }
+}
+
+.paralax {
+  height: 400px;
+
+  background-image: url(../assets/img/parallax.jpg);
+  background-size: cover;
+  background-attachment: fixed;
 }

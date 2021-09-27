@@ -152,7 +152,7 @@
                         <p>It was cleaned in 1984 to remove a <a href="#">"yellow veil"</a> of dust that had gathered since the previous restoration in the 19th century.</p>
                         <p>The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
                     </div>
-                    <div class="section__column section__column--second">
+                    <div class="section__column section__column--bigger">
                         <img class="picture-explore__img" src="assets/img/explore-slider/after.jpg" alt="">
                     </div>
                 </div>
@@ -164,7 +164,7 @@
                     <div class="section__column section__column--first">
                         <h2 class="section-title">Video journey</h2>
                     </div>
-                    <div class="section__column section__column--second section__text">
+                    <div class="section__column section__column--bigger section__text">
                         <p>Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
                 </div>
             </div>
         </section>
-        <section class="section gallery">
+        <section class="section section--gallery gallery">
             <div class="container">
                 <h2 class="section-title">Art Gallery</h2>
                 <div class="gallery__container">
@@ -243,8 +243,46 @@
             </div>
         </section>
         <section class="section section--even">
-
+            <div class="container">
+                <h2 class="section-title section-title--underline">Buy Tickets</h2>
+                <div class="section__inner">
+                    <div class="section__column section__column--bigger section__column--first">
+                        <img src="assets/img/buy-tickets.jpg" alt="">
+                    </div>
+                    <div class="section__column  section__column--tickets">
+                        <div class="tickets-buy">
+                            <div class="tickets-buy__ticket-type">
+                                <h3 class="tickets-buy__title">Ticket Type</h3>
+                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="permanent" checked>
+                                <label class="tickets-buy__label" for="permanent"><span></span>Permanent exhibition</label>
+                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="temporary">
+                                <label class="tickets-buy__label" for="temporary"><span></span>Temporary exhibition</label>
+                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="combined">
+                                <label class="tickets-buy__label" for="combined"><span></span>Combined Admission</label>
+                            </div>
+                            <div class="tickets-buy__amount">
+                                <h3 class="tickets-buy__title tickets-buy__title--right">Amount</h3>
+                                <label class="tickets-buy__amount-label" for="basic-amount">Basic 18+</label>
+                                <p class="tickets-buy__amount-wrapper amount">
+                                    <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">–</button>
+	                                <input class="amount__field" id="basic-amount" type="number" min="1" max="20" value="1">
+	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                </p>
+                                <label class="tickets-buy__amount-label" for="senior-amount">Senior 65+</label>
+                                <p class="tickets-buy__amount-wrapper amount">
+                                    <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">–</button>
+	                                <input class="amount__field" id="senior-amount" type="number" min="1" max="20" value="1">
+	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                </p>
+                            </div>
+                            <div class="tickets-buy__total">Total €<span>220</span></div>
+                            <button class="tickets-buy__button">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+        <div class="paralax"></div>
     </main>
     <footer class="footer">
         
