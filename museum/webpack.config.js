@@ -77,6 +77,10 @@ module.exports = ({ development }) => ({
       filename: 'tour6.html',
       template: './tour6.html'
     }),
+    new HtmlWebpackPlugin({
+      filename: 'welcome-tour.html',
+      template: './welcome-tour.html'
+    }),
     new CopyPlugin({
       patterns: [
         {
