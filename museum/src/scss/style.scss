@@ -577,6 +577,12 @@
   }
 }
 
+.video-slide {
+  iframe {
+    border: none;
+  }
+}
+
 .gallery {
   &__container {
     position: relative;
