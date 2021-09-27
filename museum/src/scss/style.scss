@@ -18,7 +18,7 @@
 
 .logo {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   
   font-family: 'Forum', cursive;
@@ -123,6 +123,10 @@
     p {
       margin: 0;
       margin-bottom: 25px;
+    }
+
+    &--padding {
+      padding-top: 10px;
     }
   }
 
@@ -423,6 +427,31 @@
 
   &__poster {
     width: 100%;
+  }
+
+  &__play {
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 50%;
+
+    background: transparent;
+    border: none;
+
+    transform: translate(-50%, -50%);
+
+    cursor: pointer;
+
+    svg {
+      fill: #ffffff;
+
+      transition: fill 0.3s;
+    }
+
+    &:hover {
+      svg {
+        fill: #9D8665;
+      }
+    }
   }
 
   &__control-panel {
@@ -856,6 +885,7 @@
     grid-column: -2 / -1;
     align-self: center;
     justify-self: end;
+    margin-top: 15px;
   }
 }
 
@@ -942,23 +972,23 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: -100%;
   z-index: 100;
 
   display: flex;
+  width: 100%;
   align-items: center;
 
   color: #030303;
 
   visibility: hidden;
-  transform: translate(-100%);
 
   transition: all 0.3s;
 
   &.active {
+    left: 0;
+
     visibility: visible;
-    transform: translate(0);
   }
 
   &__overlay {

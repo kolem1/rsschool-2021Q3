@@ -11,11 +11,13 @@
     <header class="header">
         <div class="container">
             <div class="header__inner">
-                <div class="header__logo logo">
-                    <svg class="logo__img" width="49" height="26">
-                        <use xlink:href="assets/svg/sprite.svg#logo"></use>
-                    </svg>
-                    <span class="logo__text">Louvre</span>
+                <div class="header__logo">
+                    <div class="logo">
+                        <svg class="logo__img" width="49" height="26">
+                            <use xlink:href="assets/svg/sprite.svg#logo"></use>
+                        </svg>
+                        <span class="logo__text">Louvre</span>
+                    </div>
                 </div>
                 <nav class="header__nav header-nav">
                     <ul class="header-nav__list">
@@ -162,16 +164,21 @@
         </section>
         <section class="section section--even video-section" id="video">
             <div class="container">
-                <div class="section__inner section__inner--vertical-centre">
+                <div class="section__inner">
                     <div class="section__column section__column--first">
                         <h2 class="section-title">Video journey</h2>
                     </div>
-                    <div class="section__column section__column--bigger section__text">
+                    <div class="section__column section__column--bigger section__text section__text--padding">
                         <p>Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
                     </div>
                 </div>
                 <div class="video video-section__video">
                     <img class="video__poster" src="assets/video/poster0.jpg" alt="">
+                    <button class="video__play">
+                        <svg width="220" height="220">
+                            <use xlink:href="assets/svg/sprite.svg#big-play"></use>
+                        </svg>
+                    </button>
                     <div class="video__control-panel video-control">
                         <button class="video-control__item video-control__button video-control__play">
                             <svg width="23" height="31">
@@ -267,13 +274,13 @@
                                 <label class="tickets-buy__amount-label" for="basic-amount">Basic 18+</label>
                                 <p class="tickets-buy__amount-wrapper amount">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="basic-amount" type="number" min="1" max="20" value="1">
+	                                <input class="amount__field" id="basic-amount" type="number" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                                 <label class="tickets-buy__amount-label" for="senior-amount">Senior 65+</label>
                                 <p class="tickets-buy__amount-wrapper amount">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="senior-amount" type="number" min="1" max="20" value="1">
+	                                <input class="amount__field" id="senior-amount" type="number" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
@@ -307,10 +314,12 @@
             <div class="container">
                 <div class="footer-top__grid">
                     <div class="footer-top__logo-wrapper logo">
-                        <svg class="logo__img" width="49" height="26">
-                            <use xlink:href="assets/svg/sprite.svg#logo"></use>
-                        </svg>
-                        <span class="logo__text">Louvre</span>
+                        <div class="logo">
+                            <svg class="logo__img" width="49" height="26">
+                                <use xlink:href="assets/svg/sprite.svg#logo"></use>
+                            </svg>
+                            <span class="logo__text">Louvre</span>
+                        </div>
                     </div>
                     <nav class="footer-top__menu footer-menu">
                         <ul class="footer-menu__list">
@@ -324,36 +333,46 @@
                     </nav>
                     <div class="footer-top__social social">
                         <ul class="social__list">
-                            <li class="social__item"><a href="" class="social__link">
-                                <span class="visually-hidden">YouTube</span>
-                                <svg width="23" height="16">
-                                    <use xlink:href="assets/svg/sprite.svg#youtube"></use>
-                                </svg>
-                            </a></li>
-                            <li class="social__item"><a href="" class="social__link">
-                                <span class="visually-hidden">Instagramm</span>
-                                <svg width="22" height="20">
-                                    <use xlink:href="assets/svg/sprite.svg#instagram"></use>
-                                </svg>
-                            </a></li>
-                            <li class="social__item"><a href="" class="social__link">
-                                <span class="visually-hidden">Facebook</span>
-                                <svg width="13" height="20">
-                                    <use xlink:href="assets/svg/sprite.svg#facebook"></use>
-                                </svg>
-                            </a></li>
-                            <li class="social__item"><a href="" class="social__link">
-                                <span class="visually-hidden">Twitter</span>
-                                <svg width="20" height="17">
-                                    <use xlink:href="assets/svg/sprite.svg#twitter"></use>
-                                </svg>
-                            </a></li>
-                            <li class="social__item"><a href="" class="social__link">
-                                <span class="visually-hidden">Pinterest</span>
-                                <svg width="20" height="20">
-                                    <use xlink:href="assets/svg/sprite.svg#pinterest"></use>
-                                </svg>
-                            </a></li>
+                            <li class="social__item">
+                                <a href="https://www.youtube.com/user/louvre" class="social__link" target="_blank">
+                                    <span class="visually-hidden">YouTube</span>
+                                    <svg width="23" height="16">
+                                        <use xlink:href="assets/svg/sprite.svg#youtube"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="social__item">
+                                <a href="https://www.instagram.com/museelouvre/" class="social__link" target="_blank">
+                                    <span class="visually-hidden">Instagramm</span>
+                                    <svg width="22" height="20">
+                                        <use xlink:href="assets/svg/sprite.svg#instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="social__item">
+                                <a href="https://www.facebook.com/museedulouvre" class="social__link" target="_blank">
+                                    <span class="visually-hidden">Facebook</span>
+                                    <svg width="13" height="20">
+                                        <use xlink:href="assets/svg/sprite.svg#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="social__item">
+                                <a href="http://twitter.com/museelouvre" class="social__link" target="_blank">
+                                    <span class="visually-hidden">Twitter</span>
+                                    <svg width="20" height="17">
+                                        <use xlink:href="assets/svg/sprite.svg#twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="social__item">
+                                <a href="https://www.pinterest.fr/museedulouvre/" class="social__link" target="_blank">
+                                    <span class="visually-hidden">Pinterest</span>
+                                    <svg width="20" height="20">
+                                        <use xlink:href="assets/svg/sprite.svg#pinterest"></use>
+                                    </svg>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -415,7 +434,7 @@
                                 <label>Basic 18+ (20 €)</label>
                                 <p class="booking-form__amount amount amount--booking">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="booking-basic-amount" type="number" min="1" max="20" value="1">
+	                                <input class="amount__field" id="booking-basic-amount" type="number" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
@@ -423,7 +442,7 @@
                                 <label>Senior 65+ (10 €)</label>
                                 <p class="booking-form__amount amount amount--booking">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="booking-senior-amount" type="number" min="1" max="20" value="1">
+	                                <input class="amount__field" id="booking-senior-amount" type="number" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
