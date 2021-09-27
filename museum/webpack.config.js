@@ -57,6 +57,26 @@ module.exports = ({ development }) => ({
       filename: 'tour1.html',
       template: './tour1.html'
     }),
+    new HtmlWebpackPlugin({
+      filename: 'tour2.html',
+      template: './tour2.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'tour3.html',
+      template: './tour3.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'tour4.html',
+      template: './tour4.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'tour5.html',
+      template: './tour5.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'tour6.html',
+      template: './tour6.html'
+    }),
     new CopyPlugin({
       patterns: [
         {
