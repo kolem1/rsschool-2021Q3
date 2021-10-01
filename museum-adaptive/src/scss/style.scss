@@ -2,8 +2,6 @@
 @import url(_fonts.scss);
 @import url(_global.scss);
 
-/*------------------------------- HEADER -------------------------------*/
-
 .header {
   padding: 59px 0;
 
@@ -129,6 +127,14 @@
     &:active {
       color: #7E6C51;
     }
+  }
+
+  &__imgs-wrapper {
+    display: none;
+  }
+
+  &__social {
+    display: none;
   }
 }
 
@@ -1660,7 +1666,7 @@
 
   .header-nav {
     box-sizing: border-box;
-    height: calc(100vh - 130px);
+    min-height: calc(100vh - 130px);
     width: 297px;
     padding: 35px 55px;
 
@@ -1672,12 +1678,9 @@
       width: fit-content;
     }
 
-    &__item {
+    &__item:not(:last-child) {
+      margin-right: 0;
       margin-bottom: 25px;
-
-      &:not(:last-child) {
-        margin-right: 0;
-      }
     }
 
     &__link {
@@ -1741,5 +1744,119 @@
       width: 12px;
       height: 12px;
     }
+  }
+}
+
+@media (max-width: 769px) {
+  .header {
+    padding: 39px 0;
+  }
+
+  .header-nav {
+    left: -100%;
+
+    min-height: calc(100vh - 110px);
+    width: 100%;
+
+    padding-top: 31px;
+
+    &__list {
+      margin-bottom: 35px;
+    }
+
+    &__imgs-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+      padding-bottom: 34px;
+
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    &__img-wrapper {
+      &:first-child {
+        grid-column: span 2;
+      }
+    }
+
+    &__social {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 421px) {
+  .header {
+    padding: 29px 0;
+  }
+
+  .logo {
+    align-items: baseline;
+
+    &__img {
+      width: 29px;
+      height: 16px;
+    }
+
+    &__text {
+      font-size: 16px;
+    }
+  }
+
+  .header-nav {
+    min-height: calc(100vh - 90px);
+    padding-top: 35px;
+    padding-bottom: 24px;
+
+    &__imgs-wrapper {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 12px;
+      padding-bottom: 19px;
+    }
+
+    &__img-wrapper {
+      position: relative;
+
+      padding-top: 100%;
+
+      &:first-child {
+        grid-column: auto;
+      }
+
+      &:nth-child(2) {
+        order: -1;
+      }
+    }
+
+    &__img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      
+      height: 100%;
+    }
+
+    &__social {
+      margin-top: 24px;
+    }
+
+  }
+
+  .social {
+    &__item:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 19px 0;
+  }
+
+  .header-nav {
+    padding: 20px;
   }
 }
