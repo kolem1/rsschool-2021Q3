@@ -447,7 +447,8 @@
 }
 
 .tour-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
 
   font-weight: 200;
 
@@ -459,6 +460,7 @@
 
   &__img {
     margin-bottom: 25px;
+    height: auto;
   }
 
   &__title {
@@ -466,6 +468,7 @@
 
     padding: 0 0 12px;
     margin: 0;
+    flex-grow: 1;
 
     font-family: 'Forum', cursive;
     font-weight: 400;
@@ -1596,12 +1599,31 @@
     }
   }
 
-  
+  .section {
+    padding: 55px 0;
+
+    &--welcome {
+      padding: 0 0 65px;
+    }
+  }
+
+  .tour-card {
+    &__title {
+      font-size: 28px;
+      letter-spacing: 3px;
+    }
+  }
 }
 
 @media (max-width: 1368px) {
   .section-title {
+    margin-bottom: 60px;
+
     font-size: 65px;
+
+    &--underline {
+      padding-bottom: 12px;
+    }
   }
 
   .welcome-section {
@@ -1609,6 +1631,10 @@
       padding-top: 100px;
 
       max-width: 500px;
+    }
+
+    &__title {
+      margin-bottom: 25px;
     }
 
     &__text {
@@ -1631,7 +1657,7 @@
 
 @media (max-width: 1025px) {
   body {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .header {
@@ -1669,6 +1695,8 @@
     min-height: calc(100vh - 130px);
     width: 297px;
     padding: 35px 55px;
+
+    font-size: 20px;
 
     background-color: #030303;
 
@@ -1728,11 +1756,14 @@
 
   .welcome-slider {
     &__pagination {
+      bottom: -64px;
+
+      height: 120px;
       width: 100%;
       justify-content: flex-end;
+
+      transform: none;
     }
-
-
 
     &__dots {
       margin: 0 45px;
@@ -1743,6 +1774,126 @@
     &__dot {
       width: 12px;
       height: 12px;
+    }
+  }
+
+  .virtual-tours {
+    &__grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      grid-gap: 0;
+      row-gap: 56px;
+    }
+
+    &__tour {
+      max-width: 330px;
+    }
+  }
+
+  .tour-card {
+    &__title {
+      &::after {
+        width: 150px;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .section {
+    padding: 42px 0;
+
+    &--welcome {
+      padding: 0;
+    }
+  }
+
+  .section-title {
+    margin-bottom: 40px;
+
+    font-size: 40px;
+    line-height: 60px;
+
+    &--underline {
+      padding-bottom: 22px;
+    }
+  }
+
+  .welcome-section {
+    text-align: center;
+    &__inner {
+      display: block;
+    }
+
+    &__body {
+      max-width: none;
+      padding: 0;
+    }
+
+    &__title {
+      margin-bottom: 25px;
+    }
+
+    &__text {
+      margin-bottom: 46px;
+
+      font-size: 20px;
+    }
+
+    &__button {
+      display: none;
+    }
+
+    &__slider-wrapper {
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  .welcome-slider {
+    &::after {
+      display: none;
+    }
+
+    &__pagination {
+      position: static;
+
+      padding: 0;
+      height: 100px;
+      justify-content: center;
+    }
+
+    &__fraction {
+      font-size: 20px;
+    }
+  }
+
+  .virtual-tours {
+    &__grid {
+      padding: 0 28px;
+      row-gap: 40px;
+    }
+
+    &__tour {
+      width: calc(100% / 2 - 56px);
+      margin: 0 28px;
+    }
+  }
+
+  .tour-card {
+    &__img {
+      margin-bottom: 19px;
+    }
+
+    &__title {
+      padding: 0 0 6px;
+
+      font-size: 22px;
+    }
+
+    &__description {
+      font-size: 16px;
     }
   }
 }
@@ -1783,6 +1934,118 @@
       margin-top: 35px;
       display: flex;
       justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    font-size: 16px;
+  }
+
+  .virtual-tours {
+    &__grid {
+      padding: 0 15px;
+    }
+
+    &__tour {
+      margin: 0 15px;
+      width: calc(100% / 2 - 30px);
+    }
+  }
+
+  .tour-card {
+    &__title {
+      padding: 0 0 10px;
+
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+
+  .section-title {
+    font-size: 28px;
+    line-height: 40px;
+
+    &--underline {
+      padding-bottom: 21px;
+    }
+  }
+
+  .welcome-section {
+    &__body {
+      padding-top: 6px;
+    }
+
+    &__text {
+      margin-bottom: 49px;
+
+      font-size: 16px;
+    }
+  }
+
+  .welcome-slider {
+    &__pagination {
+      height: 80px;
+    }
+
+    &__fraction {
+      font-size: 16px;
+      span {
+        margin: 0;
+      }
+    }
+
+    &__dots {
+      margin: 0 25px;
+    }
+
+    &__arrow {
+      width: 20px;
+      height: 8px;
+    }
+
+    &__arrow-next {
+      margin-left: 15px;
+    }
+  }
+
+  .slider-dots {
+    &__dot {
+      padding: 0;
+      width: 7px;
+      height: 7px;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .virtual-tours {
+    &__grid {
+      padding: 0 50px;
+      row-gap: 41px;
+    }
+
+    &__tour {
+      max-width: none;
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .tour-card {
+    &__img {
+      margin-bottom: 24px;
+    }
+
+    &__title {
+      padding: 0 0 12px;
+
+      letter-spacing: 5px;
     }
   }
 }
@@ -1858,5 +2121,11 @@
 
   .header-nav {
     padding: 20px;
+  }
+
+  .virtual-tours {
+    &__grid {
+      padding: 0 25px;
+    }
   }
 }
