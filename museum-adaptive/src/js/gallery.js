@@ -1,4 +1,4 @@
-const galleryInnerContainer = document.querySelector('.gallery__inner-container');
+const galleryInnerContainer = document.querySelector('.gallery__inner');
 
 const imgLinks = [];
 for(let i = 1; i <= 15; i++) {
@@ -11,16 +11,7 @@ shuffle(imgLinks).forEach((item, index) => {
   img.src = item;
   img.alt = `gallery-item${index}`;
   galleryInnerContainer.append(img);
-
-  setTimeout(() => {
-    const imgTop = img.offsetTop - galleryInnerContainer.offsetTop;
-  
-    if(index > 9 && imgTop === 0) {
-      img.style.marginTop = '50px';
-    }
-
-  }, 200)
-})
+});
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {

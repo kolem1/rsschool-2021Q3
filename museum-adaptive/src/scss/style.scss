@@ -780,18 +780,39 @@
     }
   }
 
-  &__inner-container {
+  &__inner {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 24px 36px;
+    gap: 24px 18px;
     height: 3044px;
+
+    &::after,
+    &::before {
+      content: '';
+      order: 2;
+      width: 0;
+      height: 100%;
+    }
   }
 
   &__img {
-    width: calc(33% - 24px);
-    &:first-child {
+    width: calc(100% / 3 - 24px);
+    &:first-child,
+    &:nth-child(3) {
       margin-top: 50px;
+    }
+
+    &:nth-child(1n) {
+      order: 1;
+    }
+
+    &:nth-child(2n) {
+      order: 2;
+    }
+
+    &:nth-child(3n) {
+      order: 3;
     }
   }
 }
@@ -1654,6 +1675,14 @@
     &--welcome {
       padding: 0 0 65px;
     }
+
+    &--gallery {
+      padding-bottom: 0;
+    }
+  }
+
+  .video-section {
+    padding-bottom: 60px;
   }
 
   .tour-card {
@@ -1802,6 +1831,20 @@
       &::-webkit-slider-thumb {
         width: 13px;
         height: 13px;
+      }
+    }
+  }
+
+  .gallery {
+    .section-title {
+      margin-bottom: 52px;
+    }
+
+    &__container {
+      max-height: 1265px;
+
+      &::after {
+        height: 240px;
       }
     }
   }
@@ -2002,9 +2045,17 @@
       padding: 0;
     }
 
+    &--gallery {
+      padding-bottom: 0;
+    }
+
     &__inner--explore {
       row-gap: 0;
     }
+  }
+
+  .video-section {
+    padding-bottom: 80px;
   }
 
   .section-title {
@@ -2154,6 +2205,33 @@
       &:not(:last-child) {
         margin-right: 18px;
       }
+    }
+  }
+
+  .gallery {
+    .section-title {
+      margin-bottom: 39px;
+    }
+
+    &__container {
+      max-height: 1080px;
+
+      &::after {
+        height: 235px;
+      }
+    }
+
+    &__inner {
+      height: 4000px;
+      column-gap: 12px;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &__img {
+      width: calc(50% - 12px);
     }
   }
 }
@@ -2379,6 +2457,16 @@
 
       &:not(:last-child) {
         margin-right: 20px;
+      }
+    }
+  }
+
+  .gallery {
+    &__container {
+      height: 637px;
+
+      &::after {
+        height: 112px;
       }
     }
   }
