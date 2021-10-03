@@ -570,8 +570,6 @@
 .video {
   position: relative;
 
-  height: 735px;
-
   &__poster {
     width: 100%;
   }
@@ -599,13 +597,6 @@
         fill: #9D8665;
       }
     }
-  }
-
-  &__control-panel {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
   }
 }
 
@@ -679,9 +670,7 @@
   }
 
   &__slide {
-    height: 254px;
     max-width: 452px;
-    margin-right: 42px;
 
     iframe {
       max-width: 100%;
@@ -754,7 +743,17 @@
 }
 
 .video-slide {
+  &__inner {
+    position: relative;
+
+    padding-top: 56.2%;
+  }
+
   iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+
     border: none;
   }
 }
@@ -1714,6 +1713,7 @@
 
       #{$s}__column--first {
         width: 100%;
+        margin-right: 0;
       }
 
       #{$s}__column--bigger {
@@ -1734,8 +1734,75 @@
   }
 
   .picture-explore {
+    padding: 55px 0 60px;
+
     p:last-of-type {
       display: none;
+    }
+  }
+
+  .video-section {
+    .section-title {
+      margin-bottom: 30px;
+    }
+
+    .section__column--bigger {
+      display: none;
+    }
+  }
+
+  .video {
+    &__play {
+      top: calc(50% - 30px);
+
+      width: 164px;
+      height: 164px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .video-control {
+    padding: 15px 40px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &__item:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    &__play {
+      width: 23px;
+      height: 30px;
+    }
+
+    &__mute {
+      width: 28px;
+      height: 20px;
+    }
+
+    &__volume {
+      max-width: 143px;
+    }
+
+    &__fullscreen {
+      width: 26px;
+      height: 26px;
+    }
+
+    &__range {
+      height: 5px;
+
+      &::-webkit-slider-thumb {
+        width: 13px;
+        height: 13px;
+      }
     }
   }
 }
@@ -2034,6 +2101,61 @@
       display: none;
     }
   }
+
+  .video-section {
+    .section-title {
+      margin-bottom: 20px;
+    }
+  }
+
+  .video{
+    &__play {
+      top: calc(50% - 28px);
+
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  .video-control {
+    position: relative;
+
+    padding: 13px 30px;
+
+    &__progress {
+      position: absolute;
+      top: -2px;
+      left: 0;
+
+      width: 100%;
+    }
+
+    &__volume {
+      max-width: none;
+      flex-grow: 1;
+    }
+  }
+
+  .video-section {
+    &__video {
+      margin-bottom: 21px;
+    }
+  }
+
+  .video-slider {
+    &__wrapper {
+      margin-bottom: 20px;
+    }
+
+    &__dot {
+      width: 10px;
+      height: 10px;
+
+      &:not(:last-child) {
+        margin-right: 18px;
+      }
+    }
+  }
 }
 
 @media (max-width: 769px) {
@@ -2090,6 +2212,10 @@
 }
 
 @media (max-width: 500px) {
+
+  .section__column--first {
+    margin-right: 0;
+  }
 
   .section-title {
     font-size: 28px;
@@ -2173,6 +2299,89 @@
       letter-spacing: 5px;
     }
   }
+
+  .picture-explore {
+    padding: 42px 0 37px;
+  }
+
+  .video-section {
+    padding: 35px 0 39px;
+
+    &__video {
+      margin-bottom: 40px;
+    }
+  }
+
+  .video {
+    &__play {
+      width: 62px;
+      height: 62px;
+    }
+  }
+
+  .video-control {
+    padding: 21px 20px 17px;
+
+    &__item {
+      flex-shrink: 0;
+    }
+
+    &__range {
+      height: 4px;
+
+      &::-webkit-slider-thumb {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    &__progress {
+      top: 1px;
+    }
+
+    &__play {
+      width: 14px;
+      height: 18px;
+    }
+
+    &__mute {
+      width: 18px;
+      height: 14px;
+    }
+
+    &__volume {
+      max-width: 200px;
+      flex-shrink: 1;
+    }
+
+    &__fullscreen {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .video-slider {
+    &__wrapper {
+      margin-bottom: 40px;
+    }
+
+    &__arrow {
+      svg {
+        width: 7px;
+        height: 8px;
+      }
+    }
+
+    &__dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
 }
 
 @media (max-width: 421px) {
@@ -2251,6 +2460,13 @@
   .virtual-tours {
     &__grid {
       padding: 0 25px;
+    }
+  }
+
+  .video-control {
+    padding: 15px 15px 12px;
+    &__item:not(:last-child) {
+      margin-right: 10px;
     }
   }
 }
