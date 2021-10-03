@@ -329,12 +329,17 @@
                 </div>
             </div>
         </section>
-        <!-- <section class="section section--even" id="tickets">
+        <section class="section section--even tickets-section" id="tickets">
             <div class="container">
                 <h2 class="section-title section-title--underline">Buy Tickets</h2>
                 <div class="section__inner">
-                    <div class="section__column section__column--bigger section__column--first">
-                        <img src="assets/img/buy-tickets.jpg" alt="">
+                    <div class="section__column section__column--bigger section__column--first section__column--tickets-img">
+                        <picture>
+                            <source srcset="assets/img/buy-tickets-550.jpg" media="(max-width: 550px)">
+                            <source srcset="assets/img/buy-tickets-992.jpg" media="(max-width: 992px)">
+                            <source srcset="assets/img/buy-tickets-1368.jpg" media="(max-width: 1368px)">
+                            <img src="assets/img/buy-tickets.jpg" alt="">
+                        </picture>
                     </div>
                     <div class="section__column  section__column--tickets">
                         <div class="tickets-buy">
@@ -362,7 +367,7 @@
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
-                            <div class="tickets-buy__total">Total €<span>220</span></div>
+                            <div class="tickets-buy__total">Total € <span>220</span></div>
                             <button class="tickets-buy__button modal-open" data-modal="#ticket-booking">Buy Now</button>
                         </div>
                     </div>
@@ -370,7 +375,7 @@
             </div>
         </section>
         <div class="paralax"></div>
-        <section class="section section--even" id="contacts">
+        <!-- <section class="section section--even" id="contacts">
             <div class="container">
                 <h2 class="section-title section-title--underline">Contacts</h2>
                 <div class="section__inner">

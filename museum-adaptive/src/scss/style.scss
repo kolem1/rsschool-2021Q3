@@ -181,6 +181,10 @@
       flex-shrink: 0;
     }
 
+    &--tickets-img {
+      min-width: 700px;
+    }
+
     &--tickets {
       flex-grow: 1;
     }
@@ -972,8 +976,10 @@
   }
 
   &__field {
-    text-align: center;
     width: 70px;
+
+    font-size: 22px;
+    text-align: center;
 
     border: none;
     border-top: 3px solid #000000;
@@ -1756,6 +1762,16 @@
         margin-bottom: 0;
       }
     }
+
+    &__column--tickets {
+      flex-grow: 0;
+    }
+
+    &__column--tickets-img {
+      width: auto;
+      min-width: auto;
+      flex-shrink: 1;
+    }
   }
 
   .picture-compare {
@@ -1846,6 +1862,64 @@
       &::after {
         height: 240px;
       }
+    }
+  }
+
+  .tickets-buy {
+    display: flex;
+    flex-direction: column;
+    max-width: 175px;
+    margin-right: 29px;
+
+    &__ticket-type {
+      display: none;
+    }
+
+    &__title {
+
+      margin-bottom: 31px;
+
+      &--right {
+        text-align: left;
+      }
+    }
+
+    &__amount {
+      p {
+        margin: 0;
+
+        &:not(:last-child) {
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    &__amount-label {
+      margin-bottom: 10px;
+
+      font-size: 22px;
+    }
+
+    &__total {
+      margin: 25px 0 70px;
+
+      text-align: left;
+    }
+
+    &__button {
+      width: 175px;
+    }
+  }
+
+  .amount {
+    width: 175px;
+
+    &__field {
+      width: 75px;
+    }
+
+    &__button {
+      width: 50px;
     }
   }
 }
@@ -2234,6 +2308,34 @@
       width: calc(50% - 12px);
     }
   }
+
+  .tickets-section {
+    .section-title--underline {
+      padding-bottom: 20px;
+    }
+
+    .section__inner {
+      justify-content: flex-start;
+    }
+  }
+
+  .tickets-buy {
+    &__title {
+      margin-bottom: 40px;
+    }
+
+    &__amount {
+      p {
+        &:not(:last-child) {
+          margin-bottom: 25px;
+        }
+      }
+    }
+
+    &__total {
+      margin: 40px 0;
+    }
+  }
 }
 
 @media (max-width: 769px) {
@@ -2249,6 +2351,19 @@
 @media (max-width: 700px) {
   body {
     font-size: 16px;
+  }
+
+  .section {
+    &__column--tickets-img {
+      margin-right: 0;
+      max-height: 275px;
+      width: 100%;
+
+      overflow: hidden;
+      img {
+        margin: 0 auto;
+      }
+    }
   }
 
   .virtual-tours {
@@ -2285,6 +2400,43 @@
       height: 16px;
 
       border-width: 2px;
+    }
+  }
+
+  .tickets-section {
+    .section__inner {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 41px;
+    }
+  }
+
+  .tickets-buy {
+    margin: 0;
+
+    &__title {
+      margin-bottom: 21px;
+
+      font-size: 16px;
+      text-align: center;
+    }
+
+    &__amount-label {
+      margin-bottom: 15px;
+
+      font-size: 16px;
+    }
+
+    &__amount {
+      p:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__total {
+      font-size: 16px;
+      letter-spacing: normal;
+      text-align: center;
     }
   }
 }
