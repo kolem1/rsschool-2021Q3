@@ -191,6 +191,7 @@
 
     &--map {
       max-width: 960px;
+      flex-grow: 1;
     }
   }
 
@@ -240,6 +241,21 @@
         color: #7E6C51;
       }
     }
+  }
+
+  &__map-wrapper {
+    position: relative;
+
+    padding-top: 64.5%;
+  }
+
+  &__map {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -1028,6 +1044,7 @@
 
   background-image: url(../assets/img/parallax.jpg);
   background-size: cover;
+  background-position: center;
   background-attachment: fixed;
 }
 
@@ -1772,6 +1789,10 @@
       min-width: auto;
       flex-shrink: 1;
     }
+
+    &__contacts {
+      margin-right: 37px;
+    }
   }
 
   .picture-compare {
@@ -1920,6 +1941,18 @@
 
     &__button {
       width: 50px;
+    }
+  }
+
+  .section__contacts {
+    h3 {
+      margin-bottom: 37px;
+
+      font-size: 24px;
+    }
+
+    p {
+      margin: 15px 0;
     }
   }
 }
@@ -2125,6 +2158,17 @@
 
     &__inner--explore {
       row-gap: 0;
+    }
+
+    &__contacts {
+      margin-right: 0;
+      width: 100%;
+
+      h3 {
+        margin-bottom: 40px;
+
+        font-size: 20px;
+      }
     }
   }
 
@@ -2336,6 +2380,17 @@
       margin: 40px 0;
     }
   }
+
+  .paralax {
+    height: 300px;
+  }
+
+  .contacts-section {
+    .section__inner {
+      flex-direction: column;
+      row-gap: 26px;
+    }
+  }
 }
 
 @media (max-width: 769px) {
@@ -2443,8 +2498,16 @@
 
 @media (max-width: 500px) {
 
-  .section__column--first {
-    margin-right: 0;
+  .section {
+    &__column--first {
+      margin-right: 0;
+    }
+
+    &__contacts {
+      h3 {
+        font-size: 16px;
+      }
+    }
   }
 
   .section-title {

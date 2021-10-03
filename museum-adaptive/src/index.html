@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>museum</title>
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -375,7 +377,7 @@
             </div>
         </section>
         <div class="paralax"></div>
-        <!-- <section class="section section--even" id="contacts">
+        <section class="section section--even contacts-section" id="contacts">
             <div class="container">
                 <h2 class="section-title section-title--underline">Contacts</h2>
                 <div class="section__inner">
@@ -386,11 +388,13 @@
                         <p>mail: <a href="mailto:info@louvre.fr">info@louvre.fr</a></p>
                     </div>
                     <div class="section__column section__column--map">
-                        <img src="assets/img/map.jpg" alt="">
+                        <div class="section__map-wrapper">
+                            <div id="map" class="section__map"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section> -->
+        </section>
     </main>
     <!-- <footer class="footer">
         <div class="footer-top">
