@@ -1175,7 +1175,7 @@
 
   visibility: hidden;
 
-  transition: all 0.3s;
+  transition: all 0.5s ease-out;
 
   &.active {
     left: 0;
@@ -1224,17 +1224,21 @@
   }
 
   &__container {
-    position: relative;
-
     flex-grow: 1;
   }
 
   &__wrapper {
+    position: relative;
+
+    box-sizing: border-box;
     padding: 90px 0;
     display: flex;
     justify-content: center;
+    max-height: 100vh;
 
     background-color: #ffffff;
+
+    overflow-y: auto;
   }
 
   &__column {
@@ -1436,7 +1440,7 @@
 }
 
 .modal-overview {
-  padding: 25px 30px;
+  padding: 24px 29px;
 
   &__inner {
     display: flex;
@@ -1445,7 +1449,7 @@
 
   &__title {
     margin: 0;
-    margin-bottom: 7px;
+    margin-bottom: 2px;
 
     font-weight: 500;
     font-size: 32px;
@@ -1457,6 +1461,7 @@
     margin: 0;
     margin-bottom: 10px;
 
+    font-size: 22px;
     font-weight: 500;
     color: #740C11;
 
@@ -1464,7 +1469,7 @@
   }
 
   &__selected {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 
     font-size: 18px;
     font-weight: 300;
@@ -1505,7 +1510,7 @@
   }
 
   &__tickets {
-    margin-bottom: 12px;
+    margin-bottom: 9px;
     padding-bottom: 8px;
     
     border-bottom: 2px solid #740C11;
@@ -1529,6 +1534,7 @@
   align-items: center;
   margin-bottom: 5px;
 
+  font-size: 22px;
   font-weight: 400;
 
   &__counter {
@@ -1544,6 +1550,10 @@
 
     background-color: #030303;
     border-radius: 4px;
+  }
+
+  &__title {
+    font-size: 22px;
   }
 
   &__summ {
@@ -1566,7 +1576,7 @@
     box-sizing: border-box;
     width: 360px;
     padding: 15px 20px;
-    margin-bottom: 48px;
+    margin-bottom: 45px;
 
     background-color: #bcbcbc;
   }
@@ -1944,6 +1954,10 @@
     &__button {
       width: 50px;
     }
+
+    &--booking {
+      width: 105px;
+    }
   }
 
   .section__contacts {
@@ -1972,6 +1986,35 @@
   .footer-menu {
     &__list {
       grid-column-gap: 45px;
+    }
+  }
+
+  .modal {
+    &__wrapper {
+      padding: 75px 5px 30px;
+      justify-content: space-between;
+    }
+
+    &__column--first {
+      margin-right: 20px;
+    }
+
+    &__close {
+      top: 28px;
+      right: 13px;
+    }
+  }
+
+  .modal-overview {
+    &__selected {
+      margin-bottom: 27px;
+    }
+  }
+
+  .card {
+    &__front {
+      padding-bottom: 5px;
+      margin-bottom: 55px;
     }
   }
 }
@@ -2450,6 +2493,65 @@
 
     letter-spacing: 4px;
   }
+
+  .modal {
+    align-items: flex-start;
+
+    &__container {
+      padding: 0;
+    }
+
+    &__close {
+      right: 33px;
+    }
+
+    &__wrapper {
+      padding: 80px 30px 40px;
+      margin: 0 auto;
+      max-width: 590px;
+      flex-direction: column;
+    }
+
+    &__column {
+      max-width: none;
+      margin: 0;
+    }
+
+    &__subtitle {
+      padding-bottom: 14px;
+      margin-bottom: 39px;
+    }
+  }
+
+  .booking-form {
+    &__column {
+      width: calc(50% - 15px);
+
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
+
+    &__tickets {
+      padding: 10px 14px 15px;
+      margin-bottom: 50px;
+    }
+
+    &__tickets-title {
+      padding-bottom: 4px;
+    }
+
+    &__amount-wrapper:not(:last-child) {
+      margin-bottom: 18px;
+      .amount {
+        margin: 0;
+      }
+    }
+  }
+
+  .modal-overview {
+    padding: 24px 15px;
+  }
 }
 
 @media (max-width: 769px) {
@@ -2605,6 +2707,41 @@
 
     &__rsschool {
       display: none;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .card {
+    &__front {
+      width: 330px;
+      margin: 0 auto;
+      margin-bottom: 25px;
+    }
+
+    &__back {
+      position: relative;
+      top: auto;
+      right: auto;
+
+      margin: 0 auto;
+      width: 330px;
+      margin-bottom: 43px;
+    }
+  }
+
+  .modal-overview {
+    &__inner {
+      position: relative;
+
+      img {
+        position: absolute;
+        top: 0;
+        right: 0;
+  
+        width: 120px;
+        height: 96px;
+      }
     }
   }
 }
@@ -2798,6 +2935,22 @@
       }
     }
   }
+
+  .modal {
+    &__title {
+      font-size: 32px;
+      line-height: normal;
+    }
+  }
+
+  .booking-form {
+    &__column {
+      width: 100%;
+      &:first-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 @media (max-width: 421px) {
@@ -2862,6 +3015,62 @@
       margin-right: 5px;
     }
   }
+
+  .card {
+    &__front,
+    &__back {
+      width: 100%;
+    }
+
+    &__number {
+      display: block;
+      max-width: 75%;
+    }
+
+    &__number-input {
+      width: 100%;
+    }
+
+    &__date {
+      max-width: 75%;
+
+      input {
+        width: calc(50% - 9px);
+      }
+    }
+
+    &__images {
+      width: 15%;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-overview {
+    &__inner img {
+      width: 75px;
+      height: auto;
+    }
+  }
+
+  .card{
+    &__back {
+      height: 185px;
+    }
+
+    &__cvv-input {
+      height: 20px;
+    }
+
+    &__cvv-description {
+    max-width: 75px;
+    }
+  }
 }
 
 @media (max-width: 375px) {
@@ -2889,6 +3098,25 @@
   .footer-menu {
     &__list {
       grid-column-gap: 30px;
+    }
+  }
+
+  .booking-form {
+    font-size: 16px;
+  }
+
+  .card {
+    &__number,
+    &__date {
+      max-width: none;
+    }
+
+    &__images {
+      display: none;
+    }
+
+    &__input {
+      height: 20px;
     }
   }
 }
