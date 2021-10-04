@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>museum</title>
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <script defer src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
 </head>
 <body>
@@ -121,6 +120,10 @@
                                 <div class="welcome-slider__slides slider__slides">
                                     <div class="welcome-slider__slide welcome-slide slide">
                                         <picture>
+                                            <source srcset="assets/img/welcome-slider/1-420.webp" media="(max-width: 420px)" type="image/webp">
+                                            <source srcset="assets/img/welcome-slider/1-420.jpg" media="(max-width: 420px)">
+                                            <source srcset="assets/img/welcome-slider/1-700.webp" media="(max-width: 750px)" type="image/webp">
+                                            <source srcset="assets/img/welcome-slider/1-700.jpg" media="(max-width: 750px)">
                                             <source srcset="assets/img/welcome-slider/1.webp" type="image/webp">
                                             <img class="welcome-slide__img" src="assets/img/welcome-slider/1.jpg" alt="">
                                         </picture>
