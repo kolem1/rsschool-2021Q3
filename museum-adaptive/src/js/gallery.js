@@ -15,6 +15,7 @@ shuffle(imgLinks).forEach((item, index) => {
   const img = document.createElement('img');
   img.src = item;
   img.alt = `gallery-item${index}`;
+  img.loading = 'lazy';
   picture.append(img);
   galleryInnerContainer.append(picture);
 });
