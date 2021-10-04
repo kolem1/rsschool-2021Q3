@@ -3,7 +3,7 @@ const map = new mapboxgl.Map({
   container: 'map',
   center: [2.3364, 48.86091], // starting position [lng, lat]
   zoom: 15.7,
-  style: 'mapbox://styles/mapbox/light-v10'
+  style: 'mapbox://styles/mapbox/light-v10?optimize=true'
 });
 
 const markersCoord = [[2.3364, 48.86091] ,[2.3333, 48.8602] ,[2.3397, 48.8607] ,[2.3330, 48.8619] ,[2.3365, 48.8625]]

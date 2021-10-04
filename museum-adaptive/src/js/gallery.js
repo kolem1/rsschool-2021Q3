@@ -6,11 +6,17 @@ for(let i = 1; i <= 15; i++) {
 }
 
 shuffle(imgLinks).forEach((item, index) => {
+  const picture = document.createElement('picture');
+  picture.classList.add('gallery__img');
+  const source = document.createElement('source');
+  source.srcset = item.slice(0, -3) + 'webp';
+  source.type = 'image/webp';
+  picture.append(source);
   const img = document.createElement('img');
-  img.classList.add('gallery__img');
   img.src = item;
   img.alt = `gallery-item${index}`;
-  galleryInnerContainer.append(img);
+  picture.append(img);
+  galleryInnerContainer.append(picture);
 });
 
 function shuffle(array) {
