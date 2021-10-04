@@ -8,6 +8,6 @@ import './js/booking-form';
 // import './js/self-check';
 import './js/burger';
 import './js/slider';
-import './js/map';
+// import './js/map';
 
 

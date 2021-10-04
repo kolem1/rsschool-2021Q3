@@ -514,7 +514,18 @@
                     </div>
                     <div class="section__column section__column--map">
                         <div class="section__map-wrapper">
-                            <div id="map" class="section__map"></div>
+                            <div class="section__map">
+                                <picture>
+                                    <source srcset="assets/img/map-420.webp" media="(max-width: 421px)" type="image/webp">
+                                    <source srcset="assets/img/map-420.jpg" media="(max-width: 421px)">
+                                    <source srcset="assets/img/map-768.webp" media="(max-width: 769px)" type="image/webp">
+                                    <source srcset="assets/img/map-768.jpg" media="(max-width: 769px)">
+                                    <source srcset="assets/img/map-1024.webp" media="(max-width: 1024px)" type="image/webp">
+                                    <source srcset="assets/img/map-1024.jpg" media="(max-width: 1025px)">
+                                    <source srcset="assets/img/map.webp" type="image/webp">
+                                    <img src="assets/img/map.jpg" loading="lazy" alt="">
+                                </picture>
+                            </div>
                         </div>
                     </div>
                 </div>
