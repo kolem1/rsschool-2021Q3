@@ -49,4 +49,4 @@ function generateURL(id) {
   return 'https://www.youtube.com/embed/' + id + query;
 }
 
-findVideos();
+export default findVideos();
