@@ -316,14 +316,15 @@
   }
   &__body {
     position: relative;
-    z-index: 1;
+    z-index: 5;
 
     max-width: 600px;
     width: 100%;
     padding-top: 150px;
     
-
     letter-spacing: 2px;
+
+    pointer-events: none;
 
     transition: opacity 0.3s;
   }
@@ -343,6 +344,8 @@
 
     background: #710707;
     border-radius: 10px;
+
+    pointer-events: all;
 
     transition: background-color 0.3s;
 
@@ -368,6 +371,7 @@
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 1;
 
     background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%);
 
@@ -378,7 +382,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
 
     box-sizing: border-box;
     display: flex;
@@ -390,12 +394,6 @@
     background-color: #030303;
 
     transform: translateY(50%);
-  }
-
-  &__fraction {
-    span {
-      margin: 0 5px;
-    }
   }
 
   &__arrows {
@@ -436,6 +434,16 @@
   }
 }
 
+.slider-fraction {
+  &__current {
+    margin-right: 5px;
+  }
+
+  &__total {
+    margin-left: 5px;
+  }
+}
+
 .slider-dots {
   display: flex;
 
@@ -454,7 +462,7 @@
       margin-right: 25px;
     }
 
-    &.active {
+    &--active {
       background-color: #D2B183;
     }
 
@@ -2842,9 +2850,6 @@
 
     &__fraction {
       font-size: 16px;
-      span {
-        margin: 0;
-      }
     }
 
     &__dots {
@@ -2858,6 +2863,12 @@
 
     &__arrow-next {
       margin-left: 15px;
+    }
+  }
+
+  .slider-fraction {
+    span {
+      margin: 0;
     }
   }
 

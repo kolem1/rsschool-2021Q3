@@ -6,6 +6,6 @@ import './js/gallery';
 import './js/modal';
 import './js/booking-form';
 import './js/burger';
-import './js/slider';
-import './js/self-check';
+import './js/welcome-slider';
+// import './js/self-check';
 
