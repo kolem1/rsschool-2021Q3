@@ -14,7 +14,7 @@ class ImageComparator {
     drag.addEventListener('mousedown', slideReady);
     window.addEventListener('mouseup', slideFinish);
     drag.addEventListener('touchstart', slideReady);
-    drag.addEventListener('touchstop', slideFinish);
+    window.addEventListener('touchstop', slideFinish);
 
     const slide = (position) => {
       const containerWidth = Math.round(position / this.width  * 1000) / 10;
