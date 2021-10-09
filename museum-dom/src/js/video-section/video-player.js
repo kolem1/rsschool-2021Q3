@@ -81,7 +81,8 @@ class VideoPlayer {
   }
 
   changeProgress() {
-    const percent = this.video.currentTime / this.video.duration * 100;
+    const videoDuration = this.video.duration || 1
+    const percent = this.video.currentTime / videoDuration * 100;
     this.progressRange.value = percent;
     this.progressRange.style.background = `linear-gradient(to right, #710707 ${percent}%, #C4C4C4 ${percent}%)`
   }
@@ -119,7 +120,6 @@ class VideoPlayer {
   }
 
   keyControls(event) {
-    console.log(event)
     if(document.activeElement == this.video) {
       switch(event.code) {
         case 'Space':
@@ -171,6 +171,11 @@ class VideoPlayer {
     const buttonSvg = buttonWithSprieSvg.querySelector('use');
     const buttonSvgHref = buttonSvg.href.baseVal;
     buttonSvg.href.baseVal = buttonSvgHref.match(/.+\.svg#/) + spriteItemId;
+  }
+
+  stopVideo() {
+    this.video.pause();
+    this.video.currentTime = 0;
   }
 }
 

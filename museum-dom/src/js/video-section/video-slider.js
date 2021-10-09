@@ -1,5 +1,5 @@
 import player from "./video-player";
-import youtubeVideos from "./lazy-youtube";
+import { youtubeVideos, youtubePlayers } from "./lazy-youtube";
 
 import Swiper, {Navigation, Pagination} from "swiper";
 import 'swiper/css';
@@ -8,8 +8,8 @@ Swiper.use([Navigation, Pagination]);
 
 const videoSlider = new Swiper('.video-slider__slider', {
   loop: true,
-  slidesPerView: 3,
-  spaceBetween: 42,
+  slidesPerView: 2,
+  spaceBetween: 10,
 
   pagination: {
     el: '.video-slider__dots',
@@ -23,30 +23,46 @@ const videoSlider = new Swiper('.video-slider__slider', {
     prevEl: '.video-slider__arrow-prev'
   },
 
+  breakpoints: {
+    375: {
+      spaceBetween: 20,
+    },
+    992: {
+      slidesPerView: 3,
+      spaceBetween: 42
+    }
+  },
+
   on: {
     slideChange: function() {
-      player.video.src = `assets/video/video${this.realIndex}.mp4`;
-      player.video.poster = `assets/video/poster${this.realIndex}.jpg`;
-      // stopYoutube();
+      player.stopVideo();
+      setTimeout(() => {
+        player.video.src = `assets/video/video${this.realIndex}.mp4`;
+        player.video.poster = `assets/video/poster${this.realIndex}.jpg`;
+      }, 0)
+      pauseYoutubes();
     }
   }
 });
 
-// youtubeVideos.forEach(item => {
-//   item.addEventListener('click', function() {
-//     stopYoutube();
-//     this.querySelector('iframe').contentWindow.postMessage('{"event":"onStateChange","func":"stopYoutube","args":""}', '*')
-//   });
-// })
+youtubeVideos.forEach(item => {
+  item.addEventListener('click', function(event) {
+    const thisIframe = this.querySelector('iframe');
+    pauseYoutubes(event, thisIframe);
+    youtubePlayers[youtubePlayers.length - 1].addEventListener('onStateChange', function(event) {
+      if(event.data == 1) {
+        const thisIframe = event.target.h;
+        pauseYoutubes(event, thisIframe);
+      }
+    });
+  })
+});
 
-// function stopYoutube() {
-//   youtubeVideos.forEach(item => {
-//     let youtubeVideo = item.querySelector('iframe');
-//     if(youtubeVideo) {
-//       youtubeVideo.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
-//     }
-//   })
-// }
+function pauseYoutubes(event, context) {
+  youtubePlayers.forEach(item => {
+    if(item.h != context) item.pauseVideo();
+  });
+}
 
 
 

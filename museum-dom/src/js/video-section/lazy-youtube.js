@@ -1,3 +1,12 @@
+const tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+tag.defer = 'defer';
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+const youtubePlayers = [];
+
 function findVideos() {
   let videos = document.querySelectorAll('.youtube-video');
 
@@ -15,11 +24,10 @@ function setupVideo(video) {
   let id = parseMediaURL(media);
 
   video.addEventListener('click', () => {
-      let iframe = createIframe(id);
+      createIframe(id, link.dataset.id, video);
 
       link.remove();
       button.remove();
-      video.appendChild(iframe);
   });
 
   link.removeAttribute('href');
@@ -34,23 +42,24 @@ function parseMediaURL(media) {
   return match[1];
 }
 
-function createIframe(id) {
-  let iframe = document.createElement('iframe');
+function createIframe(videoId, containerID, parent) {
+  let container = document.createElement('div');
+  container.id = containerID;
+  container.className = 'youtube-video__media';
+  parent.append(container)
+  let player = new YT.Player(container.id, {
+    videoId: videoId,
+    playerVars: {
+      autoplay: 1
+    },
+    // events: {
+    //   'onStateChange': pauseYoutubes
+    // }
+  });
 
-  iframe.setAttribute('allowfullscreen', '');
-  iframe.setAttribute('allow', 'autoplay');
-  iframe.setAttribute('src', generateURL(id));
-  iframe.classList.add('youtube-video__media');
-
-  return iframe;
+  youtubePlayers.push(player);
 }
 
-function generateURL(id) {
-  let query = '?rel=0&showinfo=0&autoplay=1&enablejsapi=1';
+const youtubeVideos = findVideos();
 
-  return 'https://www.youtube.com/embed/' + id + query;
-}
-
-let youtubeVideos = findVideos()
-
-export default youtubeVideos;
+export { youtubeVideos, youtubePlayers };
