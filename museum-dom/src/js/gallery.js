@@ -1,3 +1,5 @@
+import { shuffle } from "./functions";
+
 const galleryInnerContainer = document.querySelector('.gallery__inner');
 
 const imgLinks = [];
@@ -20,14 +22,7 @@ shuffle(imgLinks).forEach((item, index) => {
     <source srcset="${item}-360.jpg" media="(max-width: 1200px)">
     <source srcset="${item}.webp" type="image/webp">
     <img src="${item}.jpg" loading="lazy" alt="">`
-  picture.classList.add('gallery__img');
+  picture.classList.add('gallery__img', 'slide-up');
   galleryInnerContainer.append(picture);
 });
 
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}

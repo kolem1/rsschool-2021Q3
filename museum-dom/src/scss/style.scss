@@ -934,6 +934,18 @@
   }
 }
 
+.slide-up {
+  transform: translateY(50px) scale(0.95);
+  opacity: 0;
+
+  transition: all 0.5s ease-out;
+
+  &.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
 .tickets-buy {
   display: flex;
   flex-wrap: wrap;

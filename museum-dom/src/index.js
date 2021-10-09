@@ -7,6 +7,7 @@ import './js/video-section/video-player';
 import './js/video-section/lazy-youtube';
 import './js/video-section/video-slider';
 import './js/gallery';
+import './js/scroll-animation';
 import './js/modal';
 import './js/booking-form';
 // import './js/self-check';
