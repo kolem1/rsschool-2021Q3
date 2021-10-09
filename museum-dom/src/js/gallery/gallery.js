@@ -1,4 +1,4 @@
-import { shuffle } from "./functions";
+import { shuffle } from "../functions";
 
 const galleryInnerContainer = document.querySelector('.gallery__inner');
 

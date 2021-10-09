@@ -1,4 +1,4 @@
-import { debounce, offset } from "./functions";
+import { debounce, offset } from "../functions";
 
 const animatedItems = document.querySelectorAll('.slide-up');
 
