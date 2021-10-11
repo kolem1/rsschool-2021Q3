@@ -1820,6 +1820,45 @@
   }
 }
 
+.up-button {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 100;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #710707;
+  border-radius: 50%;
+  border-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+
+  cursor: pointer;
+
+  transition: all 0.4s;
+
+  svg {
+    stroke: #ffffff;
+    
+    pointer-events: none;
+  }
+
+  &.show {
+    visibility: visible;
+    opacity: 0.5;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 @media (max-width: 1440px) {
   .header-nav {
     &__item {

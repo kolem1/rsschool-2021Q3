@@ -1,4 +1,5 @@
 import './js/header/burger';
+import './js/goTopBtn';
 import './js/welcome-section/welcome-slider';
 import './js/explore-section/explore';
 import './js/video-section/video-player';
