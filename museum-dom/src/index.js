@@ -1,5 +1,3 @@
-import './scss/style.scss';
-
 import './js/header/burger';
 import './js/welcome-section/welcome-slider';
 import './js/explore-section/explore';
@@ -13,5 +11,7 @@ import './js/tickets/calculator-tickets';
 import './js/tickets/booking-overview';
 import './js/tickets/validate-form';
 import './js/modal';
+import './js/map';
 // import './js/self-check';
 
+import './scss/style.scss';
