@@ -453,15 +453,15 @@
                             <img src="assets/img/buy-tickets.jpg" loading="lazy" alt="">
                         </picture>
                     </div>
-                    <div class="section__column  section__column--tickets">
-                        <div class="tickets-buy">
+                    <div class="section__column  section__column--tickets calculator">
+                        <form class="tickets-buy calculator-form">
                             <div class="tickets-buy__ticket-type">
                                 <h3 class="tickets-buy__title">Ticket Type</h3>
-                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="permanent" checked>
+                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="permanent" value="permanent" checked>
                                 <label class="tickets-buy__label" for="permanent"><span></span>Permanent exhibition</label>
-                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="temporary">
+                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="temporary" value="temporary">
                                 <label class="tickets-buy__label" for="temporary"><span></span>Temporary exhibition</label>
-                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="combined">
+                                <input class="tickets-buy__radio visually-hidden" type="radio" name="ticket-type" id="combined" value="combined">
                                 <label class="tickets-buy__label" for="combined"><span></span>Combined Admission</label>
                             </div>
                             <div class="tickets-buy__amount">
@@ -469,19 +469,19 @@
                                 <label class="tickets-buy__amount-label" for="basic-amount">Basic 18+</label>
                                 <p class="tickets-buy__amount-wrapper amount">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="basic-amount" type="number" min="0" max="20" value="1">
+	                                <input class="amount__field" id="basic-amount" type="number" name="basic-amount" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                                 <label class="tickets-buy__amount-label" for="senior-amount">Senior 65+</label>
                                 <p class="tickets-buy__amount-wrapper amount">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="senior-amount" type="number" min="0" max="20" value="1">
+	                                <input class="amount__field" id="senior-amount" type="number" name="senior-amount" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
-                            <div class="tickets-buy__total">Total € <span>220</span></div>
-                            <button class="tickets-buy__button modal-open" data-modal="#ticket-booking">Buy Now</button>
-                        </div>
+                            <div class="tickets-buy__total total">Total €&nbsp;<span>220</span></div>
+                            <button type="button" class="tickets-buy__button modal-open" data-modal="#ticket-booking">Buy Now</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -599,7 +599,7 @@
 
     <div class="modal" id="ticket-booking">
         <div class="container modal__container">
-            <div class="modal__wrapper">
+            <div class="modal__wrapper calculator">
                 <div class="modal__column modal__column--first">
                     <div class="modal__logo">
                         <svg class="modal__logo-img" width="85" height="41">
@@ -608,14 +608,34 @@
                     </div>
                     <h3 class="modal__title">Booking tickets</h3>
                     <p class="modal__subtitle modal__subtitle--underline">Tour to Louvre</p>
-                    <form class="booking-form" action="/">
+                    <form class="booking-form calculator-form" action="/">
                         <div class="booking-form__item booking-form__column remove-label">
                             <input class="booking-form__input booking-form__input--date" type="date" name="date" id="booking-date" min="2021-09-27">
                             <label for="booking-date">Date</label>
                         </div>
                         <div class="booking-form__item booking-form__column remove-label">
-                            <input class="booking-form__input booking-form__input--time" type="time" name="time" id="booking-time">
+                            <input class="booking-form__input booking-form__input--time" list="time" type="time" name="time" id="booking-time" min="9:00" max="17:59" step="1800">
                             <label for="booking-time">Time</label>
+                            <datalist id="time">
+                                <option value="9:00"></option>
+                                <option value="9:30"></option>
+                                <option value="10:00"></option>
+                                <option value="10:30"></option>
+                                <option value="11:00"></option>
+                                <option value="10:30"></option>
+                                <option value="12:00"></option>
+                                <option value="12:30"></option>
+                                <option value="13:00"></option>
+                                <option value="13:30"></option>
+                                <option value="14:00"></option>
+                                <option value="14:30"></option>
+                                <option value="15:00"></option>
+                                <option value="15:30"></option>
+                                <option value="16:00"></option>
+                                <option value="16:30"></option>
+                                <option value="17:00"></option>
+                                <option value="17:30"></option>
+                            </datalist>
                         </div>
                         <div class="booking-form__item booking-form__row remove-label">
                             <input class="booking-form__input booking-form__input--name" type="text" name="name" id="booking-name">
@@ -631,26 +651,26 @@
                         </div>
                         <div class="booking-form__item booking-form__row">
                             <select class="booking-form__input booking-form__input--select" name="ticket-type" id="booking-type">
-                                <option value="Permanent">Permanent exhibition</option>
-                                <option value="Temporary">Temporary exhibition</option>
-                                <option value="Combined">Combined Admission</option>
+                                <option value="permanent" selected>Permanent exhibition</option>
+                                <option value="temporary">Temporary exhibition</option>
+                                <option value="combined">Combined Admission</option>
                             </select>
                         </div>
                         <div class="booking-form__tickets">
                             <p class="booking-form__tickets-title">Entry Tickets</p>
                             <div class="booking-form__amount-wrapper">
-                                <label>Basic 18+ (20 €)</label>
+                                <label>Basic 18+ (<span data-type="basic" class="ticket-price">20</span> €)</label>
                                 <p class="booking-form__amount amount amount--booking">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="booking-basic-amount" type="number" min="0" max="20" value="1">
+	                                <input class="amount__field" id="booking-basic-amount" name="basic-amount" type="number" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
                             <div class="booking-form__amount-wrapper">
-                                <label>Senior 65+ (10 €)</label>
+                                <label>Senior 65+ (<span data-type="senior" class="ticket-price">10</span> €)</label>
                                 <p class="booking-form__amount amount amount--booking">
                                     <button class="amount__button amount__minus" type="button" onclick="this.nextElementSibling.stepDown()">–</button>
-	                                <input class="amount__field" id="booking-senior-amount" type="number" min="0" max="20" value="1">
+	                                <input class="amount__field" id="booking-senior-amount" name="senior-amount" type="number" min="0" max="20" value="1">
 	                                <button class="amount__button amount__plus" type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </p>
                             </div>
@@ -663,9 +683,9 @@
                             <h3 class="modal-overview__title">Overview</h3>
                             <p class="modal-overview__subtitle">Tour to Louvre</p>
                             <div class="modal-overview__selected">
-                                <p class="modal-overview__date modal-overview__selected-item">Friday, August 19</p>
-                                <p class="modal-overview__time modal-overview__selected-item">16 : 30</p>
-                                <p class="modal-overview__ticket modal-overview__selected-item">Temporary exhibition</p>
+                                <p class="modal-overview__date modal-overview__selected-item selected-date">Friday, August 19</p>
+                                <p class="modal-overview__time modal-overview__selected-item selected-time">16 : 30</p>
+                                <p class="modal-overview__ticket modal-overview__selected-item selected-ticket-type">Temporary exhibition</p>
                             </div>
                         </div>
                         <div class="modal-overview__column">
@@ -674,18 +694,18 @@
                     </div>
                     <div class="modal-overview__tickets">
                         <div class="modal-overview__tickets-item tickets-item">
-                            <div class="tickets-item__counter">2</div>
-                            <div class="tickets-item__title">Basic (20 €)</div>
-                            <div class="tickets-item__summ">40 €</div>
+                            <div class="tickets-item__counter ticket-counter" data-type="basicAmount">2</div>
+                            <div class="tickets-item__title">Basic (<span data-type="basic" class="ticket-price">20</span> €)</div>
+                            <div class="tickets-item__summ"><span data-type="basic" class="ticket-summ">40</span> €</div>
                         </div>
                         <div class="modal-overview__tickets-item tickets-item">
-                            <span class="tickets-item__counter">2</span>
-                            <div class="tickets-item__title">Senior (10 €)</div>
-                            <div class="tickets-item__summ">20 €</div>
+                            <span class="tickets-item__counter ticket-counter" data-type="seniorAmount">2</span>
+                            <div class="tickets-item__title">Senior (<span data-type="senior" class="ticket-price">10</span> €)</div>
+                            <div class="tickets-item__summ"><span data-type="senior" class="ticket-summ">20</span> €</div>
                         </div>
                     </div>
-                    <div class="modal-overview__total">
-                        Total: <span>60 €</span>
+                    <div class="modal-overview__total total">
+                        Total: <span>60</span> €
                     </div>
                     <div class="modal__card card">
                         <form>
@@ -715,7 +735,7 @@
                                     <span class="card__cvv-description">The last 3 or 4 digits on back of the card</span>
                                 </label>
                             </div>
-                            <button class="card__button">Book</button>
+                            <button class="card__button submit-bookinng">Book</button>
                         </form>
                     </div>
                 </div>

@@ -1,4 +1,6 @@
 const fields = document.querySelectorAll('.remove-label');
+const button = document.querySelector('.submit-bookinng');
+
 fields.forEach((field) => {
   const input = field.querySelector('input');
   const label = field.querySelector('label');
@@ -19,4 +21,5 @@ fields.forEach((field) => {
       }
     }
   }
-})
+});
+button.addEventListener('click', (e) => e.preventDefault());

@@ -1334,6 +1334,9 @@
 
   &__container {
     flex-grow: 1;
+    max-height: 100vh;
+
+    overflow-y: auto;
   }
 
   &__wrapper {
@@ -1343,11 +1346,8 @@
     padding: 90px 0;
     display: flex;
     justify-content: center;
-    max-height: 100vh;
 
     background-color: #ffffff;
-
-    overflow-y: auto;
   }
 
   &__column {

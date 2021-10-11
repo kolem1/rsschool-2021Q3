@@ -9,6 +9,8 @@ import './js/video-section/video-slider';
 import './js/gallery/gallery';
 import './js/gallery/scroll-animation';
 import './js/tickets/booking-form';
+import './js/tickets/calculator-tickets';
+import './js/tickets/booking-overview';
 import './js/modal';
 // import './js/self-check';
 
