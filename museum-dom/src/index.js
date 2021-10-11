@@ -13,6 +13,6 @@ import './js/tickets/booking-overview';
 import './js/tickets/validate-form';
 import './js/modal';
 import './js/map';
-// import './js/self-check';
+import './js/self-check';
 
 import './scss/style.scss';
