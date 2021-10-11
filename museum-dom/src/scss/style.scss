@@ -1531,6 +1531,22 @@
   }
 }
 
+.validate-input {
+  &.invalid {
+    color: red;
+
+    border-color: red;
+  }
+}
+
+.validate-error {
+  margin-bottom: 20px;
+  padding: 0 10px;
+
+  color: red;
+  font-size: 14px;
+}
+
 .remove-label {
   position: relative;
 

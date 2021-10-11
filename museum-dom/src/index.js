@@ -11,6 +11,7 @@ import './js/gallery/scroll-animation';
 import './js/tickets/booking-form';
 import './js/tickets/calculator-tickets';
 import './js/tickets/booking-overview';
+import './js/tickets/validate-form';
 import './js/modal';
 // import './js/self-check';
 

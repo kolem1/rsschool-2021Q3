@@ -79,7 +79,6 @@ function setTicketType(item) {
 
 function setTime(item) {
   const input = bookingForm.querySelector('#booking-time');
-  console.log(input);
   item.innerHTML = input.value || input.min;
 }
 
