@@ -35,7 +35,7 @@ body {
 
 .styled-range {
   
-  background: linear-gradient(to right, #710707 50%, #C4C4C4 50%);
+  background: linear-gradient(to right, #2196F3 50%, #C4C4C4 50%);
   border: none;
   border-radius: 0;
   height: 8px;
@@ -58,6 +58,7 @@ body {
   z-index: 10;
 
   padding: 15px;
+  max-width: 340px;
 
   border-radius: 20px;
 
@@ -68,16 +69,22 @@ body {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.player-button {
+  display: none;
+}
+
 .player-controls {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 28px;
 }
 
 .player-play-buttons {
   display: flex;
   align-items: center;
+  margin-right: 15px;
 }
 
 .play {
@@ -86,9 +93,12 @@ body {
 
 .player-progress {
   position: relative;
+  
   margin: 0 15px;
   display: flex;
   align-items: center;
+  margin-top: 50px;
+  order: 1;
 }
 
 .player-title {
@@ -361,6 +371,10 @@ body {
   background-image: url("../assets/svg/reload.svg");  
 }
 
+.quotes {
+  padding: 0 50px;
+}
+
 .quote {
   min-height: 32px;
 }
@@ -372,7 +386,7 @@ body {
 .settings {
   position: absolute;
   bottom: 10px;
-  left: 10px;
+  left: 20px;
 }
 
 .settings-button {
@@ -433,6 +447,14 @@ body {
 
 .setting-title {
   font-weight: 700;
+}
+
+.setting-config {
+  justify-self: end;
+}
+
+.settings-config {
+  justify-self: end;
 }
 
 .block-title {
@@ -513,7 +535,7 @@ input:checked + .slider:before {
 .todo-wrapper {
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 20px;
 }
 
 .todo {
@@ -615,7 +637,38 @@ input:checked + .slider:before {
 }
 
 .todo-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5px;
   margin-bottom: 15px;
+}
+
+.todo-option {
+  display: none;
+}
+
+.todo-option + label {
+  padding: 5px 0; 
+
+  text-align: center;
+  color: #837d7d;
+
+  background-color: #fff;
+  border-radius: 5px;
+  opacity: 0.8;
+
+  transition: all 0.3s;
+}
+
+.todo-option + label:hover {
+  opacity: 1;
+}
+
+.todo-option:checked + label {
+  color: #ffffff;
+
+  background-color: #2196F3;
+  opacity: 1;
 }
 
 .todo-input {
@@ -625,25 +678,6 @@ input:checked + .slider:before {
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 4px;
-}
-
-@media (max-width: 992px) {
-  .player {
-    max-width: 340px;
-  }
-  .player-controls {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .player-play-buttons {
-    margin-right: 15px;
-  }
-
-  .player-progress {
-    margin-top: 50px;
-    order: 1;
-  }
 }
 
 @media (max-width: 768px) {
@@ -665,5 +699,60 @@ input:checked + .slider:before {
   .name {
     font-size: 32px;
     padding: 5px;
+  }
+}
+
+@media (max-width: 550px) {
+  .player-wrapper {
+    position: relative;
+  }
+
+  .player-button {
+    display: block;
+  }
+
+  .player {
+    position: absolute;
+    top: 120%;
+    left: 0;
+
+    width: 320px;
+    padding: 20px;
+
+    text-align: left;
+
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transform: translateY(10px);
+    visibility: hidden;
+
+    transition: all 0.3s;
+  }
+
+  .player.active {
+    opacity: 1;
+    transform: translateY(0px);
+    visibility: visible;
+  }
+
+  .player-progress {
+    margin-top: 30px;
+  }
+
+  .play-list {
+    max-height: none;
+  }
+
+  .player-icon {
+    width: 25px;
+    height: 25px;
+    background-size: 25px 25px;
+  }
+
+  .play {
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
   }
 }
