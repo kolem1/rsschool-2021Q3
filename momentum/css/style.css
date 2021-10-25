@@ -510,7 +510,122 @@ input:checked + .slider:before {
   color: #eda3a3;
 }
 
+.todo-wrapper {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
 
+.todo {
+  position: absolute;
+  bottom: 120%;
+  right: 0;
+
+  width: 320px;
+  padding: 20px;
+
+  text-align: left;
+
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transform: translateY(10px);
+  visibility: hidden;
+
+  transition: all 0.3s;
+}
+
+.todo.active {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+}
+
+.todos {
+  height: 200px;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.todo-show-button {
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  background-color: transparent;
+  background-image: url(../assets/svg/list.svg);
+  opacity: 0.8;
+
+  cursor: pointer;
+
+  transition: all 0.3s;
+}
+
+.todo-show-button:hover {
+  opacity: 1;
+}
+
+.todo-item {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.todo-checkbox {
+  margin-right: 5px;
+}
+
+.todo-item[data-todo-state="deleted"] {
+  display: none;
+} 
+
+[data-todo-option="completed"] .todo-item:not([data-todo-state="completed"]),
+[data-todo-option="deleted"] .todo-item:not([data-todo-state="deleted"]) {
+  display: none;
+}
+
+[data-todo-option="deleted"] .todo-item[data-todo-state="deleted"] {
+  display: block;
+}
+
+[data-todo-state="active"] .todo-action-restore,
+[data-todo-state="completed"] .todo-action-complete,
+[data-todo-state="deleted"] .todo-action-complete {
+  display: none;
+}
+
+[data-todo-state="completed"] .todo-task {
+  text-decoration: line-through;
+}
+
+.todo-action {
+  display: block;
+}
+
+.todo-action-delete {
+  margin-left: auto;
+
+  color: red;
+}
+
+.todo-action-delete::before {
+  content: 'x';
+}
+
+.todo-options {
+  margin-bottom: 15px;
+}
+
+.todo-input {
+  width: 100%;
+  padding: 5px;
+
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
 
 @media (max-width: 992px) {
   .player {
