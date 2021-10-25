@@ -16,7 +16,9 @@ body {
   font-size: 16px;
   color: #fff;
   text-align: center;
-  background: url("../assets/img/bg.jpg") center/cover, rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  background-position: center;
   background-blend-mode: multiply;
   transition: background-image 1s ease-in-out;
 }
@@ -63,14 +65,13 @@ body {
 }
 
 .player:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .player-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   margin-bottom: 28px;
 }
 
@@ -133,7 +134,8 @@ body {
 }
 
 .play-item {
-  position: relative;
+  display: flex;
+  align-items: center;
   padding: 5px;
   padding-left: 20px;
   list-style: none;
@@ -146,15 +148,7 @@ body {
   opacity: 1;
 }
 
-.play-item::before {
-  content: "\2713";  
-  position: absolute;
-  left: 0;
-  top: 2px;
-  font-weight: 900;
-}
-
-.item-active::before {
+.item-active {
   color: #C5B358;
 }
 
@@ -210,6 +204,12 @@ body {
 .player-volume svg {
   width: 100%;
   height: 100%;
+}
+
+.play-item .player-icon {
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
 }
 
 .weather {
@@ -301,6 +301,10 @@ body {
   margin-bottom: 20px;
 }
 
+.date::first-letter {
+  text-transform: uppercase;
+}
+
 .greeting-container {
   display: flex;
   flex-wrap: wrap;
@@ -344,6 +348,12 @@ body {
   height: 29.5vh;
   min-height: 160px;  
   padding: 20px;
+}
+
+.qoutes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .change-quote {
@@ -392,12 +402,13 @@ body {
   position: absolute;
   bottom: 120%;
 
-  width: 300px;
+  width: 320px;
   padding: 15px;
 
-  border-radius: 20px;
+  text-align: left;
 
-  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
   opacity: 0;
   transform: translateY(10px);
   visibility: hidden;
@@ -412,11 +423,96 @@ body {
 }
 
 .settings-item {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-@media (max-width: 768px) {
+.settings-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.setting-title {
+  font-weight: 700;
+}
+
+.block-title {
+  margin: 3px 0;
+}
+
+.blocks-show-title {
+  margin-bottom: 5px;
+  grid-column: span 2;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 0px;
+  bottom: 0px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.animate {
+  transition: 0.3s;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.error {
+  color: #eda3a3;
+}
+
+
+
+@media (max-width: 992px) {
   .player {
     max-width: 340px;
   }
@@ -433,6 +529,9 @@ body {
     margin-top: 50px;
     order: 1;
   }
+}
+
+@media (max-width: 768px) {
 
   .time {
     min-height: 80px;
