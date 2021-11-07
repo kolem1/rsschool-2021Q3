@@ -1,5 +1,5 @@
 import './index.scss';
 
-import rootModule from './js/app/rootModule';
+import rootModule from './app/components/rootModule';
 
 rootModule.start();

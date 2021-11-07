@@ -1,7 +1,9 @@
-import './index.scss';
-
 import Module from '../core/module';
+import footer from './footer';
+import homePage from './pages/homePage';
+import settingsPage from './pages/settingsPage';
 import rootComponent from './rootComponent';
+import routes from './routes';
 
 // class RootModule extends Module {
 //   constructor(config) {
@@ -10,9 +12,13 @@ import rootComponent from './rootComponent';
 // }
 
 const rootModule = new Module({
+  initialComponent: rootComponent,
   components: [
-    rootComponent,
+    footer,
+    homePage,
+    settingsPage,
   ],
+  routes,
 });
 
 export default rootModule;

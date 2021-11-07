@@ -6,6 +6,6 @@ export default class Component {
 
   render() {
     const el = document.querySelector(this.selector);
-    el.innerHTML = this.template;
+    if (el) el.innerHTML = this.template;
   }
 }

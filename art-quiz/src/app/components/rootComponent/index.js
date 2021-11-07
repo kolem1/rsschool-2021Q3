@@ -1,10 +1,11 @@
 import Component from '../../core/component';
 
-import template from './index.html';
+import './styles.scss';
+import template from './template.html';
 
 const rootComponent = new Component({
   selector: '#root',
-  template: template,
+  template,
 });
 
 export default rootComponent;
