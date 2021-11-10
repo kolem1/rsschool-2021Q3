@@ -1,6 +1,6 @@
 const router = {
   getUrl() {
-    return window.location.hash.slice(2);
+    return window.location.hash.slice(1);
   },
 };
 

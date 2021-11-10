@@ -1,5 +1,5 @@
-import Module from '../core/module';
-import footer from './footer';
+import Module from 'core/module';
+import footer from './common/footer';
 import homePage from './pages/homePage';
 import settingsPage from './pages/settingsPage';
 import rootComponent from './rootComponent';

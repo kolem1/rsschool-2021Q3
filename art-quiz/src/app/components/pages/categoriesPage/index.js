@@ -4,16 +4,16 @@ import Header from '../../common/header';
 import './styles.scss';
 import template from './template.html';
 
-const settingsPage = new Component({
+const categoriesPage = new Component({
   selector: '#main',
   template,
   subcomponents: [
     new Header({
       data: {
-        title: 'Settings'
+        title: 'Categories'
       }
     })
-  ]
+  ],
 });
 
-export default settingsPage;
+export default categoriesPage;

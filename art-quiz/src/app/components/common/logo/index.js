@@ -3,9 +3,9 @@ import Component from 'core/component';
 import './styles.scss';
 import template from './template.html';
 
-const rootComponent = new Component({
-  selector: '#root',
-  template,
+const logo = new Component({
+  selector: '#logo',
+  template
 });
 
-export default rootComponent;
+export default logo;

@@ -1,1 +1,41 @@
-<h1>Настройки</h1>
+<div class="settings">
+  <div class="container">
+    <header id="header"></header>
+    <div class="settings__inner">
+      <div class="settings__card settings-card">
+        <div class="settings-card__icon-wrapper">
+          <svg class="settings-card__icon">
+            <use xlink:href="./images/settings-sprite.svg#volume-up"></use>
+          </svg>
+        </div>
+        <div class="settings-card__inputs">
+          <input class="settings-card__range" type="range" name="volume">
+          <label class="settings-card__label">
+            <input type="checkbox" name="volume-on" id="">
+            ON/OFF
+          </label>
+        </div>
+        <h2 class="settings-card__title">Volume</h2>
+      </div>
+      <div class="settings__card settings-card">
+        <div class="settings-card__icon-wrapper">
+          <svg class="settings-card__icon">
+            <use xlink:href="./images/settings-sprite.svg#timer"></use>
+          </svg>
+        </div>
+        <div class="settings-card__inputs">
+          <input class="settings-card__range" type="range" name="time" min="5" max="30" step="5">
+          <label class="settings-card__label">
+            <input type="checkbox" name="time-on" id="">
+            ON/OFF
+          </label>
+        </div>
+        <h2 class="settings-card__title">Time game</h2>
+      </div>
+    </div>
+    <div class="settings__buttons-wrapper">
+      <a class="settings__button button" href="#">Home</a>
+      <button class="settings__button button">Default</button>
+    </div>
+  </div>
+</div>

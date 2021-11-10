@@ -1,4 +1,4 @@
-import Component from '../../core/component';
+import Component from 'core/component';
 
 import './styles.scss';
 import template from './template.html';

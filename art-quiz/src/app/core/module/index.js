@@ -1,4 +1,5 @@
-import router from '../tools/router';
+import renderComponent from "../component/renderComponent";
+import RoutingModule from "../routingModule";
 
 export default class Module {
   constructor(config) {
@@ -9,28 +10,18 @@ export default class Module {
 
   start() {
     this.renderComponents();
-    if (this.routes) this.initRoutes();
+    if (this.routes) this.initRoutinng();
   }
 
   renderComponents() {
-    this.initialComponent.render();
-    this.components.forEach((component) => {
-      component.render();
-    });
+    renderComponent(this.initialComponent);
+    this.components.forEach(renderComponent);
   }
 
-  initRoutes() {
-    window.addEventListener('hashchange', this.renderRoute.bind(this));
-    this.renderRoute();
-  }
+  initRoutinng() {
+    if(this.routes.length < 1) return;
 
-  renderRoute() {
-    const hash = router.getUrl();
-    const route = this.routes.find((r) => r.path === hash);
-    const { component } = route;
-
-    const main = document.querySelector('#main');
-    main.innerHTML = `<div id="${component.selector.slice(1)}"></div>`;
-    component.render();
+    const routing = new RoutingModule(this.routes);
+    routing.init();
   }
 }

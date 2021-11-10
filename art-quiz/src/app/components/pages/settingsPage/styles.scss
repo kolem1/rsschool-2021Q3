@@ -1,0 +1,44 @@
+.settings {
+  &__card {
+    margin-bottom: 10px;
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    margin: 0 -5px;
+  }
+
+  &__button {
+    margin: 0 5px;
+    width: 50%;
+
+    text-align: center;
+  }
+}
+
+.settings-card {
+  padding: 10px;
+
+  text-align: center;
+
+  background-color: rgba(#ffffff, 0.5);
+
+  &__title {
+    margin: 0;
+
+    text-transform: uppercase;
+    color: #660033;
+    font-weight: 500;
+  }
+
+  &__icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  &__label {
+    display: block; 
+  }
+}

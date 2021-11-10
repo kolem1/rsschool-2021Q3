@@ -105,6 +105,9 @@ module.exports = ({ development }) => {
     ],
     resolve: {
       extensions: ['.js'],
+      alias: {
+        core: path.resolve(__dirname, 'src/app/core/'),
+      },
     },
     ...devServer(development)
   };
