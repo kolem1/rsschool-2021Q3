@@ -4,6 +4,7 @@ export default class Component {
     this.template = config.template;
     this.subcomponents = config.subcomponents;
     this.data = config.data;
+    this.afterInitFunction = config.afterInitFunction;
   }
 
   render() {
@@ -16,6 +17,10 @@ export default class Component {
     if (this.subcomponents) {
       this.subcomponents.forEach(c => c.render());
     }
+  }
+
+  afterInit() {
+    if(this.afterInitFunction) this.afterInitFunction();
   }
 }
 
