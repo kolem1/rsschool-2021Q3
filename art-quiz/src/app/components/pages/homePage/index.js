@@ -13,3 +13,5 @@ const homePage = new Component({
 });
 
 export default homePage;
+
+

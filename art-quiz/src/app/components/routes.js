@@ -32,6 +32,14 @@ for(let i = 0; i < 12; i++) {
     path: `pictures/category/${i}`,
     component: categoryPage,
   });
+  routes.push({
+    path: `artists/game/${i}`,
+    component: gamePage,
+  });
+  routes.push({
+    path: `pictures/game/${i}`,
+    component: gamePage,
+  });
 }
 
 export default routes;
