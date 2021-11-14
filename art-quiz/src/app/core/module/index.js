@@ -1,5 +1,5 @@
-import renderComponent from "../component/renderComponent";
-import RoutingModule from "../routingModule";
+import renderComponent from '../component/renderComponent';
+import RoutingModule from '../routingModule';
 
 export default class Module {
   constructor(config) {
@@ -19,7 +19,7 @@ export default class Module {
   }
 
   initRoutinng() {
-    if(this.routes.length < 1) return;
+    if (this.routes.length < 1) return;
 
     const routing = new RoutingModule(this.routes);
     routing.init();

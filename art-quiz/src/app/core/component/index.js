@@ -1,3 +1,5 @@
+import compileTemplate from './compileTemplate';
+
 export default class Component {
   constructor(config) {
     this.selector = config.selector;
@@ -5,33 +7,39 @@ export default class Component {
     this.subcomponents = config.subcomponents;
     this.data = config.data;
     this.afterInitFunction = config.afterInitFunction;
+    this.events = config.events;
   }
 
   render() {
     const el = document.querySelector(this.selector);
     if (el) el.innerHTML = compileTemplate(this.template, this.data);
+
+    this.initEvents();
+
     this.renderSubcomponents();
   }
 
   renderSubcomponents() {
     if (this.subcomponents) {
-      this.subcomponents.forEach(c => c.render());
+      this.subcomponents.forEach((c) => c.render());
     }
   }
 
   afterInit() {
-    if(this.afterInitFunction) this.afterInitFunction();
+    if (this.afterInitFunction) this.afterInitFunction();
   }
-}
 
-function compileTemplate(template, data) {
-  if(!data) return template;
+  initEvents() {
+    if (this.events) {
+      Object.keys(this.events).forEach((key) => {
+        const listener = key.split(' ');
 
-  template = template.replace(/{{(.*?)}}/g, (str, key) => {
-    key = key.trim();
+        const elements = document.querySelectorAll(listener[1]);
 
-    return data[key];
-  })
-
-  return template
+        elements.forEach((element) => {
+          element.addEventListener(listener[0], this.events[key]);
+        });
+      });
+    }
+  }
 }

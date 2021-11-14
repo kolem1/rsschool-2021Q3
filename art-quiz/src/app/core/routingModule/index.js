@@ -1,5 +1,5 @@
-import renderComponent from "../component/renderComponent";
-import router from "./router";
+import renderComponent from '../component/renderComponent';
+import router from './router';
 
 export default class RoutingModule {
   constructor(routes) {
