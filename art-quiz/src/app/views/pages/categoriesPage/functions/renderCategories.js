@@ -1,25 +1,27 @@
 import router from '../../../../core/routingModule/router';
 import data from '../../../components/data';
+import setMaxSizeForCategoriesWrapper from './setMaxSizeForCategoriesWrapper';
 
 export default async function renderCategories() {
   const categoriesGrid = document.getElementById('categories-grid');
   const topic = router.getTopic();
-  const results = JSON.parse(localStorage.getItem('kolem1-results'))[topic];
 
+  const previousResults = JSON.parse(localStorage.getItem('kolem1-results'));
+  let currentCategoryResults = [];
+  if (previousResults) currentCategoryResults = previousResults[topic];
 
   const pictures = (await data.formatedArray)[topic];
 
   pictures.forEach((item, i) => {
-    const isPlayed = Boolean(results[i]);
+    const isPlayed = Boolean(currentCategoryResults[i]);
     let trueCounter;
-    if(isPlayed) {
-      trueCounter = results[i].filter(item => item).length;
+    if (isPlayed) {
+      trueCounter = currentCategoryResults[i].filter((answer) => answer).length;
     }
-    console.log(isPlayed);
     const category = document.createElement('article');
     category.classList.add('category');
     category.href = `#${topic}/category/${i}`;
-    if(isPlayed) {
+    if (isPlayed) {
       category.classList.add('category--played');
     }
     category.innerHTML = `
@@ -39,17 +41,6 @@ export default async function renderCategories() {
     categoriesGrid.append(category);
   });
 
-  
   setMaxSizeForCategoriesWrapper();
   window.addEventListener('resize', setMaxSizeForCategoriesWrapper);
-}
-
-function setMaxSizeForCategoriesWrapper() {
-  const categories = document.querySelector('.categories');
-  const header = document.querySelector('.header');
-  const footer = document.querySelector('.footer');
-  const buttonsWrapper = document.querySelector('.page-buttons');
-  const marginBottom = 20;
-
-  categories.style.maxHeight = `calc(100vh - ${header.offsetHeight + footer.offsetHeight + buttonsWrapper.offsetHeight + marginBottom}px`;
 }
