@@ -1,6 +1,138 @@
 .categories {
+  padding: 10px 0;
+  margin-bottom: 20px;
+
+  overflow: auto;
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background-color: #010101;
+    border-radius: 100px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background-color: #ffffff;
+  }
+
+  &__buttons-wrapper {
+
+  }
+}
+
+.category {
+
+  position: relative;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  &__link:hover {
+    .category__img {
+      filter: grayscale(0);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    margin-bottom: 10px;
+
+    font: inherit;
+  }
+
+  &__counter {
+    color: #FFBCA2;
+  }
+
+  &__img-wrapper {
+    position: relative;
+
+    padding-top: 95%;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    filter: grayscale(1);
+
+    transition: filter 0.3s;
+  }
+
+  &__score {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    padding: 10px 0;
+
+    text-align: center;
+    color: #010101;
+    border-radius: 0 0 20px 20px;
+
+    background-color: #FFBCA2;
+  }
+
+  &--played {
+    .category__img {
+      filter: grayscale(0.5);
+    }
+  }
+}
+
+@media (min-width: 520px) {
+  .categories {
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 15px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .categories {
+    &__grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 20px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .categories {
+    &__grid {
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 20px;
+    }
+  }
+}
+
+@media (min-width: 1368px) {
+  .categories {
+    &__grid {
+      grid-template-columns: repeat(6, 1fr);
+      grid-gap: 20px;
+    }
   }
 }

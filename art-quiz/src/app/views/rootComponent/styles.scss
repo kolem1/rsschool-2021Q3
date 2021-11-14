@@ -13,3 +13,14 @@
   flex-grow: 1;
 }
 
+.page-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 0 -10px;
+
+  &__button {
+    width: 50%;
+    max-width: 268px;
+  }
+}
+
