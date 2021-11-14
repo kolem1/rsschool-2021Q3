@@ -1,6 +1,6 @@
 import Component from '../../../core/component';
 import router from '../../../core/routingModule/router';
-import Header from '../../components/header';
+import Header from '../../components/Header';
 import startNewGame from './functions/startNewGame';
 
 import './styles.scss';

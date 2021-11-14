@@ -53,7 +53,7 @@ export default class Game {
   renderArtistsQuestion() {
     const question = new this.QuestionComponent({
       data: {
-        question: `Какую картину нарисовал ${this.currentQuestion.author}`,
+        question: `Какую из этих картин написал ${this.currentQuestion.author}?`,
       },
     });
     question.render();

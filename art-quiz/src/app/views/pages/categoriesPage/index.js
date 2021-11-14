@@ -1,5 +1,5 @@
 import Component from '../../../core/component';
-import Header from '../../components/header';
+import Header from '../../components/Header';
 import renderCategories from './functions/renderCategories';
 
 import './styles.scss';
