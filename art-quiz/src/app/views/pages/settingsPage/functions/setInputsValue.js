@@ -1,0 +1,15 @@
+import appSettings from "../../../appSettings";
+
+export default function setInputsValue() {
+  let settings = appSettings.settings;
+
+  const soundOnInput = document.querySelector('#sound-on');
+  const timeGameOnInput = document.querySelector('#time-game-on');
+  const volumeBar = document.querySelector('#volume-bar');
+  const timeBar = document.querySelector('#time-bar');
+
+  soundOnInput.checked = settings.soundIsOn;
+  timeGameOnInput.checked = settings.timeGameIsOn;
+  volumeBar.value = settings.volume;
+  timeBar.value = settings.time;
+}

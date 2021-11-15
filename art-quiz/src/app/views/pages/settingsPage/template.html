@@ -9,9 +9,9 @@
           </svg>
         </div>
         <div class="settings-card__inputs">
-          <input class="settings-card__range" type="range" name="volume">
+          <input class="settings-card__range" type="range" name="volume" id="volume-bar">
           <label class="settings-card__label">
-            <input type="checkbox" name="volume-on" id="">
+            <input type="checkbox" name="volume-on" id="sound-on">
             ON/OFF
           </label>
         </div>
@@ -24,9 +24,9 @@
           </svg>
         </div>
         <div class="settings-card__inputs">
-          <input class="settings-card__range" type="range" name="time" min="5" max="30" step="5">
+          <input class="settings-card__range" type="range" name="time" min="5" max="30" step="5" id="time-bar">
           <label class="settings-card__label">
-            <input type="checkbox" name="time-on" id="">
+            <input type="checkbox" name="time-on" id="time-game-on">
             ON/OFF
           </label>
         </div>
@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="settings__buttons-wrapper">
-      <a class="settings__button button" href="#">Home</a>
-      <button class="settings__button button">Default</button>
+      <a class="settings__button button" href="#" id="save-button">Save</a>
+      <button class="settings__button button" id="default-button">default</button>
     </div>
   </div>
 </div>
