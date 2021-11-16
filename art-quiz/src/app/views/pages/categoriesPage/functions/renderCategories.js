@@ -25,7 +25,7 @@ export default async function renderCategories() {
       category.classList.add('category--played');
     }
     category.innerHTML = `
-    <a class="category__link" href="#${topic}/game/${i}">
+    <a class="category__link  sound-switch-component" href="#${topic}/game/${i}">
       <div class="category__header">
         <h3 class="category__title">Round ${i + 1}</h3>
         ${isPlayed ? `<div class="category__counter">${trueCounter} / 10</div>` : ''}
@@ -34,7 +34,7 @@ export default async function renderCategories() {
         <img class="category__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${item[1].imageNum}.jpg" alt="">
       </div>
     </a>
-    ${isPlayed ? `<a class="category__score" href="#${topic}/category/${i}">Score</a>` : ''}
+    ${isPlayed ? `<a class="category__score  sound-switch-component" href="#${topic}/category/${i}">Score</a>` : ''}
     
     `;
 

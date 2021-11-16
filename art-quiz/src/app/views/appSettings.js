@@ -3,7 +3,7 @@ import Settings from "../core/settings";
 const defaultSettings = {
   soundIsOn: false,
   timeGameIsOn: false,
-  volume: 5,
+  volume: 0.05,
   time: 5,
 }
 

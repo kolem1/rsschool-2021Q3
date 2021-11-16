@@ -8,17 +8,15 @@ export default class Settings {
     return this.currentSettings || this.defaultSettings;
   }
 
-  init() {
-    this.soundIsOn = this.currentSettings.soundIsOn || this.defaultSettings.soundIsOn;
-    this.timeGameIsOn = this.currentSettings.timeGameIsOn || this.defaultSettings.timeGameIsOn;
-
-    this.volume = this.currentSettings.volume || this.defaultSettings.volume;
-    this.time = this.currentSettings.time || this.defaultSettings.time;
+  get soundSettings() {
+    return {
+      soundIsOn: this.settings.soundIsOn,
+      volume: this.settings.volume,
+    }
   }
 
   reset() {
     this.currentSettings = this.defaultSettings;
-    this.init();
     localStorage.removeItem('kolem1-settings');
   }
 
@@ -32,7 +30,6 @@ export default class Settings {
 
   setSettings(settings) {
     this.currentSettings = settings;
-    this.init();
     this.save(settings);
   }
 }

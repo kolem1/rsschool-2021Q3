@@ -10,6 +10,6 @@ export default function setInputsValue() {
 
   soundOnInput.checked = settings.soundIsOn;
   timeGameOnInput.checked = settings.timeGameIsOn;
-  volumeBar.value = settings.volume;
+  volumeBar.value = settings.volume * 100;
   timeBar.value = settings.time;
 }
