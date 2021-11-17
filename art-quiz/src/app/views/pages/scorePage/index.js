@@ -6,7 +6,7 @@ import renderQuestions from './functions/renderQuestions';
 import './styles.scss';
 import template from './template.html';
 
-const categoryPage = new Component({
+const scorePage = new Component({
   selector: '#main',
   template,
   data: {
@@ -25,4 +25,4 @@ const categoryPage = new Component({
   afterInitFunction: renderQuestions,
 });
 
-export default categoryPage;
+export default scorePage;

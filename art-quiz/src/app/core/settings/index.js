@@ -1,7 +1,9 @@
+import loadSettings from './loadSettings';
+
 export default class Settings {
   constructor(defaultSettings) {
     this.defaultSettings = defaultSettings;
-    this.currentSettings = JSON.parse(this.load());
+    this.currentSettings = JSON.parse(loadSettings());
   }
 
   get settings() {
@@ -12,7 +14,7 @@ export default class Settings {
     return {
       soundIsOn: this.settings.soundIsOn,
       volume: this.settings.volume,
-    }
+    };
   }
 
   reset() {
@@ -20,16 +22,12 @@ export default class Settings {
     localStorage.removeItem('kolem1-settings');
   }
 
-  save(settings) {
-    localStorage.setItem('kolem1-settings', JSON.stringify(settings));
-  }
-
-  load() {
-    return localStorage.getItem('kolem1-settings');
+  save() {
+    localStorage.setItem('kolem1-settings', JSON.stringify(this.currentSettings));
   }
 
   setSettings(settings) {
     this.currentSettings = settings;
-    this.save(settings);
+    this.save();
   }
 }

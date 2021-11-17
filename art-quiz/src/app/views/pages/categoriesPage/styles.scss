@@ -1,34 +1,8 @@
 .categories {
-  padding: 10px 0;
-  margin-bottom: 20px;
-
-  overflow: auto;
-
-  scrollbar-color: #ffffff #010101;
-  scrollbar-width: thin;
-
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
-  }
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background-color: #010101;
-    border-radius: 100px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    border-radius: 100px;
-    background-color: #ffffff;
-  }
-
-  &__buttons-wrapper {
-
   }
 }
 

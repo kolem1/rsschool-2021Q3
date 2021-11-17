@@ -1,4 +1,4 @@
-import Observer from "../core/observer";
+import Observer from '../core/observer';
 
 const settingsObserver = new Observer();
 

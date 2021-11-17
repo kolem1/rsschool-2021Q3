@@ -1,5 +1,5 @@
-export default function setMaxSizeForCategoriesWrapper() {
-  const categories = document.querySelector('.categories');
+export default function setMaxSizeForWrapper() {
+  const categories = document.querySelector('.page-wrapper');
   const header = document.querySelector('.header');
   const footer = document.querySelector('.footer');
   const buttonsWrapper = document.querySelector('.page-buttons');

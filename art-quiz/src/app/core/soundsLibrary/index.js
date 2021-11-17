@@ -15,20 +15,18 @@ export default class SoundsLibrary {
   }
 
   addListeners() {
-    const sounds = this.sounds;
-    const volume = this.volume;
-    function listeners({target}) {
-      sounds.forEach(sound => {
+    const { sounds, volume } = this;
+    function listeners({ target }) {
+      sounds.forEach((sound) => {
         if (target.closest(`.${sound.class}`)) {
           const audio = new Audio();
-          audio.addEventListener('loadeddata', function() {
+          audio.addEventListener('loadeddata', () => {
             audio.play();
           }, false);
           audio.volume = volume;
           audio.src = sound.audio;
-          
         }
-      })
+      });
     }
 
     return listeners;

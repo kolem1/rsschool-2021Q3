@@ -19,8 +19,33 @@
   margin: 0 -10px;
 
   &__button {
+    margin: 0 10px;
     width: 50%;
     max-width: 268px;
+  }
+}
+
+.page-wrapper {
+  padding: 10px 0;
+  margin-bottom: 20px;
+
+  overflow: auto;
+  
+  scrollbar-color: #ffffff #010101;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background-color: #010101;
+    border-radius: 100px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background-color: #ffffff;
   }
 }
 

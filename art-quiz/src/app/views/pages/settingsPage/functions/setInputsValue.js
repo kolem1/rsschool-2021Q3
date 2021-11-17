@@ -1,7 +1,7 @@
-import appSettings from "../../../appSettings";
+import appSettings from '../../../appSettings';
 
 export default function setInputsValue() {
-  let settings = appSettings.settings;
+  const { settings } = appSettings;
 
   const soundOnInput = document.querySelector('#sound-on');
   const timeGameOnInput = document.querySelector('#time-game-on');

@@ -4,14 +4,14 @@ export default class Observer {
   }
 
   subscribe(func) {
-    this.subscribers.push(func)
+    this.subscribers.push(func);
   }
 
-  unsubscribe (func) {
-    this.subscribers = this.subscribers.filter(subscriber => subscriber !== func)
+  unsubscribe(func) {
+    this.subscribers = this.subscribers.filter((subscriber) => subscriber !== func);
   }
 
   dispatch(data) {
-    this.subscribers.forEach(subscriber => subscriber(data));
+    this.subscribers.forEach((subscriber) => subscriber(data));
   }
 }

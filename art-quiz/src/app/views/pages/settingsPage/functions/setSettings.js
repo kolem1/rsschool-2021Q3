@@ -1,6 +1,6 @@
-import appSettings from "../../../appSettings";
-import settingsObserver from "../../../settingsObserver";
-import setInputsValue from "./setInputsValue";
+import appSettings from '../../../appSettings';
+import settingsObserver from '../../../settingsObserver';
+import setInputsValue from './setInputsValue';
 
 let usersSettings = {};
 const currentSettings = appSettings.currentSettings || appSettings.defaultSettings;
@@ -27,5 +27,5 @@ export default {
     appSettings.reset();
     usersSettings = appSettings.defaultSettings;
     setInputsValue();
-  }
-}
+  },
+};
