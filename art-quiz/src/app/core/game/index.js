@@ -2,7 +2,7 @@ import router from '../routingModule/router';
 import checkAnswer from './checkAnswer';
 
 export default class Game {
-  constructor(questions, QuestionComponent, AnswerComponent, GameEndComponent, allImages) {
+  constructor(questions, QuestionComponent, AnswerComponent, GameEndComponent, allImages, timeSettings) {
     this.questions = questions;
     this.QuestionComponent = QuestionComponent;
     this.AnswerComponent = AnswerComponent;
@@ -11,6 +11,8 @@ export default class Game {
     this.topic = router.getTopic();
     this.round = router.getRound();
     this.currentQuestionNumber = 0;
+    this.timeSettings = timeSettings;
+    this.timer = null;
 
     this.results = {
       artists: [],
@@ -30,6 +32,30 @@ export default class Game {
 
   init() {
     this.renderQuestion();
+    if (this.timeSettings.timeGameIsOn) {
+      this.startTimer();
+    }
+  }
+
+  startTimer() {
+    const time = Number(this.timeSettings.time);
+    const deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + time);
+    
+    const countDownTimer = () => {
+      const diff = deadline - new Date();
+      console.log(diff);
+
+      if (diff <= 0) {
+        clearInterval(this.timer);
+        this.showAnswer(false);
+      }
+    }
+
+    this.timer = setInterval(countDownTimer, time * 1000)
+    window.addEventListener('hashchange', () => {
+      clearInterval(this.timer)
+    })
   }
 
   nextQuestion() {
@@ -37,6 +63,9 @@ export default class Game {
     this.currentQuestionNumber += 1;
     if (this.currentQuestionNumber < 10) {
       this.renderQuestion();
+      if (this.timeSettings.timeGameIsOn) {
+        this.startTimer();
+      }
     } else {
       this.finishGame();
     }
@@ -134,6 +163,7 @@ export default class Game {
   takeUserAnswer(e) {
     const isRight = checkAnswer(this.currentQuestion, e.currentTarget);
     this.showAnswer(isRight);
+    clearInterval(this.timer);
   }
 
   finishGame() {

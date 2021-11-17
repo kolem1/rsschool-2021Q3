@@ -17,6 +17,13 @@ export default class Settings {
     };
   }
 
+  get timeSettings() {
+    return {
+      timeGameIsOn: this.settings.timeGameIsOn,
+      time: this.settings.time,
+    };
+  }
+
   reset() {
     this.currentSettings = this.defaultSettings;
     localStorage.removeItem('kolem1-settings');
