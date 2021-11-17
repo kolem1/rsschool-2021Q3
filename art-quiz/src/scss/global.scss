@@ -65,6 +65,7 @@ h1 {
 }
 
 .button {
+
   position: relative;
 
   display: inline-block;
@@ -122,6 +123,22 @@ h1 {
     border-radius: 100px;
 
     transition: all .7s;
+  }
+
+  &--dark {
+    color: #000;
+
+    border-color: #000;
+
+    &:hover {
+      color: #fff;
+
+      background-color: #000;
+
+      &::after {
+        background-color: #000;
+      }
+    }
   }
 }
 

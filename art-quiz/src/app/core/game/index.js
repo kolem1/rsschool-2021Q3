@@ -53,37 +53,41 @@ export default class Game {
   renderArtistsQuestion() {
     const question = new this.QuestionComponent({
       data: {
-        question: `Какую из этих картин написал ${this.currentQuestion.author}?`,
+        question: `<h2 class="current-question__title">Какую из этих картин написал ${this.currentQuestion.author}?</h2>`,
       },
     });
     question.render();
-    this.renderAnswers();
+    this.renderOptions();
   }
 
   renderPicturesQuestion() {
     const question = new this.QuestionComponent({
       data: {
         question: `
-        Кто автор этой картины?
-        <img src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${this.currentQuestion.imageNum}.jpg">
+        <h2 class="current-question__title">Кто автор этой картины?</h2>
+        <div class="current-question__img-wrapper">
+          <img class="current-question__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${this.currentQuestion.imageNum}.jpg">
+        </div>
         `,
       },
     });
     question.render();
-    this.renderAnswers('pictures');
+    this.renderOptions('pictures');
   }
 
-  renderAnswers(topic = 'artists') {
-    const answers = this.shuffleAnswers();
-    const answersContainer = document.querySelector('.answers');
-    answersContainer.classList.add(`answers--${topic}`);
+  renderOptions(topic = 'artists') {
+    const answers = this.shuffleOptions();
+    const answersContainer = document.querySelector('.current-question__options');
+    answersContainer.classList.add(`current-question__options--${topic}`);
 
     answers.forEach((answer) => {
       const answerElement = document.createElement('button');
-      answerElement.classList.add('answers__answer', 'answer');
+      answerElement.classList.add('current-question__option');
       if (topic === 'artists') {
-        answerElement.innerHTML = `<img src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg">`;
+        answerElement.classList.add('picture-option');
+        answerElement.innerHTML = `<img class="current-question__option-img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg">`;
       } else {
+        answerElement.classList.add('button', 'current-question__option--author');
         answerElement.innerHTML = answer.author;
       }
       answerElement.dataset.imageNum = answer.imageNum;
@@ -93,17 +97,18 @@ export default class Game {
     });
   }
 
-  shuffleAnswers() {
+  shuffleOptions() {
     const answers = new Set();
+    const allImages = this.allImages.filter((item) => item.author !== this.currentQuestion.author);
     answers.add(this.currentQuestion);
     while (answers.size < 4) {
-      answers.add(this.allImages[Math.floor(Math.random() * this.allImages.length)]);
+      answers.add(allImages[Math.floor(Math.random() * allImages.length)]);
     }
     return Array.from(answers).sort(() => Math.random() - 0.5);
   }
 
-  showAnswer(IsAnswered) {
-    if (IsAnswered) {
+  showAnswer(isAnswered) {
+    if (isAnswered) {
       this.currentResult.push(true);
     } else {
       this.currentResult.push(false);
@@ -113,10 +118,11 @@ export default class Game {
     document.body.append(answerContainer);
     const answer = new this.AnswerComponent({
       data: {
-        IsAnswered,
+        isAnswered,
         imgSrc: `https://raw.githubusercontent.com/kolem1/image-data/master/img/${this.currentQuestion.imageNum}.jpg`,
         imgName: this.currentQuestion.name,
         imgAuthor: this.currentQuestion.author,
+        imgYear: this.currentQuestion.year,
       },
       events: {
         'click #next-button': this.nextQuestion.bind(this),
@@ -138,7 +144,7 @@ export default class Game {
 
     const gameEndContainer = document.createElement('div');
     gameEndContainer.id = 'games-end';
-    document.body.append(gameEndContainer);
+    document.querySelector('#main').append(gameEndContainer);
 
     const gameEnd = new this.GameEndComponent({
       data: {

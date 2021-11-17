@@ -1,9 +1,46 @@
-#right-answer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.current-question {
+  &__title {
+    margin: 0;
+    margin-bottom: 20px;
 
-  transform: translate(-50%, -50%);
+    font-size: 22px;
+    font-weight: 500;
+  }
 
-  background-color: #fff;
+  &__img-wrapper {
+    padding: 0 30px;
+    margin-bottom: 20px;
+  }
+
+  &__img {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  &__options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  &__option {
+    padding: 5px 10px;
+
+    font-size: 14px;
+    text-transform: none;
+
+    &--author {
+      min-height: 45px;
+    }
+  }
+}
+
+.picture-option {
+  padding: 0;
+
+  border: none;
+  border-radius: 20px;
+
+  overflow: hidden;
 }
