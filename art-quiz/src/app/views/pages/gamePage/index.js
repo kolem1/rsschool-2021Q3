@@ -2,7 +2,7 @@ import Component from '../../../core/component';
 import router from '../../../core/routingModule/router';
 import appSettings from '../../appSettings';
 import Header from '../../components/Header';
-import startNewGame from './functions/startNewGame';
+import afterGamePageRender from './functions/afterGamePageRender';
 
 import './styles.scss';
 import template from './template.html';
@@ -24,7 +24,7 @@ const gamePage = new Component({
   events: {
     '': '',
   },
-  afterInitFunction: startNewGame,
+  afterInitFunction: afterGamePageRender,
 });
 
 export default gamePage;

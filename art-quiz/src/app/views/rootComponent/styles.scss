@@ -16,6 +16,7 @@
 .page-buttons {
   display: flex;
   justify-content: center;
+  padding-top: 20px;
   margin: 0 -10px;
 
   &__button {
@@ -26,9 +27,6 @@
 }
 
 .page-wrapper {
-  padding: 10px 0;
-  margin-bottom: 20px;
-
   overflow: auto;
   
   scrollbar-color: #ffffff #010101;

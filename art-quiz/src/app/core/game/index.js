@@ -121,7 +121,7 @@ export default class Game {
       answerElement.classList.add('current-question__option');
       if (topic === 'artists') {
         answerElement.classList.add('picture-option');
-        answerElement.innerHTML = `<img class="current-question__option-img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg">`;
+        answerElement.innerHTML = `<img class="picture-option__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg">`;
       } else {
         answerElement.classList.add('button', 'current-question__option--author');
         answerElement.innerHTML = answer.author;

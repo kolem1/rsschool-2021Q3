@@ -1,10 +1,16 @@
 .current-question {
   &__title {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
     margin: 0;
     margin-bottom: 20px;
 
     font-size: 22px;
     font-weight: 500;
+
+    background-color: #010101;
   }
 
   &__img-wrapper {
@@ -20,8 +26,12 @@
   &__options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 5px;
+    grid-gap: 10px;
     margin-bottom: 10px;
+
+    @media (min-width: 500px) {
+      grid-gap: 20px;
+    }
   }
 
   &__option {
@@ -37,10 +47,20 @@
 }
 
 .picture-option {
+  position: relative;
+
   padding: 0;
+  padding-top: 100%;
 
   border: none;
   border-radius: 20px;
 
   overflow: hidden;
+
+  &__img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 }

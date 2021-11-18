@@ -1,4 +1,3 @@
-import data from '../../../components/data';
 import Question from '../../../components/Question';
 import Answer from '../../../components/answer';
 import GamesEnd from '../../../components/GamesEnd';
@@ -6,6 +5,7 @@ import Game from '../../../../core/game';
 import router from '../../../../core/routingModule/router';
 import appSettings from '../../../appSettings';
 import appSounds from '../../../appSounds';
+import data from '../../../components/data';
 
 export default async function startNewGame() {
   const { timeSettings } = appSettings;
