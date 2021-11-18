@@ -9,6 +9,11 @@ import appSounds from '../../../appSounds';
 
 export default async function startNewGame() {
   const { timeSettings } = appSettings;
+  if (timeSettings.timeGameIsOn) {
+    const header = document.querySelector('.header');
+    const logo = header.querySelector('.header__logo');
+    logo.insertAdjacentHTML('afterend', '<div class="timer"></div>');
+  }
   const questions = (await data.formatedArray)[router.getTopic()][router.getRound()];
   const allImages = await data.initialData;
   const game = new Game(questions, Question, Answer, GamesEnd, allImages, timeSettings, appSounds);
