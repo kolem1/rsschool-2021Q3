@@ -3,7 +3,7 @@ import checkAnswer from './checkAnswer';
 
 export default class Game {
   constructor(questions, QuestionComponent,
-    AnswerComponent, GameEndComponent, allImages, timeSettings) {
+    AnswerComponent, GameEndComponent, allImages, timeSettings, soundsLibrary) {
     this.questions = questions;
     this.QuestionComponent = QuestionComponent;
     this.AnswerComponent = AnswerComponent;
@@ -14,6 +14,7 @@ export default class Game {
     this.currentQuestionNumber = 0;
     this.timeSettings = timeSettings;
     this.timer = null;
+    this.sounds = soundsLibrary;
 
     this.results = {
       artists: [],
@@ -145,8 +146,10 @@ export default class Game {
   showAnswer(isAnswered) {
     if (isAnswered) {
       this.currentResult.push(true);
+      this.sounds.playSound('rightAnswer');
     } else {
       this.currentResult.push(false);
+      this.sounds.playSound('falseAnswer');
     }
     const answerContainer = document.createElement('div');
     answerContainer.id = 'right-answer';
@@ -173,6 +176,8 @@ export default class Game {
   }
 
   finishGame() {
+    this.sounds.playSound('gameOver');
+    window.addEventListener('hashchange', this.sounds.stopSound.bind(this.sounds));
     this.results[this.topic][this.round] = this.currentResult;
     localStorage.setItem('kolem1-results', JSON.stringify(this.results));
 

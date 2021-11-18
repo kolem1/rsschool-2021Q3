@@ -15,14 +15,13 @@ export default class SoundsLibrary {
   }
 
   addListeners() {
-    const { sounds, volume } = this;
+    const { volume } = this;
+    const sounds = this.sounds.filter((item) => item.class);
     function listeners({ target }) {
       sounds.forEach((sound) => {
         if (target.closest(`.${sound.class}`)) {
           const audio = new Audio();
-          audio.addEventListener('loadeddata', () => {
-            audio.play();
-          }, false);
+          audio.addEventListener('loadeddata', () => audio.play(), false);
           audio.volume = volume;
           audio.src = sound.audio;
         }
@@ -30,6 +29,23 @@ export default class SoundsLibrary {
     }
 
     return listeners;
+  }
+
+  playSound(sound) {
+    if(this.isActive) {
+      const audio = new Audio();
+      this.playedSound = audio;
+      audio.addEventListener('loadeddata', () => audio.play(), false);
+      audio.volume = this.volume;
+  
+      const soundsItem = this.sounds.find((item) => item.name === sound);
+      audio.src = soundsItem.audio;
+    }
+  }
+
+  stopSound() {
+    this.playedSound.pause();
+    this.playedSound.remove();
   }
 
   setActive(settings) {
