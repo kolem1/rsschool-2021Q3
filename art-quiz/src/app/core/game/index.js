@@ -187,9 +187,12 @@ export default class Game {
     gameEndContainer.id = 'games-end';
     document.querySelector('#main').append(gameEndContainer);
 
+    const result = this.currentResult.filter((item) => item).length
+
     const gameEnd = new this.GameEndComponent({
       data: {
         topic: this.topic,
+        result
       },
     });
     gameEnd.render();

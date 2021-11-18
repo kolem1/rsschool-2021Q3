@@ -27,7 +27,8 @@
 }
 
 .page-wrapper {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   
   scrollbar-color: #ffffff #010101;
   scrollbar-width: thin;
