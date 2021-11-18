@@ -2,13 +2,22 @@
 .header { 
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   padding: 10px 0;
 
   &__logo {
     height: 38px;
   }
+}
 
-  &__title {
-    flex-grow: 1;
-  }
+.timer {
+  padding-top: 5px;
+  padding-left: 30px;
+
+  font-size: 22px;
+
+  background-image: url('./images/timer.svg');
+  background-position: left center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }

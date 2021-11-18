@@ -2,7 +2,8 @@ import router from '../routingModule/router';
 import checkAnswer from './checkAnswer';
 
 export default class Game {
-  constructor(questions, QuestionComponent, AnswerComponent, GameEndComponent, allImages, timeSettings) {
+  constructor(questions, QuestionComponent,
+    AnswerComponent, GameEndComponent, allImages, timeSettings) {
     this.questions = questions;
     this.QuestionComponent = QuestionComponent;
     this.AnswerComponent = AnswerComponent;
@@ -41,21 +42,26 @@ export default class Game {
     const time = Number(this.timeSettings.time);
     const deadline = new Date();
     deadline.setSeconds(deadline.getSeconds() + time);
-    
+
+    const timer = document.querySelector('.timer');
+    timer.innerHTML = `0:${String(time).padStart(2, 0)}`;
+
     const countDownTimer = () => {
       const diff = deadline - new Date();
-      console.log(diff);
+      const seconds = Math.round(diff / 1000);
+      timer.innerHTML = `0:${String(seconds).padStart(2, 0)}`;
+      
 
       if (diff <= 0) {
         clearInterval(this.timer);
         this.showAnswer(false);
       }
-    }
+    };
 
-    this.timer = setInterval(countDownTimer, time * 1000)
+    this.timer = setInterval(countDownTimer, 1000);
     window.addEventListener('hashchange', () => {
-      clearInterval(this.timer)
-    })
+      clearInterval(this.timer);
+    });
   }
 
   nextQuestion() {
@@ -147,7 +153,7 @@ export default class Game {
     document.body.append(answerContainer);
     const answer = new this.AnswerComponent({
       data: {
-        isAnswered,
+        isAnswered: String(isAnswered),
         imgSrc: `https://raw.githubusercontent.com/kolem1/image-data/master/img/${this.currentQuestion.imageNum}.jpg`,
         imgName: this.currentQuestion.name,
         imgAuthor: this.currentQuestion.author,
