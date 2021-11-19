@@ -171,7 +171,13 @@ export default class Game {
 
   takeUserAnswer(e) {
     const isRight = checkAnswer(this.currentQuestion, e.currentTarget);
-    this.showAnswer(isRight);
+    if (isRight) {
+      e.currentTarget.classList.add('true');
+    } else {
+      e.currentTarget.classList.add('false');
+    }
+    setTimeout(this.showAnswer.bind(this), 200, isRight);
+    
     clearInterval(this.timer);
   }
 
