@@ -1,3 +1,13 @@
+@keyframes showOverlay {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .answer-overlay {
   position: absolute;
   top: 0;
@@ -8,11 +18,13 @@
   height: 100vh;
 
   background-color: rgba(#000, 0.3);
+
+  animation: showOverlay 0.3s forwards;
 }
 
 .answer {
   position: absolute;
-  top: 50%;
+  top: 150%;
   left: 50%;
   z-index: 10;
 
@@ -26,6 +38,12 @@
   background-color: #fff;
 
   transform: translate(-50%, -50%);
+
+  transition: top 0.3s;
+
+  &.show {
+    top: 50%;
+  }
 
   &__img-wrapper {
     position: relative;

@@ -1,5 +1,7 @@
 import router from '../routingModule/router';
 import checkAnswer from './checkAnswer';
+import showComponent from '../component/showComponent';
+import renderComponent from '../component/renderComponent'
 
 export default class Game {
   constructor(questions, QuestionComponent,
@@ -165,8 +167,9 @@ export default class Game {
       events: {
         'click #next-button': this.nextQuestion.bind(this),
       },
+      afterInitFunction: showComponent.bind(null, '.answer'),
     });
-    answer.render();
+    renderComponent(answer);
   }
 
   takeUserAnswer(e) {
