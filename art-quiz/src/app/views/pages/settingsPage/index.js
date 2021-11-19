@@ -1,4 +1,5 @@
 import Component from '../../../core/component';
+import hideComponent from '../../../core/component/hideComponent';
 import Header from '../../components/Header';
 import setInputsValue from './functions/setInputsValue';
 import setSettings from './functions/setSettings';
@@ -24,6 +25,7 @@ const settingsPage = new Component({
     'click #save-button': setSettings.save,
     'click #default-button': setSettings.default,
   },
+  beforeInitFunction: hideComponent.bind(null, '.main'),
   afterInitFunction: setInputsValue,
 });
 

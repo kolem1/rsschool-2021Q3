@@ -32,12 +32,12 @@ export default class SoundsLibrary {
   }
 
   playSound(sound) {
-    if(this.isActive) {
+    if (this.isActive) {
       const audio = new Audio();
       this.playedSound = audio;
       audio.addEventListener('loadeddata', () => audio.play(), false);
       audio.volume = this.volume;
-  
+
       const soundsItem = this.sounds.find((item) => item.name === sound);
       audio.src = soundsItem.audio;
     }

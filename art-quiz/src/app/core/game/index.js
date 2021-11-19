@@ -1,7 +1,7 @@
 import router from '../routingModule/router';
 import checkAnswer from './checkAnswer';
 import showComponent from '../component/showComponent';
-import renderComponent from '../component/renderComponent'
+import renderComponent from '../component/renderComponent';
 
 export default class Game {
   constructor(questions, QuestionComponent,
@@ -53,7 +53,6 @@ export default class Game {
       const diff = deadline - new Date();
       const seconds = Math.round(diff / 1000);
       timer.innerHTML = `0:${String(seconds).padStart(2, 0)}`;
-      
 
       if (diff <= 0) {
         clearInterval(this.timer);
@@ -180,7 +179,7 @@ export default class Game {
       e.currentTarget.classList.add('false');
     }
     setTimeout(this.showAnswer.bind(this), 200, isRight);
-    
+
     clearInterval(this.timer);
   }
 
@@ -196,12 +195,12 @@ export default class Game {
     gameEndContainer.id = 'games-end';
     document.querySelector('#main').append(gameEndContainer);
 
-    const result = this.currentResult.filter((item) => item).length
+    const result = this.currentResult.filter((item) => item).length;
 
     const gameEnd = new this.GameEndComponent({
       data: {
         topic: this.topic,
-        result
+        result,
       },
     });
     gameEnd.render();

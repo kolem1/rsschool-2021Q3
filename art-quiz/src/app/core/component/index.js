@@ -6,6 +6,7 @@ export default class Component {
     this.template = config.template;
     this.subcomponents = config.subcomponents;
     this.data = config.data;
+    this.beforeInitFunction = config.beforeInitFunction;
     this.afterInitFunction = config.afterInitFunction;
     this.events = config.events;
   }
@@ -17,6 +18,8 @@ export default class Component {
     this.initEvents();
 
     this.renderSubcomponents();
+
+    return this;
   }
 
   renderSubcomponents() {
@@ -25,8 +28,18 @@ export default class Component {
     }
   }
 
-  afterInit() {
-    if (this.afterInitFunction) this.afterInitFunction();
+  async beforeInit() {
+    if (this.beforeInitFunction) {
+      await this.beforeInitFunction();
+    }
+    return this;
+  }
+
+  async afterInit() {
+    if (this.afterInitFunction) {
+      await this.afterInitFunction();
+    }
+    return this;
   }
 
   initEvents() {

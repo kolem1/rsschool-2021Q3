@@ -1,4 +1,5 @@
-export default function renderComponent(c) {
-  if (c) c.render();
+export default async function renderComponent(c) {
+  await c.beforeInit();
+  await c.render();
   c.afterInit();
 }

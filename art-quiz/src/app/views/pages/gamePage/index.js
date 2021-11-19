@@ -1,4 +1,5 @@
 import Component from '../../../core/component';
+import hideComponent from '../../../core/component/hideComponent';
 import router from '../../../core/routingModule/router';
 import appSettings from '../../appSettings';
 import Header from '../../components/Header';
@@ -24,6 +25,7 @@ const gamePage = new Component({
   events: {
     '': '',
   },
+  beforeInitFunction: hideComponent.bind(null, '.main'),
   afterInitFunction: afterGamePageRender,
 });
 

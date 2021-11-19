@@ -9,6 +9,16 @@
   overflow: hidden;
 }
 
+.main {
+  transform: translateX(-150%);
+
+  transition: transform 1s;
+
+  &.show {
+    transform: translateX(0%);
+  }
+}
+
 .page__main {
   flex-grow: 1;
 }

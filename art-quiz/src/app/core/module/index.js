@@ -8,13 +8,13 @@ export default class Module {
     this.routes = config.routes;
   }
 
-  start() {
-    this.renderComponents();
+  async start() {
+    await this.renderComponents();
     if (this.routes) this.initRoutinng();
   }
 
-  renderComponents() {
-    renderComponent(this.initialComponent);
+  async renderComponents() {
+    await renderComponent(this.initialComponent);
     this.components.forEach(renderComponent);
   }
 

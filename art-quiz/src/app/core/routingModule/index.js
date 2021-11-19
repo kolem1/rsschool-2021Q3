@@ -16,8 +16,6 @@ export default class RoutingModule {
     const route = this.routes.find((r) => r.path === hash);
     const { component } = route;
 
-    const main = document.querySelector('#main');
-    main.innerHTML = `<div id="${component.selector.slice(1)}"></div>`;
     renderComponent(component);
   }
 }

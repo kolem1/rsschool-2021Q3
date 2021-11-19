@@ -1,7 +1,8 @@
 import Component from '../../../core/component';
+import hideComponent from '../../../core/component/hideComponent';
 import router from '../../../core/routingModule/router';
 import Header from '../../components/Header';
-import renderQuestions from './functions/renderQuestions';
+import afterInitScorePage from './functions/afterInitScorePage';
 
 import './styles.scss';
 import template from './template.html';
@@ -22,7 +23,8 @@ const scorePage = new Component({
   events: {
     '': '',
   },
-  afterInitFunction: renderQuestions,
+  beforeInitFunction: hideComponent.bind(null, '.main'),
+  afterInitFunction: afterInitScorePage,
 });
 
 export default scorePage;

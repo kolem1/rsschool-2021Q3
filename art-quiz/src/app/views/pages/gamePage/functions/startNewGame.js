@@ -1,5 +1,5 @@
 import Question from '../../../components/Question';
-import Answer from '../../../components/answer';
+import Answer from '../../../components/Answer';
 import GamesEnd from '../../../components/GamesEnd';
 import Game from '../../../../core/game';
 import router from '../../../../core/routingModule/router';

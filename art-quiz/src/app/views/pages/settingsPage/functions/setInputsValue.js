@@ -1,3 +1,4 @@
+import showComponent from '../../../../core/component/showComponent';
 import appSettings from '../../../appSettings';
 
 export default function setInputsValue() {
@@ -12,4 +13,6 @@ export default function setInputsValue() {
   timeGameOnInput.checked = settings.timeGameIsOn;
   volumeBar.value = settings.volume * 100;
   timeBar.value = settings.time;
+
+  showComponent('.main');
 }

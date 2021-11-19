@@ -11,15 +11,15 @@ const sounds = [
   },
   {
     name: 'rightAnswer',
-    audio: '/audio/rightAnswer.mp3'
+    audio: '/audio/rightAnswer.mp3',
   },
   {
     name: 'falseAnswer',
-    audio: '/audio/falseAnswer.mp3'
+    audio: '/audio/falseAnswer.mp3',
   },
   {
     name: 'gameOver',
-    audio: '/audio/gameOver.mp3'
+    audio: '/audio/gameOver.mp3',
   },
 ];
 
