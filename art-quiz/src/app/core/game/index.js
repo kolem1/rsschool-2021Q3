@@ -1,7 +1,9 @@
 import router from '../routingModule/router';
 import checkAnswer from './checkAnswer';
+import hideComponent from '../component/hideComponent';
 import showComponent from '../component/showComponent';
 import renderComponent from '../component/renderComponent';
+
 
 export default class Game {
   constructor(questions, QuestionComponent,
@@ -36,9 +38,11 @@ export default class Game {
 
   init() {
     this.renderQuestion();
-    if (this.timeSettings.timeGameIsOn) {
-      this.startTimer();
-    }
+    setTimeout(() => {
+      if (this.timeSettings.timeGameIsOn) {
+        this.startTimer();
+      }
+    }, 500);
   }
 
   startTimer() {
@@ -67,13 +71,19 @@ export default class Game {
   }
 
   nextQuestion() {
-    document.querySelector('#right-answer').remove();
     this.currentQuestionNumber += 1;
     if (this.currentQuestionNumber < 10) {
-      this.renderQuestion();
-      if (this.timeSettings.timeGameIsOn) {
-        this.startTimer();
-      }
+      document.querySelector('#right-answer').remove();
+      hideComponent('.current-question');
+      setTimeout(() => {
+        this.renderQuestion();
+        showComponent('.current-question');
+        setTimeout(() => {
+          if (this.timeSettings.timeGameIsOn) {
+            this.startTimer();
+          }
+        }, 500);
+      }, 500);
     } else {
       this.finishGame();
     }
@@ -85,6 +95,7 @@ export default class Game {
     } else {
       this.renderPicturesQuestion();
     }
+    showComponent('.current-question');
   }
 
   renderArtistsQuestion() {
@@ -172,6 +183,8 @@ export default class Game {
   }
 
   takeUserAnswer(e) {
+    clearInterval(this.timer);
+
     const isRight = checkAnswer(this.currentQuestion, e.currentTarget);
     if (isRight) {
       e.currentTarget.classList.add('true');
@@ -179,8 +192,6 @@ export default class Game {
       e.currentTarget.classList.add('false');
     }
     setTimeout(this.showAnswer.bind(this), 200, isRight);
-
-    clearInterval(this.timer);
   }
 
   finishGame() {
@@ -204,5 +215,6 @@ export default class Game {
       },
     });
     gameEnd.render();
+    setTimeout(showComponent, 500, '.games-end');
   }
 }

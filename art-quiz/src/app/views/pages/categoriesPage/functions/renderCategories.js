@@ -13,6 +13,8 @@ export default async function renderCategories() {
   const pictures = (await data.formatedArray)[topic];
 
   pictures.forEach((item, i) => {
+    const img = new Image();
+    img.src = `https://raw.githubusercontent.com/kolem1/image-data/master/img/${item[1].imageNum}.jpg`;
     const isPlayed = Boolean(currentCategoryResults[i]);
     let trueCounter;
     if (isPlayed) {
@@ -24,15 +26,17 @@ export default async function renderCategories() {
     if (isPlayed) {
       category.classList.add('category--played');
     }
+    img.onload = function() {
+      const imgWrapper = category.querySelector('.category__img-wrapper');
+      imgWrapper.innerHTML = `<img class="category__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${item[1].imageNum}.jpg" alt="">`;
+    }
     category.innerHTML = `
     <a class="category__link sound-switch-component" href="#${topic}/game/${i}">
       <div class="category__header">
         <h3 class="category__title">Round ${i + 1}</h3>
         ${isPlayed ? `<div class="category__counter">${trueCounter} / 10</div>` : ''}
       </div>
-      <div class="category__img-wrapper">
-        <img class="category__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${item[1].imageNum}.jpg" alt="">
-      </div>
+      <div class="category__img-wrapper"></div>
     </a>
     ${isPlayed ? `<a class="category__score sound-switch-component" href="#${topic}/category/${i}">Score</a>` : ''}
     

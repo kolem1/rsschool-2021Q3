@@ -1,4 +1,21 @@
 .current-question {
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition: opacity 0.5s, visibility 0.5s;
+
+  &.show {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: all;
+  }
+
   &__title {
     position: sticky;
     top: 0;

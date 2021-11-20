@@ -11,7 +11,7 @@
 
 .games-end {
   position: absolute;
-  top: 50%;
+  top: 150%;
   left: 50%;
   z-index: 2;
 
@@ -31,6 +31,12 @@
   background-position: center 20px;
 
   transform: translate(-50%, -50%);
+
+  transition: top 0.5s;
+
+  &.show {
+    top: 50%;
+  }
 
   &__title {
     font-size: 32px;

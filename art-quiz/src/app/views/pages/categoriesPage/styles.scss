@@ -40,11 +40,21 @@
     padding-top: 95%;
 
     border-radius: 20px;
+    background-color: #FFBCA2;
 
     overflow: hidden;
   }
 
   &__img {
+    @keyframes showImage {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
     position: absolute;
     top: 0;
     left: 0;
@@ -55,6 +65,8 @@
     filter: grayscale(1);
 
     transition: filter 0.3s;
+
+    animation: showImage 0.3s ease-out;
   }
 
   &__score {
