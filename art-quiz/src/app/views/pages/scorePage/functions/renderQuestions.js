@@ -23,7 +23,7 @@ export default async function renderQuestions() {
     img.onload = () => {
       const imgWrapper = question.querySelector('.question__img-wrapper');
       imgWrapper.innerHTML = `<img src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${picture.imageNum}.jpg" alt="" class="question__img">`;
-    }
+    };
     question.innerHTML = `
     <div class="question__img-wrapper"></div>
     <div class="question__info">
