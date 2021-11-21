@@ -1,5 +1,6 @@
 import showComponent from '../../../../core/component/showComponent';
 import appSettings from '../../../appSettings';
+import styleRanges from '../../../../core/tools/styleRanges';
 
 export default function setInputsValue() {
   const { settings } = appSettings;
@@ -13,6 +14,8 @@ export default function setInputsValue() {
   timeGameOnInput.checked = settings.timeGameIsOn;
   volumeBar.value = settings.volume * 100;
   timeBar.value = settings.time;
+
+  styleRanges([volumeBar, timeBar]);
 
   showComponent('.main');
 }

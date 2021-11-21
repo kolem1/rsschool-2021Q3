@@ -4,7 +4,6 @@ import hideComponent from '../component/hideComponent';
 import showComponent from '../component/showComponent';
 import renderComponent from '../component/renderComponent';
 
-
 export default class Game {
   constructor(questions, QuestionComponent,
     AnswerComponent, GameEndComponent, allImages, timeSettings, soundsLibrary) {

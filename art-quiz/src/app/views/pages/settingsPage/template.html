@@ -2,40 +2,48 @@
 <div class="settings">
   <div class="container">
     <div class="settings__inner">
-      <div class="settings__card settings-card">
-        <div class="settings-card__icon-wrapper">
-          <svg class="settings-card__icon">
-            <use xlink:href="./images/settings-sprite.svg#volume-up"></use>
-          </svg>
-        </div>
-        <div class="settings-card__inputs">
-          <input class="settings-card__range" type="range" name="volume" id="volume-bar">
-          <label class="settings-card__label">
-            <input type="checkbox" name="volume-on" id="sound-on">
-            ON/OFF
+      <div class="settings__item">
+        <h2 class="settings__title">Звук</h2>
+        <div class="settings__inputs">
+          <label class="settings__label">
+            Выкл
+            <span class="settings__switch switch-checkbox">
+              <input type="checkbox" name="volume-on" id="sound-on">
+              <span></span>
+            </span>
+            Вкл
+          </label>
+          <label class="settings__label">
+            <svg class="settings__icon">
+              <use xlink:href="./images/settings-sprite.svg#volume-mute"></use>
+            </svg>
+            <input class="settings__range" type="range" name="volume" id="volume-bar" value="50">
+            <svg class="settings__icon">
+              <use xlink:href="./images/settings-sprite.svg#volume-up"></use>
+            </svg>
           </label>
         </div>
-        <h2 class="settings-card__title">Volume</h2>
       </div>
-      <div class="settings__card settings-card">
-        <div class="settings-card__icon-wrapper">
-          <svg class="settings-card__icon">
-            <use xlink:href="./images/settings-sprite.svg#timer"></use>
-          </svg>
-        </div>
-        <div class="settings-card__inputs">
-          <input class="settings-card__range" type="range" name="time" min="5" max="30" step="5" id="time-bar">
-          <label class="settings-card__label">
-            <input type="checkbox" name="time-on" id="time-game-on">
-            ON/OFF
+      <div class="settings__item">
+        <h2 class="settings__title">Игра на время</h2>
+        <div class="settings__inputs">
+          <label class="settings__label">
+            Выкл
+            <span class="settings__switch switch-checkbox">
+              <input type="checkbox" name="time-on" id="time-game-on">
+              <span></span>
+            </span>
+            Вкл
+          </label>
+          <label class="settings__label">
+            <input class="settings__range" type="range" name="time" min="5" max="30" step="5" id="time-bar">
           </label>
         </div>
-        <h2 class="settings-card__title">Time game</h2>
       </div>
-    </div>
-    <div class="settings__buttons-wrapper">
-      <a class="settings__button button sound-switch-component" href="#" id="save-button">Save</a>
-      <button class="settings__button button" id="default-button">default</button>
     </div>
   </div>
+</div>
+<div class="page-buttons">
+  <a class="page-buttons__button button sound-switch-component" href="#" id="save-button">Save</a>
+  <button class="page-buttons__button button" id="default-button">default</button>
 </div>

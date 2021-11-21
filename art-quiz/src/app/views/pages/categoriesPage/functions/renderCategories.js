@@ -26,10 +26,10 @@ export default async function renderCategories() {
     if (isPlayed) {
       category.classList.add('category--played');
     }
-    img.onload = function() {
+    img.onload = () => {
       const imgWrapper = category.querySelector('.category__img-wrapper');
       imgWrapper.innerHTML = `<img class="category__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${item[1].imageNum}.jpg" alt="">`;
-    }
+    };
     category.innerHTML = `
     <a class="category__link sound-switch-component" href="#${topic}/game/${i}">
       <div class="category__header">
