@@ -1,6 +1,6 @@
 import categoriesPage from './pages/categoriesPage';
-import scorePage from './pages/scorePage';
-import gamePage from './pages/gamePage';
+import ScorePage from './pages/scorePage';
+import GamePage from './pages/gamePage';
 import homePage from './pages/homePage';
 import settingsPage from './pages/settingsPage';
 
@@ -26,19 +26,19 @@ const routes = [
 for (let i = 0; i < 12; i += 1) {
   routes.push({
     path: `artists/category/${i}`,
-    component: scorePage,
+    component: ScorePage,
   });
   routes.push({
     path: `pictures/category/${i}`,
-    component: scorePage,
+    component: ScorePage,
   });
   routes.push({
     path: `artists/game/${i}`,
-    component: gamePage,
+    component: GamePage,
   });
   routes.push({
     path: `pictures/game/${i}`,
-    component: gamePage,
+    component: GamePage,
   });
 }
 

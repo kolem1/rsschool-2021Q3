@@ -1,7 +1,7 @@
 import compileTemplate from './compileTemplate';
 
 export default class Component {
-  constructor(config) {
+  constructor(config = {}) {
     this.selector = config.selector;
     this.template = config.template;
     this.subcomponents = config.subcomponents;

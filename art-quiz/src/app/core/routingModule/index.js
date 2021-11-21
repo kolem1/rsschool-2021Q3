@@ -14,7 +14,10 @@ export default class RoutingModule {
   renderRoute() {
     const hash = router.getUrl();
     const route = this.routes.find((r) => r.path === hash);
-    const { component } = route;
+    let { component } = route;
+    if (typeof component === 'function') {
+      component = new component();
+    }
 
     renderComponent(component);
   }

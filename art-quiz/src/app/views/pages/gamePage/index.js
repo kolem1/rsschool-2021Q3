@@ -8,25 +8,25 @@ import afterGamePageRender from './functions/afterGamePageRender';
 import './styles.scss';
 import template from './template.html';
 
-const gamePage = new Component({
-  selector: '#main',
-  template,
-  data: {
-    categoriesLink: router.getTopic(),
-  },
-  subcomponents: [
-    new Header({
-      data: {
-        title: `Round ${+router.getRound() + 1}`,
-        timer: appSettings.timeSettings.timeGameIsOn ? '<div class="timer"></div>' : '',
-      },
-    }),
-  ],
-  events: {
-    '': '',
-  },
-  beforeInitFunction: hideComponent.bind(null, '.main'),
-  afterInitFunction: afterGamePageRender,
-});
+class GamePage extends Component {
+  constructor(config) {
+    super(config);
+    this.selector = '#main';
+    this.template = template;
+    this.data = {
+      categoriesLink: router.getTopic(),
+    };
+    this.subcomponents = [
+      new Header({
+        data: {
+          title: `Round ${+router.getRound() + 1}`,
+          timer: appSettings.timeSettings.timeGameIsOn ? '<div class="timer"></div>' : '',
+        },
+      }),
+    ];
+    this.beforeInitFunction = hideComponent.bind(null, '.main');
+    this.afterInitFunction = afterGamePageRender;
+  }
+}
 
-export default gamePage;
+export default GamePage;
