@@ -15,6 +15,12 @@ export default function setInputsValue() {
   volumeBar.value = settings.volume * 100;
   timeBar.value = settings.time;
 
+  const timeDisplay = timeBar.nextElementSibling;
+  timeDisplay.innerHTML = timeBar.value;
+  timeBar.addEventListener('input', () => {
+    timeDisplay.innerHTML = timeBar.value;
+  });
+
   styleRanges([volumeBar, timeBar]);
 
   showComponent('.main');

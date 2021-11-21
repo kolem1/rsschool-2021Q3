@@ -17,7 +17,7 @@
             <svg class="settings__icon">
               <use xlink:href="./images/settings-sprite.svg#volume-mute"></use>
             </svg>
-            <input class="settings__range" type="range" name="volume" id="volume-bar" value="50">
+            <input class="settings__range" type="range" name="volume" id="volume-bar" step="5" min="0" max="100" value="50">
             <svg class="settings__icon">
               <use xlink:href="./images/settings-sprite.svg#volume-up"></use>
             </svg>
@@ -37,6 +37,7 @@
           </label>
           <label class="settings__label">
             <input class="settings__range" type="range" name="time" min="5" max="30" step="5" id="time-bar">
+            <span class="settings__time"></span>
           </label>
         </div>
       </div>

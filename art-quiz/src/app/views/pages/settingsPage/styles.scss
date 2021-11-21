@@ -58,31 +58,12 @@
     }
   }
 
-  &__buttons-wrapper {
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    margin: 0 -5px;
-  }
+  &__time {
+    display: inline-block;
+    width: 32px;
+    flex-shrink: 0;
 
-  &__button {
-    margin: 0 5px;
-    width: 50%;
-
-    text-align: center;
-  }
-}
-
-.settings-card {
-  padding: 10px;
-
-  text-align: center;
-
-  background-color: rgba(#ffffff, 0.5);
-
-  &__icon {
-    width: 100px;
-    height: 100px;
+    font-size: 26px;
   }
 }
 
