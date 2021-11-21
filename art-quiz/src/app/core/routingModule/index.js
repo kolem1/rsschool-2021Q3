@@ -16,7 +16,8 @@ export default class RoutingModule {
     const route = this.routes.find((r) => r.path === hash);
     let { component } = route;
     if (typeof component === 'function') {
-      component = new component();
+      const Constructor = component;
+      component = new Constructor();
     }
 
     renderComponent(component);

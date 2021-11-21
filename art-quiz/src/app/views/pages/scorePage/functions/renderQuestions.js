@@ -12,24 +12,24 @@ export default async function renderQuestions() {
 
   pictures.forEach((picture, i) => {
     const question = document.createElement('article');
-    let pictureInfo = '';
     question.classList.add('question');
     if (results[i]) {
       question.classList.add('question--answered');
-      pictureInfo = `
-      <div class="question__info">
-        <div class="question__author">${picture.author}</div>
-        <div class="question__name">${picture.name}</div>
-      </div>
-      `;
     }
     question.href = `#${topic}/category/${i}`;
     question.innerHTML = `
     <div class="question__img-wrapper">
       <img src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${picture.imageNum}.jpg" alt="" class="question__img">
     </div>
-    ${pictureInfo}
+    <div class="question__info">
+      <div class="question__name">${picture.name}</div>
+      <div class="question__author">${picture.author}, ${picture.year}</div>
+    </div>
     `;
+
+    question.addEventListener('click', () => {
+      question.classList.toggle('active');
+    });
 
     questionsGrid.append(question);
   });
