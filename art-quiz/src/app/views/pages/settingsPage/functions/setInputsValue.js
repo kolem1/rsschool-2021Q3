@@ -22,8 +22,8 @@ export default function setInputsValue() {
     timeDisplay.innerHTML = timeBar.value;
   });
 
-  setActivityForBar.call(soundOnInput);
-  setActivityForBar.call(timeGameOnInput);
+  setActivityForBar(soundOnInput);
+  setActivityForBar(timeGameOnInput);
 
   styleRanges([volumeBar, timeBar]);
 

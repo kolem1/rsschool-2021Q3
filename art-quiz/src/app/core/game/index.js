@@ -114,7 +114,7 @@ export default class Game {
     img.onload = () => {
       const imgWrapper = document.querySelector('.current-question__img-wrapper');
       imgWrapper.innerHTML = `<img class="current-question__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/full/${this.currentQuestion.imageNum}full.jpg">`;
-    }
+    };
     const question = new this.QuestionComponent({
       data: {
         question: `
@@ -159,7 +159,14 @@ export default class Game {
     const allImages = this.allImages.filter((item) => item.author !== this.currentQuestion.author);
     answers.add(this.currentQuestion);
     while (answers.size < 4) {
-      answers.add(allImages[Math.floor(Math.random() * allImages.length)]);
+      const randomImg = allImages[Math.floor(Math.random() * allImages.length)];
+      let authorIsUnic = true;
+      answers.forEach((item) => {
+        if (item.author === randomImg.author) {
+          authorIsUnic = false;
+        }
+      });
+      if (authorIsUnic) answers.add(randomImg);
     }
     return Array.from(answers).sort(() => Math.random() - 0.5);
   }
