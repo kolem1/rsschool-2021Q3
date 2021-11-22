@@ -1,6 +1,7 @@
 import data from '../../../components/data';
 import router from '../../../../core/routingModule/router';
 import setMaxSizeForWrapper from '../../../../core/tools/setMaxSizeForWrapper';
+import downloadImgFromGithub from './downloadImgFromGithub';
 
 export default async function renderQuestions() {
   const questionsGrid = document.getElementById('round-grid');
@@ -29,11 +30,17 @@ export default async function renderQuestions() {
     <div class="question__info">
       <div class="question__name">${picture.name}</div>
       <div class="question__author">${picture.author}, ${picture.year}</div>
+      <button class="question__download button button--dark">Скачать картину</button>
     </div>
     `;
 
     question.addEventListener('click', () => {
       question.classList.toggle('active');
+    });
+
+    const downloadButton = question.querySelector('.question__download');
+    downloadButton.addEventListener('click', () => {
+      downloadImgFromGithub(`https://raw.githubusercontent.com/kolem1/image-data/master/full/${picture.imageNum}full.jpg`, `${picture.name}.jpg`);
     });
 
     questionsGrid.append(question);

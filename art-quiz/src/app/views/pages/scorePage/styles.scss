@@ -94,7 +94,9 @@
     left: 0;
     right: 0;
 
-    height: 50%;
+    display: flex;
+    flex-direction: column;
+    min-height: 50%;
     padding: 10px;
 
     color: #010101;
@@ -112,5 +114,13 @@
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
+  }
+
+  &__author {
+    margin-bottom: 10px;
+  }
+
+  &__download {
+    margin-top: auto;
   }
 }
