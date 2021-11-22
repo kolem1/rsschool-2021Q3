@@ -21,7 +21,7 @@
 
   max-width: 520px;
   width: 100%;
-  padding: 40px;
+  padding: 10px;
   padding-top: 190px;
 
   color: #010101;
@@ -29,7 +29,6 @@
 
   border-radius: 20px;
   background-color: #fff;
-  background-image: url(./images/cup.svg);
   background-repeat: no-repeat;
   background-size: 155px;
   background-position: center 20px;
@@ -37,6 +36,19 @@
   transform: translate(-50%, -50%);
 
   transition: top 0.5s;
+
+  &--fail {
+    background-image: url(./images/fail.svg);
+  }
+
+  &--good {
+    background-image: url(./images/cup.svg);
+  }
+
+  &--great {
+    background-image: url(./images/great.svg);
+    background-size: 320px;
+  }
 
   &.show {
     top: 50%;

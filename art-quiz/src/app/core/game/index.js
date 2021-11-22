@@ -222,10 +222,23 @@ export default class Game {
 
     const result = this.currentResult.filter((item) => item).length;
 
+    let imgClass, title;
+
+    if(result < 5) {
+      imgClass = 'fail';
+      title = 'Игра окончена!';
+    } else if (result < 10) {
+      imgClass = 'good';
+      title = 'Хороший результат!';
+    } else {
+      imgClass = 'great';
+      title = 'Великолепный результат!';
+    }
+
     const gameEnd = new this.GameEndComponent({
       data: {
         topic: this.topic,
-        result,
+        result, imgClass, title,
       },
     });
     gameEnd.render();
