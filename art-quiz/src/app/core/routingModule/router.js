@@ -5,14 +5,14 @@ const router = {
   getTopic() {
     const topic = router.getUrl().match(/\w+/);
     if (topic !== null) {
-      return router.getUrl().match(/\w+/)[0];
+      return topic[0];
     }
     return null;
   },
   getRound() {
     const category = router.getUrl().match(/\/(\d+)/);
     if (category !== null) {
-      return router.getUrl().match(/\/(\d)+/)[1];
+      return category[1];
     }
     return null;
   },
