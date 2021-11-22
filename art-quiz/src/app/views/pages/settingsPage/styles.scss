@@ -62,6 +62,15 @@
 
     &:disabled {
       opacity: 0.5;
+      cursor: auto;
+
+      &::-webkit-slider-thumb {
+        cursor: auto;
+      }
+      
+      &::-moz-range-thumb {
+        cursor: auto;
+      }
     }
   }
 
