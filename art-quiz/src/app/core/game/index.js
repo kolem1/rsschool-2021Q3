@@ -219,7 +219,7 @@ export default class Game {
     gameEndContainer.id = 'games-end';
     document.querySelector('#main').append(gameEndContainer);
 
-    const result = this.currentResult.filter((item) => item).length;
+    const result = this.currentResult.filter((item) => item).length || 0;
 
     let imgClass, title;
 
@@ -237,7 +237,8 @@ export default class Game {
     const gameEnd = new this.GameEndComponent({
       data: {
         topic: this.topic,
-        result, imgClass, title,
+        result: String(result), 
+        imgClass, title,
       },
     });
     gameEnd.render();
