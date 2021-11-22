@@ -12,7 +12,7 @@ const categoriesPage = new Component({
   subcomponents: [
     new Header({
       data: {
-        title: 'Categories',
+        title: 'Раунды',
       },
     }),
   ],

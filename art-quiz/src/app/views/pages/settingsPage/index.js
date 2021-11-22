@@ -14,7 +14,7 @@ const settingsPage = new Component({
   subcomponents: [
     new Header({
       data: {
-        title: 'Settings',
+        title: 'Настройки',
       },
     }),
   ],

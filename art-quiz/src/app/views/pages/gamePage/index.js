@@ -19,7 +19,7 @@ class GamePage extends Component {
     this.subcomponents = [
       new Header({
         data: {
-          title: `Round ${+router.getRound() + 1}`,
+          title: `Раунд ${+router.getRound() + 1}`,
           timer: appSettings.timeSettings.timeGameIsOn ? '<div class="timer"></div>' : '',
         },
       }),

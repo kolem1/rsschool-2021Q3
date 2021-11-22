@@ -33,12 +33,12 @@ export default async function renderCategories() {
     category.innerHTML = `
     <a class="category__link sound-switch-component" href="#${topic}/game/${i}">
       <div class="category__header">
-        <h3 class="category__title">Round ${i + 1}</h3>
+        <h3 class="category__title">Раунд ${i + 1}</h3>
         ${isPlayed ? `<div class="category__counter">${trueCounter} / 10</div>` : ''}
       </div>
       <div class="category__img-wrapper"></div>
     </a>
-    ${isPlayed ? `<a class="category__score sound-switch-component" href="#${topic}/category/${i}">Score</a>` : ''}
+    ${isPlayed ? `<a class="category__score sound-switch-component" href="#${topic}/category/${i}">Результаты</a>` : ''}
     
     `;
 

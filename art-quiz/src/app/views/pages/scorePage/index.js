@@ -18,7 +18,7 @@ class ScorePage extends Component {
     this.subcomponents = [
       new Header({
         data: {
-          title: `Round ${+router.getRound() + 1}`,
+          title: `Результаты раунда ${+router.getRound() + 1}`,
         },
       }),
     ];
