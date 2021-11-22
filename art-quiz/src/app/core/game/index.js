@@ -109,16 +109,21 @@ export default class Game {
   }
 
   renderPicturesQuestion() {
+    const img = new Image();
+    img.src = `https://raw.githubusercontent.com/kolem1/image-data/master/full/${this.currentQuestion.imageNum}full.jpg`;
+    img.onload = () => {
+      const imgWrapper = document.querySelector('.current-question__img-wrapper');
+      imgWrapper.innerHTML = `<img class="current-question__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/full/${this.currentQuestion.imageNum}full.jpg">`;
+    }
     const question = new this.QuestionComponent({
       data: {
         question: `
         <h2 class="current-question__title">Кто автор этой картины?</h2>
-        <div class="current-question__img-wrapper">
-          <img class="current-question__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${this.currentQuestion.imageNum}.jpg">
-        </div>
+        <div class="current-question__img-wrapper"></div>
         `,
       },
     });
+
     question.render();
     this.renderOptions('pictures');
   }
@@ -132,8 +137,12 @@ export default class Game {
       const answerElement = document.createElement('button');
       answerElement.classList.add('current-question__option');
       if (topic === 'artists') {
+        const img = new Image();
+        img.src = `https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg`;
         answerElement.classList.add('picture-option');
-        answerElement.innerHTML = `<img class="picture-option__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg">`;
+        img.onload = () => {
+          answerElement.innerHTML = `<img class="picture-option__img" src="https://raw.githubusercontent.com/kolem1/image-data/master/img/${answer.imageNum}.jpg">`;
+        };
       } else {
         answerElement.classList.add('button', 'current-question__option--author');
         answerElement.innerHTML = answer.author;
