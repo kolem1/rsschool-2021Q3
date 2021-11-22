@@ -1,6 +1,7 @@
 import showComponent from '../../../../core/component/showComponent';
 import appSettings from '../../../appSettings';
 import styleRanges from '../../../../core/tools/styleRanges';
+import setActivityForBar from './setActivityForBar';
 
 export default function setInputsValue() {
   const { settings } = appSettings;
@@ -20,6 +21,9 @@ export default function setInputsValue() {
   timeBar.addEventListener('input', () => {
     timeDisplay.innerHTML = timeBar.value;
   });
+
+  setActivityForBar.call(soundOnInput);
+  setActivityForBar.call(timeGameOnInput);
 
   styleRanges([volumeBar, timeBar]);
 
