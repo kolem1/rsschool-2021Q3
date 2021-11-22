@@ -1,5 +1,5 @@
-export default function checkAnswer(rightAnswer, button) {
-  if (!button) return false;
-  if (button.dataset.imageNum === rightAnswer.imageNum) return true;
+export default function checkAnswer(rightImage, userAnswer) {
+  if (!userAnswer) return false;
+  if (userAnswer === rightImage.imageNum) return true;
   return false;
 }

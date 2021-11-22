@@ -147,8 +147,7 @@ export default class Game {
         answerElement.classList.add('button', 'current-question__option--author');
         answerElement.innerHTML = answer.author;
       }
-      answerElement.dataset.imageNum = answer.imageNum;
-      answerElement.addEventListener('click', this.takeUserAnswer.bind(this));
+      answerElement.addEventListener('click', this.takeUserAnswer.bind(this, answerElement, answer.imageNum));
 
       answersContainer.append(answerElement);
     });
@@ -198,14 +197,14 @@ export default class Game {
     renderComponent(answer);
   }
 
-  takeUserAnswer(e) {
+  takeUserAnswer(button, imgNum) {
     clearInterval(this.timer);
 
-    const isRight = checkAnswer(this.currentQuestion, e.currentTarget);
+    const isRight = checkAnswer(this.currentQuestion, imgNum);
     if (isRight) {
-      e.currentTarget.classList.add('true');
+      button.classList.add('true');
     } else {
-      e.currentTarget.classList.add('false');
+      button.classList.add('false');
     }
     setTimeout(this.showAnswer.bind(this), 200, isRight);
   }
