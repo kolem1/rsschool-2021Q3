@@ -32,6 +32,8 @@
   }
 
   &__button {
+    position: relative;
+
     display: block;
     margin: 0 auto 10px;
     margin-bottom: 10px;
@@ -43,29 +45,31 @@
     position: absolute;
     top: 20px;
     right: 20px;
-
-    display: flex;
-    align-items: center;
+    
     padding: 5px;
     padding-right: 20px;
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      margin-right: 5px;
 
-      background: url('./images/settings.svg') center / cover no-repeat;
-
-      transform: rotate(0deg);
-
-      transition: all 0.5s ease-in-out;
+    span {
+      display: flex;
+      align-items: center;
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+  
+        background: url('./images/settings.svg') center / cover no-repeat;
+  
+        transform: rotate(0deg);
+  
+        transition: all 0.5s ease-in-out;
+      }
     }
 
     &:hover {
-      &::before {
+      span::before {
         filter: invert(1);
-
         transform: rotate(360deg);
       }
     }

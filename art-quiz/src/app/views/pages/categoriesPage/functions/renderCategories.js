@@ -38,7 +38,7 @@ export default async function renderCategories() {
       </div>
       <div class="category__img-wrapper"></div>
     </a>
-    ${isPlayed ? `<a class="category__score sound-switch-component" href="#${topic}/category/${i}">Результаты</a>` : ''}
+    ${isPlayed ? `<a class="category__score sound-switch-component button-help" href="#${topic}/category/${i}" data-helps="Посмотреть результаты раунда">Результаты</a>` : ''}
     
     `;
 
