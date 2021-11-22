@@ -70,11 +70,12 @@ export default class Game {
   }
 
   nextQuestion() {
+    hideComponent('.answer');
     this.currentQuestionNumber += 1;
     if (this.currentQuestionNumber < 10) {
-      document.querySelector('#right-answer').remove();
       hideComponent('.current-question');
       setTimeout(() => {
+        document.querySelector('#right-answer').remove();
         this.renderQuestion();
         showComponent('.current-question');
         setTimeout(() => {
@@ -199,8 +200,6 @@ export default class Game {
     this.results[this.topic][this.round] = this.currentResult;
     localStorage.setItem('kolem1-results', JSON.stringify(this.results));
 
-    document.querySelector('#right-answer').remove();
-
     const gameEndContainer = document.createElement('div');
     gameEndContainer.id = 'games-end';
     document.querySelector('#main').append(gameEndContainer);
@@ -214,6 +213,9 @@ export default class Game {
       },
     });
     gameEnd.render();
-    setTimeout(showComponent, 500, '.games-end');
+    setTimeout(() => {
+      document.querySelector('#right-answer').remove();
+      showComponent('.games-end');
+    }, 500);
   }
 }

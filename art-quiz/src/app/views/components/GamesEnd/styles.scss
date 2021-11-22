@@ -6,7 +6,11 @@
   bottom: 0;
   z-index: 1;
 
+  opacity: 0;
+
   background-color: rgba(#000, 0.3);
+
+  transition: opacity 0.5s;
 }
 
 .games-end {
@@ -36,6 +40,10 @@
 
   &.show {
     top: 50%;
+
+    & + .games-end-overlay {
+      opacity: 1;
+    }
   }
 
   &__title {

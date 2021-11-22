@@ -30,6 +30,8 @@
 
   overflow: hidden;
 
+  cursor: pointer;
+
   &.active {
     #{$this} {
       &__info {
