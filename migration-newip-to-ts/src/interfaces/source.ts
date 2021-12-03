@@ -1,4 +1,4 @@
-export default interface Source {
+export default interface ISource {
   id: string;
   name: string;
 }
