@@ -1,20 +1,25 @@
+import ISource from '../../../interfaces/source';
 import './sources.css';
 
 class Sources {
-  draw(data) {
+  draw(data: ISource[]) {
     const fragment = document.createDocumentFragment();
-    const sourceItemTemp = document.querySelector('#sourceItemTemp');
+    const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
-    data.forEach((item) => {
-      const sourceClone = sourceItemTemp.content.cloneNode(true);
+    data.forEach((item: ISource) => {
+      const sourceClone = sourceItemTemp.content.cloneNode(true) as Element;
 
-      sourceClone.querySelector('.source__item-name').textContent = item.name;
-      sourceClone.querySelector('.source__item').setAttribute('data-source-id', item.id);
+      const name = sourceClone.querySelector('.source__item-name') as Element;
+      name.textContent = item.name;
+
+      const itemContainer = sourceClone.querySelector('.source__item') as Element;
+      itemContainer.setAttribute('data-source-id', item.id);
 
       fragment.append(sourceClone);
     });
 
-    document.querySelector('.sources').append(fragment);
+    const sourcesCOntainer = document.querySelector('.sources') as Element;
+    sourcesCOntainer.append(fragment);
   }
 }
 
