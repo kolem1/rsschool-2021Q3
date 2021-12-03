@@ -1,4 +1,4 @@
-import APIResponse from './../../interfaces/apiResponse';
+import APIResponse from './../../types/apiResponse';
 
 class Loader {
   constructor(baseLink, options) {

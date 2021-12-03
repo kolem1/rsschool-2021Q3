@@ -5,7 +5,6 @@ import IArticles from './../../interfaces/articles';
 
 class App {
   private controller: AppController = new AppController();
-
   private view: AppView = new AppView();
 
   start() {
