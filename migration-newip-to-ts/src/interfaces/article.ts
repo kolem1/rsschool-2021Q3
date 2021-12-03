@@ -1,4 +1,4 @@
-import ISource from "./source";
+import ISource from './source';
 
 export default interface IArticle {
   author: string;
@@ -6,5 +6,6 @@ export default interface IArticle {
   publishedAt: string;
   description: string;
   url: string;
+  urlToImage: string;
   source: ISource;
 }

@@ -1,4 +1,4 @@
-import IArticle from "./article";
+import IArticle from './article';
 
 export default interface IArticles {
   status: string;
