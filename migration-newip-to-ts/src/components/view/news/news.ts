@@ -21,7 +21,7 @@ class News {
       const newTitle = newsClone.querySelector('.news__description-title') as HTMLElement;
       const newSource = newsClone.querySelector('.news__description-source') as HTMLElement;
       const newContent = newsClone.querySelector('.news__description-content') as HTMLElement;
-      const newReadMore = newsClone.querySelector('news__read-more a') as HTMLElement;
+      const newReadMore = newsClone.querySelector('.news__read-more a') as HTMLElement;
 
       newPhoto.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
       newAuthor.textContent = item.author || item.source.name;
