@@ -1,4 +1,4 @@
-export default interface Sources {
+export default interface ISources {
   status: string;
-  sources?: {}[]
+  sources?: {}[];
 }

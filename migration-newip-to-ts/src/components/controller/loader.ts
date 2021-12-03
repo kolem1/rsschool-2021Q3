@@ -1,4 +1,4 @@
-import Sources from '../../interfaces/sources';
+import APIResponse from './../../interfaces/apiResponse';
 
 class Loader {
   constructor(baseLink, options) {
@@ -40,8 +40,9 @@ class Loader {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res: Response) => res.json() as Promise<Sources>)
-      .then((data: Sources) => {
-        callback(data)
+      .then((data: APIResponse) => {
+        console.log(data);
+        callback(data);
       })
       .catch((err: Error) => console.error(err));
   }
