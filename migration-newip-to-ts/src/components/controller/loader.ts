@@ -1,16 +1,16 @@
 import APIResponse from './../../types/apiResponse';
-import IAPIOptions from '../../interfaces/apiOptions';
+import Callback from '../../types/callback';
 import Method from '../../types/method';
+import IAPIOptions from '../../interfaces/apiOptions';
 import IRequest from '../../interfaces/request';
 import IRequestOptions from './../../interfaces/requestOptions';
 
 class Loader {
-  
   constructor(private baseLink: string, private options: IAPIOptions) {}
 
   getResp(
     { endpoint, options = {} }: IRequest,
-    callback = () => {
+    callback: Callback = () => {
       console.error('No callback for GET response');
     }
   ) {
@@ -28,7 +28,7 @@ class Loader {
   }
 
   makeUrl(options: IRequestOptions, endpoint: string) {
-    const urlOptions: {[prop: string]: string} = { ...this.options, ...options };
+    const urlOptions: { [prop: string]: string } = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
 
     Object.keys(urlOptions).forEach((key) => {
@@ -38,9 +38,9 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(method: Method, endpoint: string, callback, options: IRequestOptions = {}) {
+  load(method: Method, endpoint: string, callback: Callback, options: IRequestOptions = {}) {
     fetch(this.makeUrl(options, endpoint), { method })
-      .then(this.errorHandler)
+      .then(this.errorHandler.bind(this))
       .then((res: Response) => res.json() as Promise<APIResponse>)
       .then((data: APIResponse) => {
         console.log(data);

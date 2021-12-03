@@ -4,7 +4,8 @@ import IArticles from '../../interfaces/articles';
 import ISources from './../../interfaces/sources';
 
 export class AppView {
-  private news: News = new News()
+  private news: News = new News();
+
   private sources: Sources = new Sources();
 
   drawNews(data: IArticles) {
