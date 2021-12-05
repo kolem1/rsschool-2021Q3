@@ -13,7 +13,7 @@ class Loader {
       console.error('No callback for GET response');
     }
   ) {
-    this.load<T>('GET', endpoint, callback, options);
+    this.load('GET', endpoint, callback, options);
   }
 
   errorHandler(res: Response): Response {
