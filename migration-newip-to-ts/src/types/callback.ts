@@ -1,5 +1,3 @@
-import APIResponse from './apiResponse';
-
-type Callback = (data: APIResponse) => void;
+type Callback<T = void> = (data: T) => void;
 
 export default Callback;

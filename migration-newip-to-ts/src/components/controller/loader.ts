@@ -1,4 +1,3 @@
-import APIResponse from './../../types/apiResponse';
 import Callback from '../../types/callback';
 import Method from '../../types/method';
 import IAPIOptions from '../../interfaces/apiOptions';
@@ -8,13 +7,13 @@ import IRequestOptions from './../../interfaces/requestOptions';
 class Loader {
   constructor(private baseLink: string, private options: IAPIOptions) {}
 
-  getResp(
+  getResp<T>(
     { endpoint, options = {} }: IRequest,
-    callback: Callback = () => {
+    callback: Callback<T> = () => {
       console.error('No callback for GET response');
     }
   ) {
-    this.load('GET', endpoint, callback, options);
+    this.load<T>('GET', endpoint, callback, options);
   }
 
   errorHandler(res: Response): Response {
@@ -38,14 +37,11 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(method: Method, endpoint: string, callback: Callback, options: IRequestOptions = {}) {
+  load<T>(method: Method, endpoint: string, callback: Callback<T>, options: IRequestOptions = {}) {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler.bind(this))
-      .then((res: Response) => res.json() as Promise<APIResponse>)
-      .then((data: APIResponse) => {
-        console.log(data);
-        callback(data);
-      })
+      .then((res: Response) => res.json() as Promise<T>)
+      .then((data: T) => callback(data))
       .catch((err: Error) => console.error(err));
   }
 }
