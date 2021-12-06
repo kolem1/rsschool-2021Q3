@@ -1,5 +1,6 @@
 import IArticle from '../../../interfaces/article';
 import './news.css';
+import showNews from './showNews';
 
 class News {
   draw(data: IArticle[]) {
@@ -7,6 +8,8 @@ class News {
 
     const fragment = document.createDocumentFragment();
     const newsItemTemp = document.querySelector('#newsItemTemp') as HTMLTemplateElement;
+    const newsWrapper = document.querySelector('.news-wrapper') as Element;
+    const body = document.body;
 
     news.forEach((item, idx) => {
       const newsClone = newsItemTemp.content.cloneNode(true) as Element;
@@ -39,6 +42,10 @@ class News {
 
     newsContainer.innerHTML = '';
     newsContainer.appendChild(fragment);
+
+    newsWrapper.classList.add('show');
+    newsWrapper.addEventListener('click', showNews);
+    body.classList.add('lock');
   }
 }
 
