@@ -1,0 +1,8 @@
+.toys-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 36px;
+  padding: 0;
+
+  transition: all 0.3s;
+}
