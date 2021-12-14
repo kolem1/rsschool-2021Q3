@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Footer } from './components/Footer/Footer';
 import { Filter } from './components/Filter/FIlter';
 import { ToysList } from './components/ToysList/ToysList';
 import './App.css';
-import getToysData from './data/getToysData';
-import { IToy } from './types/index';
+import useToysData from './hooks/useToysData';
 
 const App: React.FC = function () {
-  const [toysData, setToysData] = useState<IToy[]>([]);
-
-  useEffect(() => {
-    getToysData(setToysData);
-  }, []);
+  const [toysData, filterConfig, setFilterConfig] = useToysData([]);
 
   return (
     <div className="wrapper">
@@ -19,7 +14,7 @@ const App: React.FC = function () {
         <div className="toys-page">
           <div className="container">
             <div className="toys-page__filter">
-              <Filter />
+              <Filter filterConfig={filterConfig} setFilterConfig={setFilterConfig} />
             </div>
             <div className="toys-page__list">
               <ToysList toys={toysData} />

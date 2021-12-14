@@ -8,3 +8,9 @@ export interface IToy {
   size: string;
   favorite: boolean;
 }
+
+export interface IFilterConfig {
+  sortMode: string;
+  valueFilter: any;
+  rangeFilter: any;
+}

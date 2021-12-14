@@ -12,7 +12,7 @@ export const ToysList: React.FC<IToysListProps> = function (props) {
   return (
     <ul className="toys-list">
       {toys.map((toy) => {
-        return <ToyCard toy={toy} />;
+        return <ToyCard key={toy.num} toy={toy} />;
       })}
     </ul>
   );
