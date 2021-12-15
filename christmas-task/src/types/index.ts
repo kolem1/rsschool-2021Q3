@@ -1,9 +1,9 @@
 export interface IToy {
-  [key: string]: string | boolean;
+  [key: string]: string | boolean | number;
   num: string;
   name: string;
-  count: string;
-  year: string;
+  count: number;
+  year: number;
   shape: string;
   color: string;
   size: string;
@@ -20,12 +20,12 @@ export interface IValueFilter {
 
 export interface IRangeFilter {
   count: {
-    from: number;
-    to: number;
+    min: number;
+    max: number;
   };
   year: {
-    from: number;
-    to: number;
+    min: number;
+    max: number;
   };
 }
 

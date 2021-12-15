@@ -15,12 +15,12 @@ const defaultFilterConfig: IFilterConfig = {
   },
   rangeFilter: {
     count: {
-      from: 1,
-      to: 12,
+      min: 1,
+      max: 12,
     },
     year: {
-      from: 1940,
-      to: 2020,
+      min: 1940,
+      max: 2020,
     },
   },
 };

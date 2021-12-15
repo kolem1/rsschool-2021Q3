@@ -1,7 +1,7 @@
 import { IFilterConfig, IRangeFilter, IToy, IValueFilter } from '../types/index';
 import { SortMode } from '../enums';
 
-function sort<T extends { name: string; year: string }>(sortMode: string, data: T[]) {
+function sort<T extends { name: string; year: number }>(sortMode: string, data: T[]) {
   const sorted = [...data].sort((a, b) => {
     switch (sortMode) {
       case SortMode[1]:
@@ -9,9 +9,9 @@ function sort<T extends { name: string; year: string }>(sortMode: string, data: 
       case SortMode[2]:
         return b.name.localeCompare(a.name);
       case SortMode[3]:
-        return Number(a.year) - Number(b.year);
+        return a.year - b.year;
       case SortMode[4]:
-        return Number(b.year) - Number(a.year);
+        return b.year - a.year;
       default:
         return a.name.localeCompare(b.name);
     }
