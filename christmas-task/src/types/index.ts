@@ -11,11 +11,11 @@ export interface IToy {
 }
 
 export interface IValueFilter {
-  [key: string]: string[] | boolean[];
+  [key: string]: string[] | boolean;
   shape: string[];
   color: string[];
   size: string[];
-  favorite: boolean[];
+  favorite: boolean;
 }
 
 export interface IRangeFilter {

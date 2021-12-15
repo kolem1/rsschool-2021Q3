@@ -11,7 +11,7 @@ const defaultFilterConfig: IFilterConfig = {
     color: [],
     shape: [],
     size: [],
-    favorite: [],
+    favorite: false,
   },
   rangeFilter: {
     count: {

@@ -1,0 +1,41 @@
+.color-check {
+  width: 30px;
+
+  border-radius: 5px;
+  border: 1px solid #278d9f;
+}
+
+.color-check__checked {
+  position: relative;
+
+  display: block;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.color-check__checked:hover::after {
+  opacity: 0.5;
+}
+
+.color-check__checked::after {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: block;
+  width: 12px;
+  height: 17px;
+
+  border: solid #000;
+  border-width: 0 4px 4px 0;
+  transform: translate(-50%, -70%) rotate(45deg);
+  opacity: 0;
+
+  transition: all 0.3s;
+}
+
+.color-check__checkbox:checked + .color-check__checked::after {
+  opacity: 1;
+}

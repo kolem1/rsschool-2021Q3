@@ -26,12 +26,18 @@ function filterValues(valueFilter: IValueFilter, toy: IToy) {
 
     const key = props[0];
     const values = props[1];
-    if (!values.length) return true;
-    values.forEach((value) => {
-      if (toy[key] === value) {
-        isSuitable = true;
-      }
-    });
+    if (Array.isArray(values)) {
+      if (!values.length) return true;
+      values.forEach((value) => {
+        if (toy[key] === value) {
+          isSuitable = true;
+        }
+      });
+    } else if (!values) {
+      isSuitable = true;
+    } else if (values === toy[key]) {
+      isSuitable = true;
+    }
 
     return isSuitable;
   });

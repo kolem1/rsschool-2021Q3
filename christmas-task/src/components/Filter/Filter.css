@@ -1,0 +1,44 @@
+.filter {
+  display: flex;
+  margin: 0 -10px;
+}
+
+.filter__column {
+  width: calc(100% / 3);
+  margin: 0 10px;
+}
+
+.filter-item {
+  display: flex;
+}
+
+.filter-item__checks {
+  display: flex;
+  align-items: center;
+}
+
+.filter-item__check {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.filter-item__img {
+  height: 40px;
+  transition: filter 0.3s;
+}
+
+.filter-item__img.small {
+  height: 30px;
+}
+
+.filter-item__img.big {
+  height: 50px;
+}
+
+.filter-item__img:hover {
+  filter: invert(20%);
+}
+
+.filter-item__checkbox:checked + .filter-item__img {
+  filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%);
+}
