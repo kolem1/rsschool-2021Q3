@@ -7,8 +7,22 @@ import filterToys from '../data/filterToys';
 
 const defaultFilterConfig: IFilterConfig = {
   sortMode: SortMode[0],
-  valueFilter: undefined,
-  rangeFilter: undefined,
+  valueFilter: {
+    color: [],
+    shape: [],
+    size: [],
+    favorite: [],
+  },
+  rangeFilter: {
+    count: {
+      from: 1,
+      to: 12,
+    },
+    year: {
+      from: 1940,
+      to: 2020,
+    },
+  },
 };
 
 export default function useToysData(
@@ -19,12 +33,13 @@ export default function useToysData(
   setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>
 ] {
   const [toysData, setToysData] = useState<IToy[]>(initialValue);
-  const [filterConfig, setFilterConfig] = useLocalStorage<IFilterConfig>('kolem1-toysFilter', defaultFilterConfig);
-  const [filteredToys, setFilteredToys] = useState<IToy[]>([]);
 
   useEffect(() => {
     getToysData(setToysData);
   }, []);
+
+  const [filterConfig, setFilterConfig] = useLocalStorage<IFilterConfig>('kolem1-toysFilter', defaultFilterConfig);
+  const [filteredToys, setFilteredToys] = useState<IToy[]>([]);
 
   useEffect(() => {
     const filtered = filterToys(filterConfig, toysData);
