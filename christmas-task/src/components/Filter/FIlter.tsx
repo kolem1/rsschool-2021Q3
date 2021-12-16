@@ -10,11 +10,19 @@ import './Filter.css';
 
 interface IFilterProps {
   filterConfig: IFilterConfig;
-  setFilterConfig: (filterConfig: IFilterConfig) => void;
+  setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>;
   resetFilter: () => void;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilterConfig, resetFilter }) {
+export const Filter: React.FC<IFilterProps> = function ({
+  filterConfig,
+  setFilterConfig,
+  resetFilter,
+  searchQuery,
+  setSearchQuery,
+}) {
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
     const filterParam = filterConfig.valueFilter[param];
     let newFilterParam: typeof filterParam;
@@ -152,14 +160,25 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
         </div>
       </div>
       <div className="filter__column">
-        <h2 className="filter-title">Сортировка</h2>
-        <Select
-          value={filterConfig.sortMode}
-          onChange={(value: string) => {
-            setFilterConfig({ ...filterConfig, sortMode: value });
-          }}
-          options={filterParams.sortOptions}
-        />
+        <div className="filter__item">
+          <h2 className="filter-title">Сортировка</h2>
+          <Select
+            value={filterConfig.sortMode}
+            onChange={(value: string) => {
+              setFilterConfig({ ...filterConfig, sortMode: value });
+            }}
+            options={filterParams.sortOptions}
+          />
+        </div>
+        <div className="filter__item">
+          <h2 className="filter-title">Поиск</h2>
+          <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            type="text"
+            placeholder="Введите поисковый запрос"
+          />
+        </div>
         <button type="button" onClick={resetFilter}>
           Сбросить фильтр
         </button>

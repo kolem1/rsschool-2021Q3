@@ -31,7 +31,9 @@ export default function useToysData(
   filteredToys: IToy[],
   filterConfig: IFilterConfig,
   setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>,
-  resetFilter: () => void
+  resetFilter: () => void,
+  searchQuery: string,
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 ] {
   const [toysData, setToysData] = useState<IToy[]>(initialValue);
 
@@ -41,13 +43,14 @@ export default function useToysData(
 
   const [filterConfig, setFilterConfig] = useLocalStorage<IFilterConfig>('kolem1-toysFilter', defaultFilterConfig);
   const [filteredToys, setFilteredToys] = useState<IToy[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const filtered = filterToys(filterConfig, toysData);
+    const filtered = filterToys(filterConfig, toysData, searchQuery);
     setFilteredToys(filtered);
-  }, [toysData, filterConfig]);
+  }, [toysData, filterConfig, searchQuery]);
 
   const resetFilter = () => setFilterConfig(defaultFilterConfig);
 
-  return [filteredToys, filterConfig, setFilterConfig, resetFilter];
+  return [filteredToys, filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery];
 }

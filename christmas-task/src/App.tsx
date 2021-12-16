@@ -8,7 +8,7 @@ import useToysData from './hooks/useToysData';
 import { Header } from './components/Header/Header';
 
 const App: React.FC = function () {
-  const [toysData, filterConfig, setFilterConfig, resetFilter] = useToysData([]);
+  const [toysData, filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery] = useToysData([]);
 
   return (
     <BrowserRouter>
@@ -25,6 +25,8 @@ const App: React.FC = function () {
                   filterConfig={filterConfig}
                   setFilterConfig={setFilterConfig}
                   resetFilter={resetFilter}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
                 />
               }
             />

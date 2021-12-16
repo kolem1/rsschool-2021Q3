@@ -61,7 +61,11 @@ function filterRanges(rangeFilter: IRangeFilter, toy: IToy) {
   return isSuitable;
 }
 
-export default function filterToys(filterConfig: IFilterConfig, initialData: IToy[]): IToy[] {
+function search(searchQuery: string, toys: IToy[]) {
+  return toys.filter((toy) => toy.name.toLowerCase().includes(searchQuery.toLowerCase()));
+}
+
+export default function filterToys(filterConfig: IFilterConfig, initialData: IToy[], searchQuery: string): IToy[] {
   let filtered = [...initialData].filter((item) => {
     const { valueFilter, rangeFilter } = filterConfig;
 
@@ -73,5 +77,7 @@ export default function filterToys(filterConfig: IFilterConfig, initialData: ITo
   });
   filtered = sort(filterConfig.sortMode, filtered);
 
-  return filtered;
+  const searchedAndFiltered = search(searchQuery, filtered);
+
+  return searchedAndFiltered;
 }
