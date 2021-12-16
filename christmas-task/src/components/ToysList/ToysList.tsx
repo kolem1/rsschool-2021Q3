@@ -1,18 +1,14 @@
-import React from 'react';
-import { IToy } from '../../types/index';
+import React, { useContext } from 'react';
 import { ToyCard } from '../ToyCard/ToyCard';
 import './ToysList.css';
+import { MainContext } from '../../App';
 
-interface IToysListProps {
-  toys: IToy[];
-}
-
-export const ToysList: React.FC<IToysListProps> = function (props) {
-  const { toys } = props;
+export const ToysList: React.FC = function () {
+  const { toysData } = useContext(MainContext);
   return (
     <ul className="toys-list">
-      {toys.length
-        ? toys.map((toy) => {
+      {toysData?.length
+        ? toysData.map((toy) => {
             return <ToyCard key={toy.num} toy={toy} />;
           })
         : 'Таких игрушек не найдено'}

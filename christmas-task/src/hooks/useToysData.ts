@@ -5,7 +5,7 @@ import { IFilterConfig, IToy } from '../types/index';
 import { SortMode } from '../enums';
 import filterToys from '../data/filterToys';
 
-const defaultFilterConfig: IFilterConfig = {
+export const defaultFilterConfig: IFilterConfig = {
   sortMode: SortMode[0],
   valueFilter: {
     color: [],
@@ -50,7 +50,10 @@ export default function useToysData(
     setFilteredToys(filtered);
   }, [toysData, filterConfig, searchQuery]);
 
-  const resetFilter = () => setFilterConfig(defaultFilterConfig);
+  const resetFilter = () => {
+    setSearchQuery('');
+    setFilterConfig(defaultFilterConfig);
+  };
 
   return [filteredToys, filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery];
 }

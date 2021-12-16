@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { IFilterConfig } from '../../types';
@@ -7,54 +7,51 @@ import { ImgCheckbox } from '../UI/ImgCheckbox/ImgCheckbox';
 import { ColorCheckbox } from '../UI/ColorCheckbox/ColorCheckbox';
 import * as filterParams from './filterRarams';
 import './Filter.css';
+import { MainContext } from '../../App';
 
-interface IFilterProps {
-  filterConfig: IFilterConfig;
-  setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>;
-  resetFilter: () => void;
-  searchQuery: string;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export const Filter: React.FC<IFilterProps> = function ({
-  filterConfig,
-  setFilterConfig,
-  resetFilter,
-  searchQuery,
-  setSearchQuery,
-}) {
+export const Filter: React.FC = function () {
+  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery } = useContext(MainContext);
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
-    const filterParam = filterConfig.valueFilter[param];
-    let newFilterParam: typeof filterParam;
-    if (Array.isArray(filterParam)) {
-      newFilterParam = [...filterParam];
-      if (isTrue) {
-        newFilterParam.push(value as string);
+    if (filterConfig && setFilterConfig) {
+      const filterParam = filterConfig.valueFilter[param];
+      let newFilterParam: typeof filterParam;
+      if (Array.isArray(filterParam)) {
+        newFilterParam = [...filterParam];
+        if (isTrue) {
+          newFilterParam.push(value as string);
+        } else {
+          newFilterParam = filterParam.filter((item) => item !== value);
+        }
       } else {
-        newFilterParam = filterParam.filter((item) => item !== value);
+        newFilterParam = isTrue;
       }
-    } else {
-      newFilterParam = isTrue;
+
+      const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
+      newFilterConfig.valueFilter[param] = newFilterParam;
+
+      setFilterConfig(newFilterConfig);
     }
-
-    const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
-    newFilterConfig.valueFilter[param] = newFilterParam;
-
-    setFilterConfig(newFilterConfig);
   }
 
   function handleRangeChange(param: string, value: number[]) {
-    const [min, max] = value;
+    if (filterConfig && setFilterConfig) {
+      const [min, max] = value;
 
-    const filterParam = { ...filterConfig.rangeFilter[param] };
-    filterParam.min = min;
-    filterParam.max = max;
+      const filterParam = { ...filterConfig.rangeFilter[param] };
+      filterParam.min = min;
+      filterParam.max = max;
 
-    const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
-    newFilterConfig.rangeFilter[param] = filterParam;
+      const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
+      newFilterConfig.rangeFilter[param] = filterParam;
 
-    setFilterConfig(newFilterConfig);
+      setFilterConfig(newFilterConfig);
+    }
   }
+
+  const countMin = 1;
+  const countMax = 12;
+  const yearMin = 1940;
+  const yearMax = 2020;
 
   return (
     <div className="filter">
@@ -68,7 +65,7 @@ export const Filter: React.FC<IFilterProps> = function ({
                 <ImgCheckbox
                   key={check.id}
                   value={check.value}
-                  checked={filterConfig.valueFilter.shape.includes(check.value)}
+                  checked={filterConfig?.valueFilter.shape.includes(check.value) || false}
                   className="filter-item"
                   img={check.img}
                   onChange={(value, isTrue) => {
@@ -89,7 +86,7 @@ export const Filter: React.FC<IFilterProps> = function ({
                   value={check.value}
                   color={check.color}
                   className="filter-item"
-                  checked={filterConfig.valueFilter.color.includes(check.value)}
+                  checked={filterConfig?.valueFilter.color.includes(check.value) || false}
                   onChange={(value, isTrue) => {
                     handleCheckboxChange('color', value, isTrue);
                   }}
@@ -106,7 +103,7 @@ export const Filter: React.FC<IFilterProps> = function ({
                 <ImgCheckbox
                   key={check.id}
                   value={check.value}
-                  checked={filterConfig.valueFilter.size.includes(check.value)}
+                  checked={filterConfig?.valueFilter.size.includes(check.value) || false}
                   className="filter-item"
                   img={check.img}
                   imgMod={check.mod}
@@ -124,9 +121,9 @@ export const Filter: React.FC<IFilterProps> = function ({
             <label className="filter-item__check">
               <input
                 type="checkbox"
-                checked={filterConfig.valueFilter.favorite}
+                checked={filterConfig?.valueFilter.favorite || false}
                 onChange={(event) => {
-                  handleCheckboxChange('favorite', filterConfig.valueFilter.favorite, event.target.checked);
+                  handleCheckboxChange('favorite', filterConfig?.valueFilter.favorite || false, event.target.checked);
                 }}
               />
             </label>
@@ -140,7 +137,7 @@ export const Filter: React.FC<IFilterProps> = function ({
           <Range
             min={1}
             max={12}
-            value={[filterConfig.rangeFilter.count.min, filterConfig.rangeFilter.count.max]}
+            value={[filterConfig?.rangeFilter.count.min || countMin, filterConfig?.rangeFilter.count.max || countMax]}
             onChange={(value) => {
               handleRangeChange('count', value);
             }}
@@ -152,7 +149,7 @@ export const Filter: React.FC<IFilterProps> = function ({
             min={1940}
             max={2020}
             step={10}
-            value={[filterConfig.rangeFilter.year.min, filterConfig.rangeFilter.year.max]}
+            value={[filterConfig?.rangeFilter.year.min || yearMin, filterConfig?.rangeFilter.year.max || yearMax]}
             onChange={(value) => {
               handleRangeChange('year', value);
             }}
@@ -163,9 +160,11 @@ export const Filter: React.FC<IFilterProps> = function ({
         <div className="filter__item">
           <h2 className="filter-title">Сортировка</h2>
           <Select
-            value={filterConfig.sortMode}
+            value={filterConfig?.sortMode || ''}
             onChange={(value: string) => {
-              setFilterConfig({ ...filterConfig, sortMode: value });
+              if (filterConfig && setFilterConfig) {
+                setFilterConfig({ ...filterConfig, sortMode: value });
+              }
             }}
             options={filterParams.sortOptions}
           />
@@ -174,7 +173,9 @@ export const Filter: React.FC<IFilterProps> = function ({
           <h2 className="filter-title">Поиск</h2>
           <input
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              if (setSearchQuery) setSearchQuery(e.target.value);
+            }}
             type="text"
             placeholder="Введите поисковый запрос"
           />
