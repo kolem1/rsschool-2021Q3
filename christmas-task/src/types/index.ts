@@ -19,6 +19,10 @@ export interface IValueFilter {
 }
 
 export interface IRangeFilter {
+  [key: string]: {
+    min: number;
+    max: number;
+  };
   count: {
     min: number;
     max: number;

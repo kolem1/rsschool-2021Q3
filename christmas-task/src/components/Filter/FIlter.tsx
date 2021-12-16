@@ -1,11 +1,12 @@
 import React from 'react';
-import { SortMode } from '../../enums';
+import { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import { IFilterConfig } from '../../types';
 import { Select } from '../UI/Select/Select';
-import * as imgs from './images';
-import './Filter.css';
 import { ImgCheckbox } from '../UI/ImgCheckbox/ImgCheckbox';
 import { ColorCheckbox } from '../UI/ColorCheckbox/ColorCheckbox';
+import * as filterParams from './filterRarams';
+import './Filter.css';
 
 interface IFilterProps {
   filterConfig: IFilterConfig;
@@ -13,105 +14,9 @@ interface IFilterProps {
 }
 
 export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilterConfig }) {
-  const sortOptions = [
-    {
-      value: SortMode[1],
-      name: 'По имени от А до Я',
-    },
-    {
-      value: SortMode[2],
-      name: 'По имени от Я до А',
-    },
-    {
-      value: SortMode[3],
-      name: 'По году по возрастанию',
-    },
-    {
-      value: SortMode[4],
-      name: 'По году по убыванию',
-    },
-  ];
-
-  const shapeChecks = [
-    {
-      id: 1,
-      value: 'шар',
-      img: imgs.ball,
-    },
-    {
-      id: 2,
-      value: 'колокольчик',
-      img: imgs.bell,
-    },
-    {
-      id: 3,
-      value: 'шишка',
-      img: imgs.cone,
-    },
-    {
-      id: 4,
-      value: 'снежинка',
-      img: imgs.snowflake,
-    },
-    {
-      id: 5,
-      value: 'фигурка',
-      img: imgs.toy,
-    },
-  ];
-
-  const sizeChecks = [
-    {
-      id: 1,
-      value: 'малый',
-      img: imgs.ball,
-      mod: 'small',
-    },
-    {
-      id: 2,
-      value: 'средний',
-      img: imgs.ball,
-      mod: 'middle',
-    },
-    {
-      id: 3,
-      value: 'большой',
-      img: imgs.ball,
-      mod: 'big',
-    },
-  ];
-
-  const colorChecks = [
-    {
-      id: 1,
-      value: 'белый',
-      color: '#ffffff',
-    },
-    {
-      id: 2,
-      value: 'желтый',
-      color: '#FDD700',
-    },
-    {
-      id: 3,
-      value: 'красный',
-      color: '#FD0000',
-    },
-    {
-      id: 4,
-      value: 'синий',
-      color: '#2299EB',
-    },
-    {
-      id: 5,
-      value: 'зеленый',
-      color: '#08AA05',
-    },
-  ];
-
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
     const filterParam = filterConfig.valueFilter[param];
-    let newFilterParam: boolean | string[];
+    let newFilterParam: typeof filterParam;
     if (Array.isArray(filterParam)) {
       newFilterParam = [...filterParam];
       if (isTrue) {
@@ -129,6 +34,19 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
     setFilterConfig(newFilterConfig);
   }
 
+  function handleRangeChange(param: string, value: number[]) {
+    const [min, max] = value;
+
+    const filterParam = { ...filterConfig.rangeFilter[param] };
+    filterParam.min = min;
+    filterParam.max = max;
+
+    const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
+    newFilterConfig.rangeFilter[param] = filterParam;
+
+    setFilterConfig(newFilterConfig);
+  }
+
   return (
     <div className="filter">
       <div className="filter__column">
@@ -136,7 +54,7 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
         <div className="filter__item filter-item">
           <h3 className="filter-item__title">Форма:</h3>
           <div className="filter-item__checks">
-            {shapeChecks.map((check) => {
+            {filterParams.shapeChecks.map((check) => {
               return (
                 <ImgCheckbox
                   key={check.id}
@@ -155,9 +73,10 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
         <div className="filter__item filter-item">
           <h3 className="filter-item__title">Цвет:</h3>
           <div className="filter-item__checks">
-            {colorChecks.map((check) => {
+            {filterParams.colorChecks.map((check) => {
               return (
                 <ColorCheckbox
+                  key={check.id}
                   value={check.value}
                   color={check.color}
                   className="filter-item"
@@ -173,7 +92,7 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
         <div className="filter__item filter-item">
           <h3 className="filter-item__title">Размер:</h3>
           <div className="filter-item__checks">
-            {sizeChecks.map((check) => {
+            {filterParams.sizeChecks.map((check) => {
               return (
                 <ImgCheckbox
                   key={check.id}
@@ -207,6 +126,29 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
       </div>
       <div className="filter__column">
         <h2 className="filter-title">Фильтры по диапазону</h2>
+        <div className="filter__item">
+          Количество экземпляров:
+          <Range
+            min={1}
+            max={12}
+            value={[filterConfig.rangeFilter.count.min, filterConfig.rangeFilter.count.max]}
+            onChange={(value) => {
+              handleRangeChange('count', value);
+            }}
+          />
+        </div>
+        <div className="filter__item">
+          Год приобритения:
+          <Range
+            min={1940}
+            max={2020}
+            step={10}
+            value={[filterConfig.rangeFilter.year.min, filterConfig.rangeFilter.year.max]}
+            onChange={(value) => {
+              handleRangeChange('year', value);
+            }}
+          />
+        </div>
       </div>
       <div className="filter__column">
         <h2 className="filter-title">Сортировка</h2>
@@ -215,7 +157,7 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
           onChange={(value: string) => {
             setFilterConfig({ ...filterConfig, sortMode: value });
           }}
-          options={sortOptions}
+          options={filterParams.sortOptions}
         />
       </div>
     </div>

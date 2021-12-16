@@ -48,19 +48,15 @@ function filterValues(valueFilter: IValueFilter, toy: IToy) {
 }
 
 function filterRanges(rangeFilter: IRangeFilter, toy: IToy) {
-  let isSuitable = true;
-
-  Object.entries(rangeFilter).forEach((props) => {
+  const filters = Object.entries(rangeFilter).map((props: [string, { min: number; max: number }]) => {
     const key = props[0];
-    const values = props[1];
-    isSuitable = false;
+    const params = props[1];
 
-    const value = Number(toy[key]);
-
-    if (value <= values.to && value >= values.from) {
-      isSuitable = true;
-    }
+    const value = toy[key] as number;
+    return value >= params.min && value <= params.max;
   });
+
+  const isSuitable = !filters.includes(false);
 
   return isSuitable;
 }

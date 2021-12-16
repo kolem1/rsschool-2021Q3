@@ -11,9 +11,11 @@ export const ToysList: React.FC<IToysListProps> = function (props) {
   const { toys } = props;
   return (
     <ul className="toys-list">
-      {toys.map((toy) => {
-        return <ToyCard key={toy.num} toy={toy} />;
-      })}
+      {toys.length
+        ? toys.map((toy) => {
+            return <ToyCard key={toy.num} toy={toy} />;
+          })
+        : 'Таких игрушек не найдено'}
     </ul>
   );
 };
