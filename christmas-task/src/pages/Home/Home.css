@@ -1,0 +1,33 @@
+.home-page {
+  max-width: 1920px;
+  height: calc(100vh - 57px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background-image: url('./images/bg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.home-page__content {
+  max-width: 600px;
+  padding: 40px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+
+  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(157, 243, 255, 0.2) 100%);
+  backdrop-filter: blur(30px);
+  border-radius: 30px;
+  border: 2px solid;
+  border-image-source: radial-gradient(104.22% 230.94% at -4.22% 0%, #24c5db 3.62%, rgba(36, 197, 219, 0.26) 55.1%),
+    radial-gradient(57.23% 248.2% at 107.17% 104.02%, rgba(34, 153, 235, 0.92) 0%, rgba(34, 153, 235, 0.07) 100%);
+}
+
+.home-page__title {
+  font-size: 53px;
+  text-transform: uppercase;
+}

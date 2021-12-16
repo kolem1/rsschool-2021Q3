@@ -1,29 +1,38 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Footer } from './components/Footer/Footer';
-import { Filter } from './components/Filter/FIlter';
-import { ToysList } from './components/ToysList/ToysList';
+import Home from './pages/Home/Home';
+import Toys from './pages/Toys/Toys';
 import './App.css';
 import useToysData from './hooks/useToysData';
+import { Header } from './components/Header/Header';
 
 const App: React.FC = function () {
   const [toysData, filterConfig, setFilterConfig, resetFilter] = useToysData([]);
 
   return (
-    <div className="wrapper">
-      <main className="main">
-        <div className="toys-page">
-          <div className="container">
-            <div className="toys-page__filter">
-              <Filter filterConfig={filterConfig} setFilterConfig={setFilterConfig} resetFilter={resetFilter} />
-            </div>
-            <div className="toys-page__list">
-              <ToysList toys={toysData} />
-            </div>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="wrapper">
+        <Header />
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/toys"
+              element={
+                <Toys
+                  toysData={toysData}
+                  filterConfig={filterConfig}
+                  setFilterConfig={setFilterConfig}
+                  resetFilter={resetFilter}
+                />
+              }
+            />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 };
 

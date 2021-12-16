@@ -1,0 +1,13 @@
+.header {
+  font-size: 22px;
+}
+
+.header-menu {
+  margin: 0;
+  padding: 10px 0;
+  display: flex;
+}
+
+.header-menu__item {
+  margin-right: 20px;
+}
