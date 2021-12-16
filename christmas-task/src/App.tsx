@@ -6,7 +6,7 @@ import './App.css';
 import useToysData from './hooks/useToysData';
 
 const App: React.FC = function () {
-  const [toysData, filterConfig, setFilterConfig] = useToysData([]);
+  const [toysData, filterConfig, setFilterConfig, resetFilter] = useToysData([]);
 
   return (
     <div className="wrapper">
@@ -14,7 +14,7 @@ const App: React.FC = function () {
         <div className="toys-page">
           <div className="container">
             <div className="toys-page__filter">
-              <Filter filterConfig={filterConfig} setFilterConfig={setFilterConfig} />
+              <Filter filterConfig={filterConfig} setFilterConfig={setFilterConfig} resetFilter={resetFilter} />
             </div>
             <div className="toys-page__list">
               <ToysList toys={toysData} />

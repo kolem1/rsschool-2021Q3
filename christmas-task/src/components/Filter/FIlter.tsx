@@ -11,9 +11,10 @@ import './Filter.css';
 interface IFilterProps {
   filterConfig: IFilterConfig;
   setFilterConfig: (filterConfig: IFilterConfig) => void;
+  resetFilter: () => void;
 }
 
-export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilterConfig }) {
+export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilterConfig, resetFilter }) {
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
     const filterParam = filterConfig.valueFilter[param];
     let newFilterParam: typeof filterParam;
@@ -159,6 +160,9 @@ export const Filter: React.FC<IFilterProps> = function ({ filterConfig, setFilte
           }}
           options={filterParams.sortOptions}
         />
+        <button type="button" onClick={resetFilter}>
+          Сбросить фильтр
+        </button>
       </div>
     </div>
   );

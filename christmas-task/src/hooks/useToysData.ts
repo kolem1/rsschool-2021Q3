@@ -30,7 +30,8 @@ export default function useToysData(
 ): [
   filteredToys: IToy[],
   filterConfig: IFilterConfig,
-  setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>
+  setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>,
+  resetFilter: () => void
 ] {
   const [toysData, setToysData] = useState<IToy[]>(initialValue);
 
@@ -46,5 +47,7 @@ export default function useToysData(
     setFilteredToys(filtered);
   }, [toysData, filterConfig]);
 
-  return [filteredToys, filterConfig, setFilterConfig];
+  const resetFilter = () => setFilterConfig(defaultFilterConfig);
+
+  return [filteredToys, filterConfig, setFilterConfig, resetFilter];
 }
