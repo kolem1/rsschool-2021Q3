@@ -5,7 +5,7 @@ import { IFilterConfig, IToy } from '../types/index';
 import { SortMode } from '../enums';
 import filterToys from '../data/filterToys';
 
-export const defaultFilterConfig: IFilterConfig = {
+const defaultFilterConfig: IFilterConfig = {
   sortMode: SortMode[0],
   valueFilter: {
     color: [],

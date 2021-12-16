@@ -1,8 +1,7 @@
 import React from 'react';
-import { Filter } from '../../components/Filter/FIlter';
-import { ToysList } from '../../components/ToysList/ToysList';
+import { Filter, ToysList } from '../../components';
 
-const Toys: React.FC = function () {
+export const Toys: React.FC = function () {
   return (
     <div className="toys-page">
       <div className="container">
@@ -16,5 +15,3 @@ const Toys: React.FC = function () {
     </div>
   );
 };
-
-export default Toys;

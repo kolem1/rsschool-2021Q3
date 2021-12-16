@@ -1,11 +1,9 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Footer } from './components/Footer/Footer';
-import Home from './pages/Home/Home';
-import Toys from './pages/Toys/Toys';
+import { Footer, Header } from './components';
+import { Home, Toys } from './pages';
 import './App.css';
-import useToysData, { defaultFilterConfig } from './hooks/useToysData';
-import { Header } from './components/Header/Header';
+import useToysData from './hooks/useToysData';
 import { IToy, IFilterConfig } from './types/index';
 
 interface IMainContext {

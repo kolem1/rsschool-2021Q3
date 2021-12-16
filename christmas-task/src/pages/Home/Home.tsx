@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
-const Home: React.FC = function () {
+export const Home: React.FC = function () {
   return (
     <div className="home-page">
       <div className="home-page__content">
@@ -14,5 +14,3 @@ const Home: React.FC = function () {
     </div>
   );
 };
-
-export default Home;
