@@ -51,8 +51,9 @@ export default function useToysData(
   }, [toysData, filterConfig, searchQuery]);
 
   const resetFilter = () => {
+    const { sortMode } = filterConfig;
     setSearchQuery('');
-    setFilterConfig(defaultFilterConfig);
+    setFilterConfig({ ...defaultFilterConfig, sortMode });
   };
 
   return [filteredToys, filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery];
