@@ -92,7 +92,7 @@ export const colorChecks = [
   },
   {
     id: 5,
-    value: 'зеленый',
+    value: 'зелёный',
     color: '#08AA05',
   },
 ];
