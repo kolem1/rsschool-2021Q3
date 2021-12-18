@@ -134,8 +134,8 @@ export const Filter: React.FC = function () {
         <div className="filter__item">
           Количество экземпляров:
           <Range
-            min={1}
-            max={12}
+            min={countMin}
+            max={countMax}
             value={[filterConfig?.rangeFilter.count.min || countMin, filterConfig?.rangeFilter.count.max || countMax]}
             onChange={(value) => {
               handleRangeChange('count', value);
@@ -145,8 +145,8 @@ export const Filter: React.FC = function () {
         <div className="filter__item">
           Год приобритения:
           <Range
-            min={1940}
-            max={2020}
+            min={yearMin}
+            max={yearMax}
             step={10}
             value={[filterConfig?.rangeFilter.year.min || yearMin, filterConfig?.rangeFilter.year.max || yearMax]}
             onChange={(value) => {

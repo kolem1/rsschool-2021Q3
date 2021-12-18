@@ -6,7 +6,7 @@ interface ISearchInput {
   setSearchQuery: (value: string) => void;
 }
 
-export const SearchInput = function ({ searchQuery, setSearchQuery }: ISearchInput) {
+export const SearchInput: React.FC<ISearchInput> = function ({ searchQuery, setSearchQuery }) {
   return (
     <div className="search-input">
       <input

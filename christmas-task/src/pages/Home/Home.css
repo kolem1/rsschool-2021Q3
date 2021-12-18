@@ -1,23 +1,25 @@
 .home-page {
+  position: relative;
+
   max-width: 1920px;
-  height: calc(100vh - 57px);
+  min-height: calc(100vh - 57px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   text-align: center;
-
-  background-image: url('./images/bg.jpg');
   background-size: cover;
   background-position: center;
+
+  overflow-x: hidden;
 }
 
 .home-page__content {
   max-width: 600px;
-  padding: 40px;
+  padding: 20px;
   margin: 0 auto;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 
   background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(157, 243, 255, 0.2) 100%);
   backdrop-filter: blur(30px);
@@ -30,4 +32,23 @@
 .home-page__title {
   font-size: 53px;
   text-transform: uppercase;
+}
+
+@keyframes santa-flow {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -50%;
+  }
+}
+
+.home-page__lottie {
+  position: absolute;
+  top: 10px;
+
+  height: 200px;
+  width: 350px;
+
+  animation: santa-flow 7s ease-in-out infinite;
 }
