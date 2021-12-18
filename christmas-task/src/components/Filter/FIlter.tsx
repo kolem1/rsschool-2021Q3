@@ -6,6 +6,7 @@ import * as filterParams from './filterRarams';
 import './Filter.css';
 import { MainContext } from '../../App';
 import { copyObj } from '../../utils/index';
+import { SearchInput } from '../SearchInput/SearchInput';
 
 export const Filter: React.FC = function () {
   const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, favoriteCount } =
@@ -167,17 +168,15 @@ export const Filter: React.FC = function () {
             options={filterParams.sortOptions}
           />
         </div>
-        <div className="filter__item">
-          <h2 className="filter-title">Поиск</h2>
-          <input
-            value={searchQuery}
-            onChange={(e) => {
-              if (setSearchQuery) setSearchQuery(e.target.value);
-            }}
-            type="text"
-            placeholder="Введите поисковый запрос"
-          />
-        </div>
+        {searchQuery !== undefined && setSearchQuery ? (
+          <div className="filter__item">
+            <h2 className="filter-title">Поиск</h2>
+
+            <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          </div>
+        ) : (
+          ''
+        )}
         <button type="button" onClick={resetFilter}>
           Сбросить фильтр
         </button>
