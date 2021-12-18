@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Flipped } from 'react-flip-toolkit';
 import { IToy } from '../../types/index';
 import './ToyCard.css';
+import { MainContext } from '../../App';
 
 interface IToyItem {
   toy: IToy;
 }
 
 export const ToyCard: React.FC<IToyItem> = function ({ toy }) {
+  const { setFavorite } = useContext(MainContext);
+  function handleClick(e: React.MouseEvent) {
+    const btn = e.target as HTMLButtonElement;
+    if (setFavorite) {
+      const response = setFavorite(toy.num);
+      if (response === 'full') {
+        btn.classList.add('full');
+        btn.dataset.message = 'Извините, все слоты заполнены';
+        setTimeout(() => {
+          btn.removeAttribute('data-message');
+          btn.classList.remove('full');
+        }, 1000);
+      }
+    }
+  }
   return (
     <Flipped flipId={toy.num}>
       <li className="card">
+        <button type="button" className={`card__favorite${toy.userFavorite ? ' active' : ''}`} onClick={handleClick}>
+          {toy.userFavorite ? 'Убрать из избранного' : 'Добавить в Избранное'}
+        </button>
         <h3 className="card__title">{toy.name}</h3>
         <div className="card__img-wrapper">
           <img

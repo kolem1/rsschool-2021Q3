@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import getToysData from '../data/getToysData';
 import useLocalStorage from './useLocalStorage';
-import { IFilterConfig, IToy } from '../types/index';
+import { IFilterConfig, IToy, FavoriteResponse } from '../types/index';
 import { SortMode } from '../enums';
 import filterToys from '../data/filterToys';
 
@@ -33,9 +33,12 @@ export default function useToysData(
   setFilterConfig: React.Dispatch<React.SetStateAction<IFilterConfig>>,
   resetFilter: () => void,
   searchQuery: string,
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
+  setFavorite: (num: string) => FavoriteResponse,
+  favoritesCount: number
 ] {
   const [toysData, setToysData] = useState<IToy[]>(initialValue);
+  const [favoriteToys, setFavoriteToys] = useLocalStorage<string[]>('kolem1-favoriteToys', []);
 
   useEffect(() => {
     getToysData(setToysData);
@@ -47,8 +50,14 @@ export default function useToysData(
 
   useEffect(() => {
     const filtered = filterToys(filterConfig, toysData, searchQuery);
+    filtered.forEach((toy) => {
+      if (favoriteToys.includes(toy.num)) {
+        /* eslint no-param-reassign: "error" */
+        toy.userFavorite = true;
+      }
+    });
     setFilteredToys(filtered);
-  }, [toysData, filterConfig, searchQuery]);
+  }, [toysData, filterConfig, searchQuery, favoriteToys]);
 
   const resetFilter = () => {
     const { sortMode } = filterConfig;
@@ -56,5 +65,28 @@ export default function useToysData(
     setFilterConfig({ ...defaultFilterConfig, sortMode });
   };
 
-  return [filteredToys, filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery];
+  const setFavorite = (num: string): FavoriteResponse => {
+    if (favoriteToys.includes(num)) {
+      setFavoriteToys(favoriteToys.filter((toy) => toy !== num));
+      return 'deleted';
+    }
+    if (favoriteToys.length < 20) {
+      setFavoriteToys(favoriteToys.concat(num));
+      return 'added';
+    }
+    return 'full';
+  };
+
+  const favoritesCount = favoriteToys.length;
+
+  return [
+    filteredToys,
+    filterConfig,
+    setFilterConfig,
+    resetFilter,
+    searchQuery,
+    setSearchQuery,
+    setFavorite,
+    favoritesCount,
+  ];
 }

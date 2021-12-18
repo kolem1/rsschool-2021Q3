@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { IFilterConfig } from '../../types';
 import { Select, ImgCheckbox, ColorCheckbox } from '../UI';
 import * as filterParams from './filterRarams';
 import './Filter.css';
 import { MainContext } from '../../App';
+import { copyObj } from '../../utils/index';
 
 export const Filter: React.FC = function () {
-  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery } = useContext(MainContext);
+  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, favoriteCount } =
+    useContext(MainContext);
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
     if (filterConfig && setFilterConfig) {
       const filterParam = filterConfig.valueFilter[param];
@@ -24,13 +25,12 @@ export const Filter: React.FC = function () {
         newFilterParam = isTrue;
       }
 
-      const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
+      const newFilterConfig = copyObj(filterConfig);
       newFilterConfig.valueFilter[param] = newFilterParam;
 
       setFilterConfig(newFilterConfig);
     }
   }
-
   function handleRangeChange(param: string, value: number[]) {
     if (filterConfig && setFilterConfig) {
       const [min, max] = value;
@@ -39,7 +39,7 @@ export const Filter: React.FC = function () {
       filterParam.min = min;
       filterParam.max = max;
 
-      const newFilterConfig = JSON.parse(JSON.stringify(filterConfig)) as IFilterConfig;
+      const newFilterConfig = copyObj(filterConfig);
       newFilterConfig.rangeFilter[param] = filterParam;
 
       setFilterConfig(newFilterConfig);
@@ -181,6 +181,7 @@ export const Filter: React.FC = function () {
         <button type="button" onClick={resetFilter}>
           Сбросить фильтр
         </button>
+        <div className="filter__item">В избранном: {favoriteCount}</div>
       </div>
     </div>
   );

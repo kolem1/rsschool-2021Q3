@@ -1,5 +1,6 @@
 import { IFilterConfig, IRangeFilter, IToy, IValueFilter } from '../types/index';
 import { SortMode } from '../enums';
+import { copyObj } from '../utils/index';
 
 function sort<T extends { name: string; year: number }>(sortMode: string, data: T[]) {
   const sorted = [...data].sort((a, b) => {
@@ -66,7 +67,8 @@ function search(searchQuery: string, toys: IToy[]) {
 }
 
 export default function filterToys(filterConfig: IFilterConfig, initialData: IToy[], searchQuery: string): IToy[] {
-  let filtered = [...initialData].filter((item) => {
+  const data = copyObj(initialData);
+  let filtered = data.filter((item) => {
     const { valueFilter, rangeFilter } = filterConfig;
 
     const valuesIsSuitable = filterValues(valueFilter, item);

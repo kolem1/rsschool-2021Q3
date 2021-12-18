@@ -1,5 +1,5 @@
 export interface IToy {
-  [key: string]: string | boolean | number;
+  [key: string]: string | boolean | number | undefined;
   num: string;
   name: string;
   count: number;
@@ -8,6 +8,7 @@ export interface IToy {
   color: string;
   size: string;
   favorite: boolean;
+  userFavorite?: boolean;
 }
 
 export interface IValueFilter {
@@ -38,3 +39,5 @@ export interface IFilterConfig {
   valueFilter: IValueFilter;
   rangeFilter: IRangeFilter;
 }
+
+export type FavoriteResponse = 'deleted' | 'added' | 'full';
