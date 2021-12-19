@@ -1,0 +1,12 @@
+.range-handle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  padding: 2px;
+  border: 2px solid #abe2fb;
+  border-radius: 3px;
+  background: #fff;
+  font-size: 14px;
+  text-align: center;
+  z-index: 3;
+}

@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
-import { Range } from 'rc-slider';
-import 'rc-slider/assets/index.css';
-import { Select, ImgCheckbox, ColorCheckbox } from '../UI';
-import * as filterParams from './filterRarams';
+import { Select, ImgCheckbox, ColorCheckbox, RangeSlider } from '../UI';
+import { SearchInput } from '../SearchInput/SearchInput';
 import './Filter.css';
+import * as filterParams from './filterRarams';
 import { MainContext } from '../../App';
 import { copyObj } from '../../utils/index';
-import { SearchInput } from '../SearchInput/SearchInput';
 
 export const Filter: React.FC = function () {
   const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, favoriteCount } =
@@ -133,7 +131,7 @@ export const Filter: React.FC = function () {
         <h2 className="filter-title">Фильтры по диапазону</h2>
         <div className="filter__item">
           Количество экземпляров:
-          <Range
+          <RangeSlider
             min={countMin}
             max={countMax}
             value={[filterConfig?.rangeFilter.count.min || countMin, filterConfig?.rangeFilter.count.max || countMax]}
@@ -144,7 +142,7 @@ export const Filter: React.FC = function () {
         </div>
         <div className="filter__item">
           Год приобритения:
-          <Range
+          <RangeSlider
             min={yearMin}
             max={yearMax}
             step={10}
