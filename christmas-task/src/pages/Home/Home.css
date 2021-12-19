@@ -2,7 +2,7 @@
   position: relative;
 
   max-width: 1920px;
-  min-height: calc(100vh - 57px);
+  min-height: calc(100vh - 132px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,13 +16,14 @@
 }
 
 .home-page__content {
+  position: relative;
+  z-index: 1;
+
   max-width: 600px;
   padding: 20px;
-  margin: 0 auto;
-  margin-bottom: 10px;
+  margin: 40px auto 10px;
 
-  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(157, 243, 255, 0.2) 100%);
-  backdrop-filter: blur(30px);
+  background: rgba(200, 190, 185, 0.8);
   border-radius: 30px;
   border: 2px solid;
   border-image-source: radial-gradient(104.22% 230.94% at -4.22% 0%, #24c5db 3.62%, rgba(36, 197, 219, 0.26) 55.1%),
@@ -36,7 +37,7 @@
 
 @keyframes santa-flow {
   0% {
-    left: 100%;
+    left: 120%;
   }
   100% {
     left: -50%;
