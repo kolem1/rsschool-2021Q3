@@ -1,12 +1,12 @@
 import React from 'react';
 import './SearchInput.css';
 
-interface ISearchInput {
+interface ISearchInput extends React.InputHTMLAttributes<HTMLInputElement> {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
 }
 
-export const SearchInput: React.FC<ISearchInput> = function ({ searchQuery, setSearchQuery }) {
+export const SearchInput: React.FC<ISearchInput> = function ({ searchQuery, setSearchQuery, ...props }) {
   return (
     <div className="search-input">
       <input
@@ -17,6 +17,7 @@ export const SearchInput: React.FC<ISearchInput> = function ({ searchQuery, setS
         }}
         type="text"
         placeholder="Введите поисковый запрос"
+        {...props}
       />
       <button type="button" className="search-input__clear" onClick={() => setSearchQuery('')}>
         Очистить поиск

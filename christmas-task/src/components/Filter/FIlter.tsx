@@ -170,7 +170,7 @@ export const Filter: React.FC = function () {
           <div className="filter__item">
             <h2 className="filter-title">Поиск</h2>
 
-            <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} autoFocus />
           </div>
         ) : (
           ''
