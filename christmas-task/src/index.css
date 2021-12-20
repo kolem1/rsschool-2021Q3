@@ -28,6 +28,8 @@ body {
 
   font-family: 'Neucha', cursive;
   font-size: 16px;
+
+  overflow-x: hidden;
 }
 
 a {
@@ -60,7 +62,7 @@ ul {
 
 .container {
   max-width: 1920px;
-  padding: 0 20px;
+  padding: 0 30px;
 
   margin: 0 auto;
 }

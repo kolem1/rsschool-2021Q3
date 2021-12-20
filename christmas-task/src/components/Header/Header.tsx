@@ -11,12 +11,12 @@ export const Header: React.FC = function () {
             <ul className="header-menu">
               <li className="header-menu__item">
                 <Link className="header-menu__link" to="/">
-                  Home
+                  Главная
                 </Link>
               </li>
               <li className="header-menu__item">
                 <Link className="header-menu__link" to="/toys">
-                  Toys
+                  Игрушки
                 </Link>
               </li>
             </ul>
