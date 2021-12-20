@@ -1,0 +1,74 @@
+.custom-select {
+  position: relative;
+
+  display: inline-block;
+  min-width: 220px;
+
+  text-align: center;
+}
+
+.custom-select__text {
+  padding: 10px;
+
+  border: 2px solid rgba(168, 24, 23, 1);
+  border-radius: 20px;
+  background-color: rgb(200, 190, 185);
+  appearance: none;
+
+  cursor: pointer;
+
+  transition: background-color 0.3s;
+}
+
+.custom-select__text:hover {
+  background-color: rgb(165, 149, 141);
+}
+
+.custom-select__text::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 18px;
+  border: 7px solid transparent;
+  border-color: rgba(168, 24, 23, 1) transparent transparent transparent;
+}
+
+.custom-select__text.active::after {
+  top: 10px;
+  border-color: transparent transparent rgba(168, 24, 23, 1) transparent;
+}
+
+.custom-select__options {
+  position: absolute;
+  top: 110%;
+  z-index: 1;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  background-color: rgb(200, 190, 185);
+  border: 2px solid rgba(168, 24, 23, 1);
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.custom-select__option {
+  width: 100%;
+  padding: 5px 0;
+
+  background-color: rgb(200, 190, 185);
+
+  cursor: pointer;
+
+  transition: background-color 0.3s;
+}
+
+.custom-select__option:hover {
+  background-color: rgb(165, 149, 141);
+}
+
+.custom-select__option:not(:last-child) {
+  border-bottom: 2px solid rgba(168, 24, 23, 1);
+}

@@ -175,7 +175,7 @@ export const Filter: React.FC = function () {
           <h2 className="filter-title">Сортировка</h2>
           <Select
             value={filterConfig?.sortMode || ''}
-            onChange={(value: string) => {
+            setValue={(value: string) => {
               if (filterConfig && setFilterConfig) {
                 setFilterConfig({ ...filterConfig, sortMode: value });
               }
