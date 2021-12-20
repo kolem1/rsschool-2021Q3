@@ -1,15 +1,18 @@
 .filter {
   display: flex;
+  justify-content: space-between;
   margin: 0 -10px;
 }
 
 .filter__column {
+  max-width: 325px;
   width: calc(100% / 3);
   margin: 0 10px;
 }
 
-.filter-item {
+.filter-item__inner {
   display: flex;
+  align-items: center;
 }
 
 .filter-item__checks {
@@ -41,4 +44,8 @@
 
 .filter-item__checkbox:checked + .filter-item__img {
   filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%);
+}
+
+.filter-item__range {
+  margin: 0 10px;
 }
