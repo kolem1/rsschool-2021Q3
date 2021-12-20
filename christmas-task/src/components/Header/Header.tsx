@@ -2,7 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-export const Header: React.FC = function () {
+interface IHeader {
+  favoriteCount: number | undefined;
+}
+
+export const Header: React.FC<IHeader> = function ({ favoriteCount }) {
   return (
     <header className="header">
       <div className="container">
@@ -21,6 +25,9 @@ export const Header: React.FC = function () {
               </li>
             </ul>
           </nav>
+          <div className="header__favorite">
+            <span>{favoriteCount || 0}</span>
+          </div>
         </div>
       </div>
     </header>

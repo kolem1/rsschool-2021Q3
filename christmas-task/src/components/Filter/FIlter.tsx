@@ -198,7 +198,6 @@ export const Filter: React.FC = function () {
             Сбросить фильтр
           </button>
         </div>
-        <div className="filter__item">В избранном: {favoriteCount}</div>
       </div>
     </div>
   );

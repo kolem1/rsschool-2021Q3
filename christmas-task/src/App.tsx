@@ -47,7 +47,7 @@ const App: React.FC = function () {
   return (
     <BrowserRouter>
       <div className="wrapper">
-        <Header />
+        <Header favoriteCount={favoriteCount} />
         <MainContext.Provider value={context}>
           <main className="main">
             <Routes>
