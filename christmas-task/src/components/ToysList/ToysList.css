@@ -4,3 +4,21 @@
   grid-gap: 36px;
   padding: 0;
 }
+
+@media (max-width: 1200px) {
+  .toys-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 950px) {
+  .toys-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .toys-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
