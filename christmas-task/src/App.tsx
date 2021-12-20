@@ -5,6 +5,7 @@ import { Home, Toys } from './pages';
 import './App.css';
 import useToysData from './hooks/useToysData';
 import { IToy, IFilterConfig, FavoriteResponse } from './types/index';
+import { Favorites } from './pages/Favorites/Favorites';
 
 interface IMainContext {
   toysData: IToy[];
@@ -16,6 +17,7 @@ interface IMainContext {
   setFavorite: (num: string) => FavoriteResponse;
   favoriteCount: number;
   resetAll: () => void;
+  userFavorites: IToy[];
 }
 
 export const MainContext = React.createContext<Partial<IMainContext>>({});
@@ -31,6 +33,7 @@ const App: React.FC = function () {
     setFavorite,
     favoriteCount,
     resetAll,
+    userFavorites,
   ] = useToysData([]);
 
   const context = useMemo(
@@ -44,6 +47,7 @@ const App: React.FC = function () {
       setFavorite,
       favoriteCount,
       resetAll,
+      userFavorites,
     }),
     [
       toysData,
@@ -55,6 +59,7 @@ const App: React.FC = function () {
       setFavorite,
       favoriteCount,
       resetAll,
+      userFavorites,
     ]
   );
   return (
@@ -66,6 +71,7 @@ const App: React.FC = function () {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/toys" element={<Toys />} />
+              <Route path="/favorites" element={<Favorites />} />
             </Routes>
           </main>
         </MainContext.Provider>

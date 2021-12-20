@@ -25,9 +25,9 @@ export const Header: React.FC<IHeader> = function ({ favoriteCount }) {
               </li>
             </ul>
           </nav>
-          <div className="header__favorite">
+          <Link to="/favorites" className="header__favorite">
             <span>{favoriteCount || 0}</span>
-          </div>
+          </Link>
         </div>
       </div>
     </header>

@@ -1,0 +1,47 @@
+.favorites-page__empty {
+  margin-bottom: 40px;
+
+  font-weight: 700;
+  font-size: 26px;
+  text-align: center;
+}
+
+.favorites-page__empty p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.favorites-page__animation {
+  width: 450px;
+  height: 450px;
+  margin: 0 auto;
+}
+
+.favorites-page__link {
+  position: relative;
+
+  font-size: 24px;
+  color: #a81817;
+}
+
+.favorites-page__link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+
+  height: 2px;
+  width: 100%;
+
+  background-color: #a81817;
+
+  transform: scale(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.favorites-page__link:hover::after {
+  transform: scale(1);
+  transform-origin: left;
+}

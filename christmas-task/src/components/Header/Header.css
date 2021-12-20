@@ -57,10 +57,19 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+
+  opacity: 0.9;
+
+  transition: all 0.5s;
+}
+
+.header__favorite:hover {
+  opacity: 1;
+  transform: rotateY(360deg);
 }
 
 .header__favorite span {
-  margin-top: 14px;
+  margin-top: 13px;
   width: 25px;
   height: 25px;
 

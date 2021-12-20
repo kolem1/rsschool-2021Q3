@@ -36,7 +36,8 @@ export default function useToysData(
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
   setFavorite: (num: string) => FavoriteResponse,
   favoritesCount: number,
-  resetAll: () => void
+  resetAll: () => void,
+  userFavorites: IToy[]
 ] {
   const [toysData, setToysData] = useState<IToy[]>(initialValue);
   const [favoriteToys, setFavoriteToys] = useLocalStorage<string[]>('kolem1-favoriteToys', []);
@@ -83,6 +84,15 @@ export default function useToysData(
     return 'full';
   };
 
+  const getUserFavorites = () => {
+    const favorites = favoriteToys.map((item) => {
+      return toysData.find((toy) => toy.num === item);
+    });
+    return favorites.filter((toy) => toy) as IToy[];
+  };
+
+  const userFavorites = getUserFavorites();
+
   const favoritesCount = favoriteToys.length;
 
   return [
@@ -95,5 +105,6 @@ export default function useToysData(
     setFavorite,
     favoritesCount,
     resetAll,
+    userFavorites,
   ];
 }
