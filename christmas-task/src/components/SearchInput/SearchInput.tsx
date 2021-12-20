@@ -20,7 +20,7 @@ export const SearchInput: React.FC<ISearchInput> = function ({ searchQuery, setS
         {...props}
       />
       <button type="button" className="search-input__clear" onClick={() => setSearchQuery('')}>
-        Очистить поиск
+        <span className="visually-hidden">Очистить поиск</span>
       </button>
     </div>
   );

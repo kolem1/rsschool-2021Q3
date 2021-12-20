@@ -5,6 +5,7 @@ import './Filter.css';
 import * as filterParams from './filterRarams';
 import { MainContext } from '../../App';
 import { copyObj } from '../../utils/index';
+import { SortMode } from '../../enums';
 
 export const Filter: React.FC = function () {
   const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, favoriteCount } =
@@ -174,7 +175,7 @@ export const Filter: React.FC = function () {
         <div className="filter__item filter-item">
           <h2 className="filter-title">Сортировка</h2>
           <Select
-            value={filterConfig?.sortMode || ''}
+            value={filterConfig?.sortMode || SortMode[1]}
             setValue={(value: string) => {
               if (filterConfig && setFilterConfig) {
                 setFilterConfig({ ...filterConfig, sortMode: value });
@@ -184,7 +185,7 @@ export const Filter: React.FC = function () {
           />
         </div>
         {searchQuery !== undefined && setSearchQuery ? (
-          <div className="filter__item">
+          <div className="filter__item filter-item">
             <h2 className="filter-title">Поиск</h2>
 
             <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} autoFocus />

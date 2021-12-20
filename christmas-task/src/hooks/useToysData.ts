@@ -6,7 +6,7 @@ import { SortMode } from '../enums';
 import filterToys from '../data/filterToys';
 
 const defaultFilterConfig: IFilterConfig = {
-  sortMode: SortMode[0],
+  sortMode: SortMode[1],
   valueFilter: {
     color: [],
     shape: [],

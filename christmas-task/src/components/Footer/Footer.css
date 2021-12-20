@@ -1,10 +1,10 @@
 .footer {
-  padding: 20px 0 10px;
+  padding: 10px 0 10px;
 
   font-size: 16px;
   color: #ffffff;
 
-  background: linear-gradient(to top, rgba(168, 24, 23, 1) 80%, rgba(168, 24, 23, 0) 100%);
+  background: rgba(168, 24, 23, 1);
 }
 .footer__inner {
   display: flex;
