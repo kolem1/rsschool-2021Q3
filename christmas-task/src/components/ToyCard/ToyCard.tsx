@@ -11,25 +11,23 @@ interface IToyItem {
 export const ToyCard: React.FC<IToyItem> = function ({ toy }) {
   const { setFavorite } = useContext(MainContext);
   function handleClick(e: React.MouseEvent) {
-    const btn = e.target as HTMLButtonElement;
+    const card = e.currentTarget as HTMLButtonElement;
     if (setFavorite) {
       const response = setFavorite(toy.num);
       if (response === 'full') {
-        btn.classList.add('full');
-        btn.dataset.message = 'Извините, все слоты заполнены';
+        if (card.classList.contains('full')) return;
+        card.classList.add('full');
+        card.dataset.message = 'Извините, все слоты заполнены';
         setTimeout(() => {
-          btn.removeAttribute('data-message');
-          btn.classList.remove('full');
+          card.removeAttribute('data-message');
+          card.classList.remove('full');
         }, 1000);
       }
     }
   }
   return (
-    <Flipped flipId={toy.num}>
-      <li className="card">
-        <button type="button" className={`card__favorite${toy.userFavorite ? ' active' : ''}`} onClick={handleClick}>
-          {toy.userFavorite ? 'Убрать из избранного' : 'Добавить в Избранное'}
-        </button>
+    <Flipped flipId={toy.num} opacity translate>
+      <button type="button" className={`card${toy.userFavorite ? ' active' : ''}`} onClick={handleClick}>
         <h3 className="card__title">{toy.name}</h3>
         <div className="card__img-wrapper">
           <img
@@ -46,7 +44,7 @@ export const ToyCard: React.FC<IToyItem> = function ({ toy }) {
           <div className="card__prop">Размер игрушки {toy.size}</div>
           <div className="card__prop">Любимая {toy.favorite ? 'Да' : 'Нет'}</div>
         </div>
-      </li>
+      </button>
     </Flipped>
   );
 };
