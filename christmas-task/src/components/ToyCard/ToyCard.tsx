@@ -21,7 +21,7 @@ export const ToyCard: React.FC<IToyItem> = function ({ toy }) {
         setTimeout(() => {
           card.removeAttribute('data-message');
           card.classList.remove('full');
-        }, 1000);
+        }, 1600);
       }
     }
   }

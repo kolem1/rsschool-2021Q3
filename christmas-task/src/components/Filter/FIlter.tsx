@@ -8,8 +8,7 @@ import { copyObj } from '../../utils/index';
 import { SortMode } from '../../enums';
 
 export const Filter: React.FC = function () {
-  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, favoriteCount } =
-    useContext(MainContext);
+  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery } = useContext(MainContext);
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
     if (filterConfig && setFilterConfig) {
       const filterParam = filterConfig.valueFilter[param];
