@@ -17,6 +17,7 @@ export const SearchInput: React.FC<ISearchInput> = function ({ searchQuery, setS
         }}
         type="text"
         placeholder="Введите поисковый запрос"
+        autoComplete="off"
         {...props}
       />
       <button type="button" className="search-input__clear" onClick={() => setSearchQuery('')}>
