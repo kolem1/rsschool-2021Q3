@@ -15,6 +15,7 @@ interface IMainContext {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   setFavorite: (num: string) => FavoriteResponse;
   favoriteCount: number;
+  resetAll: () => void;
 }
 
 export const MainContext = React.createContext<Partial<IMainContext>>({});
@@ -29,6 +30,7 @@ const App: React.FC = function () {
     setSearchQuery,
     setFavorite,
     favoriteCount,
+    resetAll,
   ] = useToysData([]);
 
   const context = useMemo(
@@ -41,8 +43,19 @@ const App: React.FC = function () {
       setSearchQuery,
       setFavorite,
       favoriteCount,
+      resetAll,
     }),
-    [toysData, filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, setFavorite, favoriteCount]
+    [
+      toysData,
+      filterConfig,
+      setFilterConfig,
+      resetFilter,
+      searchQuery,
+      setSearchQuery,
+      setFavorite,
+      favoriteCount,
+      resetAll,
+    ]
   );
   return (
     <BrowserRouter>

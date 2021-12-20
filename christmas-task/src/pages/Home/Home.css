@@ -23,9 +23,7 @@
 
   background: rgba(200, 190, 185, 0.8);
   border-radius: 30px;
-  border: 2px solid;
-  border-image-source: radial-gradient(104.22% 230.94% at -4.22% 0%, #24c5db 3.62%, rgba(36, 197, 219, 0.26) 55.1%),
-    radial-gradient(57.23% 248.2% at 107.17% 104.02%, rgba(34, 153, 235, 0.92) 0%, rgba(34, 153, 235, 0.07) 100%);
+  border: 2px solid rgba(168, 24, 23, 1);
 }
 
 .home-page__title {
@@ -50,4 +48,8 @@
   width: 350px;
 
   animation: santa-flow 7s ease-in-out infinite;
+}
+
+.home-page__button {
+  width: 200px;
 }

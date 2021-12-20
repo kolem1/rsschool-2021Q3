@@ -11,7 +11,13 @@
 }
 
 .filter__buttons {
-  margin: 20px 0;
+  display: flex;
+  margin: 20px -5px;
+}
+
+.filter__button {
+  width: 50%;
+  margin: 0 5px;
 }
 
 .filter-item__inner {

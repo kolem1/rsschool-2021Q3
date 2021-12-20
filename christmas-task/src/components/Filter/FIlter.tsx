@@ -8,7 +8,7 @@ import { copyObj } from '../../utils/index';
 import { SortMode } from '../../enums';
 
 export const Filter: React.FC = function () {
-  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery } = useContext(MainContext);
+  const { filterConfig, setFilterConfig, resetFilter, searchQuery, setSearchQuery, resetAll } = useContext(MainContext);
   function handleCheckboxChange(param: string, value: string | boolean, isTrue: boolean) {
     if (filterConfig && setFilterConfig) {
       const filterParam = filterConfig.valueFilter[param];
@@ -193,8 +193,11 @@ export const Filter: React.FC = function () {
           ''
         )}
         <div className="filter__buttons">
-          <button className="button" type="button" onClick={resetFilter}>
+          <button className="button filter__button" type="button" onClick={resetFilter}>
             Сбросить фильтр
+          </button>
+          <button className="button filter__button" type="button" onClick={resetAll}>
+            Сбросить настройки
           </button>
         </div>
       </div>
