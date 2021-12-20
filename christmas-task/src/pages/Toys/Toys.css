@@ -1,0 +1,12 @@
+.toys-page__empty {
+  margin-bottom: 40px;
+
+  font-size: 26px;
+  text-align: center;
+}
+
+.toys-page__animation {
+  width: 400px;
+  height: 280px;
+  margin: 0 auto;
+}
