@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Flipped, Flipper } from 'react-flip-toolkit';
+import { Flipper } from 'react-flip-toolkit';
 import { ToyCard } from '../ToyCard/ToyCard';
 import './ToysList.css';
 import { MainContext } from '../../App';

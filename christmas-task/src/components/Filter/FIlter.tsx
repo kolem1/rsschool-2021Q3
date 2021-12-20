@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Select, ImgCheckbox, ColorCheckbox, RangeSlider } from '../UI';
+import { Select, ImgCheckbox, ColorCheckbox, RangeSlider, Checkbox } from '../UI';
 import { SearchInput } from '../SearchInput/SearchInput';
 import './Filter.css';
 import * as filterParams from './filterRarams';
@@ -115,15 +115,14 @@ export const Filter: React.FC = function () {
         <div className="filter__item filter-item">
           <h3 className="filter-item__title">Только любимые:</h3>
           <div className="filter-item__checks">
-            <label className="filter-item__check">
-              <input
-                type="checkbox"
-                checked={filterConfig?.valueFilter.favorite || false}
-                onChange={(event) => {
-                  handleCheckboxChange('favorite', filterConfig?.valueFilter.favorite || false, event.target.checked);
-                }}
-              />
-            </label>
+            <Checkbox
+              label="Только любимые"
+              className="filter-item"
+              checked={filterConfig?.valueFilter.favorite || false}
+              onChange={(event) => {
+                handleCheckboxChange('favorite', filterConfig?.valueFilter.favorite || false, event.target.checked);
+              }}
+            />
           </div>
         </div>
       </div>
