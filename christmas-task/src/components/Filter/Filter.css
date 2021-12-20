@@ -10,6 +10,10 @@
   margin: 0 10px;
 }
 
+.filter__buttons {
+  margin: 20px 0;
+}
+
 .filter-item__inner {
   display: flex;
   align-items: center;

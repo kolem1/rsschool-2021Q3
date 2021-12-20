@@ -9,6 +9,7 @@
 
 .custom-select__text {
   padding: 10px;
+  padding-right: 20px;
 
   border: 2px solid rgba(168, 24, 23, 1);
   border-radius: 20px;
@@ -41,7 +42,7 @@
 .custom-select__options {
   position: absolute;
   top: 110%;
-  z-index: 1;
+  z-index: 10;
 
   width: 100%;
   padding: 0;

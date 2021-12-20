@@ -73,8 +73,15 @@ ul {
 
   text-align: center;
 
-  background: radial-gradient(118.88% 606.86% at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(157, 243, 255, 0.2) 100%);
-  backdrop-filter: blur(20px);
-  border-radius: 30px;
-  border: 2px solid #fff;
+  border: 2px solid rgba(168, 24, 23, 1);
+  border-radius: 20px;
+  background-color: rgb(200, 190, 185);
+
+  transition: background-color 0.3s;
+
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: rgb(165, 149, 141);
 }

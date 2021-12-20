@@ -193,9 +193,11 @@ export const Filter: React.FC = function () {
         ) : (
           ''
         )}
-        <button type="button" onClick={resetFilter}>
-          Сбросить фильтр
-        </button>
+        <div className="filter__buttons">
+          <button className="button" type="button" onClick={resetFilter}>
+            Сбросить фильтр
+          </button>
+        </div>
         <div className="filter__item">В избранном: {favoriteCount}</div>
       </div>
     </div>
