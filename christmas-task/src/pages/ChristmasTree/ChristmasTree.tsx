@@ -30,6 +30,46 @@ export const ChrictmasTree: React.FC = function () {
     }
   }, [userFavorites, toysData]);
 
+  const handleTreeDrop = (e: React.DragEvent) => {
+    function getCoords(tree: HTMLElement) {
+      const treeX = tree.offsetLeft;
+      const treeY = tree.offsetTop;
+      const treeWidth = tree.offsetWidth;
+      const treeHeight = tree.offsetHeight;
+      return {
+        x: ((e.pageX - treeX - 20) / treeWidth) * 100,
+        y: ((e.pageY - treeY - 20) / treeHeight) * 100,
+      };
+    }
+
+    e.preventDefault();
+    const target = e.target as HTMLElement;
+    const tree: HTMLElement | null = target.closest('.tree');
+    const newToy = e.dataTransfer.getData('application/newToy');
+    const movedToy = e.dataTransfer.getData('application/toy');
+    if (tree) {
+      let toy: IToyOnTree;
+      if (newToy) {
+        toy = {
+          id: String(new Date().getTime()),
+          toy: choosenToys.find((currentToy) => currentToy.num === newToy) as IToy,
+          coords: getCoords(tree),
+        };
+        setTreeState(treeState.concat(toy));
+      } else if (movedToy) {
+        toy = treeState.find((currentToy) => currentToy.id === movedToy) as IToyOnTree;
+        const previousState = treeState.filter((item) => item !== toy);
+
+        setTreeState(
+          previousState.concat({
+            ...toy,
+            coords: getCoords(tree),
+          })
+        );
+      }
+    }
+  };
+
   return (
     <div className="tree-page">
       <div className="container">
@@ -73,53 +113,7 @@ export const ChrictmasTree: React.FC = function () {
                   e.preventDefault();
                   e.dataTransfer.dropEffect = 'copy';
                 }}
-                onDrop={(e) => {
-                  // e.preventDefault();
-                  const target = e.target as HTMLElement;
-                  const newToy = e.dataTransfer.getData('application/newToy');
-                  const movedToy = e.dataTransfer.getData('application/toy');
-                  if (newToy) {
-                    const toy = choosenToys.find((currentToy) => currentToy.num === newToy);
-                    const tree: HTMLElement | null = target.closest('.tree');
-                    if (tree && toy) {
-                      const treeX = tree.offsetLeft;
-                      const treeY = tree.offsetTop;
-                      const treeWidth = tree.offsetWidth;
-                      const treeHeight = tree.offsetHeight;
-                      setTreeState(
-                        treeState.concat({
-                          id: String(new Date().getTime()),
-                          toy,
-                          coords: {
-                            x: ((e.pageX - treeX - 20) / treeWidth) * 100,
-                            y: ((e.pageY - treeY - 20) / treeHeight) * 100,
-                          },
-                        })
-                      );
-                    }
-                  } else if (movedToy) {
-                    const toy = treeState.find((currentToy) => currentToy.id === movedToy);
-                    const tree: HTMLElement | null = target.closest('.tree');
-                    if (tree && toy) {
-                      const treeX = tree.offsetLeft;
-                      const treeY = tree.offsetTop;
-                      const treeWidth = tree.offsetWidth;
-                      const treeHeight = tree.offsetHeight;
-                      const currentToy = treeState.find((item) => item.id === toy.id) as IToyOnTree;
-                      const previousState = treeState.filter((item) => item !== currentToy);
-
-                      setTreeState(
-                        previousState.concat({
-                          ...currentToy,
-                          coords: {
-                            x: ((e.pageX - treeX - 20) / treeWidth) * 100,
-                            y: ((e.pageY - treeY - 20) / treeHeight) * 100,
-                          },
-                        })
-                      );
-                    }
-                  }
-                }}
+                onDrop={handleTreeDrop}
                 coords={currentTree.coords}
               />
               {treeState.map((toy) => {
@@ -145,21 +139,26 @@ export const ChrictmasTree: React.FC = function () {
           <div className="tree-page__column">
             <h2 className="tree-page__title">Игрушки</h2>
             <div className="tree-page__grid">
-              {choosenToys.map((toy) => (
-                <div className="tree-card" key={toy.num}>
-                  <div className="tree-card__img-wrapper">
-                    <img
-                      id="img"
-                      onDragStart={(e) => {
-                        e.dataTransfer.setData('application/newToy', toy.num);
-                        e.dataTransfer.effectAllowed = 'copy';
-                      }}
-                      src={getImgUrl(toy.num)}
-                      alt=""
-                    />
+              {choosenToys.map((toy) => {
+                const currentCount = treeState.filter((item) => item.toy.num === toy.num).length;
+                return (
+                  <div className="tree-card" key={toy.num}>
+                    <div className="tree-card__count">{toy.count - currentCount}</div>
+                    <div className="tree-card__img-wrapper">
+                      <img
+                        id="img"
+                        onDragStart={(e) => {
+                          if (toy.count - currentCount > 0) {
+                            e.dataTransfer.setData('application/newToy', toy.num);
+                          }
+                        }}
+                        src={getImgUrl(toy.num)}
+                        alt=""
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

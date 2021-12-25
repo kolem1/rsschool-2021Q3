@@ -46,6 +46,21 @@
   background-color: #fac57d;
 }
 
+.tree-card__count {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  z-index: 1;
+
+  width: 20px;
+  height: 20px;
+
+  text-align: center;
+
+  background-color: #fff;
+  border-radius: 50%;
+}
+
 .tree-card__img-wrapper {
   position: absolute;
   top: 0;
