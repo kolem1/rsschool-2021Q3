@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Footer, Header } from './components';
-import { Home, Toys } from './pages';
+import { Home, Toys, ChrictmasTree, Favorites } from './pages';
 import './App.css';
 import useToysData from './hooks/useToysData';
 import { IToy, IFilterConfig, FavoriteResponse } from './types/index';
-import { Favorites } from './pages/Favorites/Favorites';
 
 interface IMainContext {
   toysData: IToy[];
@@ -72,6 +71,7 @@ const App: React.FC = function () {
               <Route path="/" element={<Home />} />
               <Route path="/toys" element={<Toys />} />
               <Route path="/favorites" element={<Favorites />} />
+              <Route path="/tree" element={<ChrictmasTree />} />
             </Routes>
           </main>
         </MainContext.Provider>

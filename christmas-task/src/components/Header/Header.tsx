@@ -23,6 +23,11 @@ export const Header: React.FC<IHeader> = function ({ favoriteCount }) {
                   Игрушки
                 </Link>
               </li>
+              <li className="header-menu__item">
+                <Link className="header-menu__link" to="/tree">
+                  Ёлка
+                </Link>
+              </li>
             </ul>
           </nav>
           <Link to="/favorites" className="header__favorite">
