@@ -1,0 +1,75 @@
+.tree-page {
+  padding: 20px 0;
+}
+
+.tree-page__inner {
+  display: flex;
+}
+
+.tree-page__column {
+  flex-grow: 1;
+  max-width: 25%;
+}
+
+.tree-page__column--tree {
+  max-width: 50%;
+}
+
+.tree-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+}
+
+.tree-card {
+  position: relative;
+
+  padding-top: 100%;
+
+  background: radial-gradient(rgba(200, 190, 185, 1), rgba(200, 190, 185, 0.7));
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgba(200, 190, 185, 0.8);
+  border: 2px solid transparent;
+
+  transition: background-color 0.5s;
+
+  overflow: hidden;
+
+  cursor: pointer;
+}
+
+.tree-card:hover {
+  background-color: rgba(250, 197, 125, 0.8);
+}
+
+.tree-card.active {
+  background-color: #fac57d;
+}
+
+.tree-card__img-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tree {
+  position: relative;
+
+  margin: 0 10px;
+  height: 714px;
+  display: flex;
+  justify-content: center;
+}
+
+.tree__toy {
+  position: absolute;
+
+  width: 40px;
+  height: 40px;
+}
