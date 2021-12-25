@@ -2,14 +2,21 @@ import React, { useState, useContext, useEffect } from 'react';
 import { MainContext } from '../../App';
 import './ChristmasTree.css';
 import { IToy } from '../../types/index';
-import { copyObj } from '../../utils/index';
+import { copyObj, getImgUrl } from '../../utils/index';
 import { trees, backgrounds } from './treesParam';
 import { Map } from '../../components';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
+interface IToyOnTree {
+  id: string;
+  toy: IToy;
+  coords: { x: number; y: number };
+}
 
 export const ChrictmasTree: React.FC = function () {
   const [currentTree, setCurrentTree] = useState(trees[0]);
   const [currentBG, setCurrentBG] = useState(backgrounds[0]);
-  const [treeState, setTreeState] = useState<{ toy: IToy; coords: { x: number; y: number } }[]>([]);
+  const [treeState, setTreeState] = useLocalStorage<IToyOnTree[]>('kolem1-treeState', []);
 
   const [choosenToys, setChoosenToys] = useState<IToy[]>([]);
 
@@ -67,26 +74,72 @@ export const ChrictmasTree: React.FC = function () {
                   e.dataTransfer.dropEffect = 'copy';
                 }}
                 onDrop={(e) => {
-                  e.preventDefault();
+                  // e.preventDefault();
                   const target = e.target as HTMLElement;
-                  const data = e.dataTransfer.getData('application/my-app');
-                  const copyimg = document.createElement('img');
-                  copyimg.classList.add('tree__toy');
-                  const original = document.getElementById(data) as HTMLImageElement;
-                  copyimg.src = original.src;
-                  const tree: HTMLElement | null = target.closest('.tree');
-                  if (tree) {
-                    const treeX = tree.offsetLeft;
-                    const treeY = tree.offsetTop;
-                    const treeWidth = tree.offsetWidth;
-                    const treeHeight = tree.offsetHeight;
-                    copyimg.style.left = `${((e.pageX - treeX - 20) / treeWidth) * 100}%`;
-                    copyimg.style.top = `${((e.pageY - treeY - 20) / treeHeight) * 100}%`;
-                    tree.append(copyimg);
+                  const newToy = e.dataTransfer.getData('application/newToy');
+                  const movedToy = e.dataTransfer.getData('application/toy');
+                  if (newToy) {
+                    const toy = choosenToys.find((currentToy) => currentToy.num === newToy);
+                    const tree: HTMLElement | null = target.closest('.tree');
+                    if (tree && toy) {
+                      const treeX = tree.offsetLeft;
+                      const treeY = tree.offsetTop;
+                      const treeWidth = tree.offsetWidth;
+                      const treeHeight = tree.offsetHeight;
+                      setTreeState(
+                        treeState.concat({
+                          id: String(new Date().getTime()),
+                          toy,
+                          coords: {
+                            x: ((e.pageX - treeX - 20) / treeWidth) * 100,
+                            y: ((e.pageY - treeY - 20) / treeHeight) * 100,
+                          },
+                        })
+                      );
+                    }
+                  } else if (movedToy) {
+                    const toy = treeState.find((currentToy) => currentToy.id === movedToy);
+                    const tree: HTMLElement | null = target.closest('.tree');
+                    if (tree && toy) {
+                      const treeX = tree.offsetLeft;
+                      const treeY = tree.offsetTop;
+                      const treeWidth = tree.offsetWidth;
+                      const treeHeight = tree.offsetHeight;
+                      const currentToy = treeState.find((item) => item.id === toy.id) as IToyOnTree;
+                      const previousState = treeState.filter((item) => item !== currentToy);
+
+                      setTreeState(
+                        previousState.concat({
+                          ...currentToy,
+                          coords: {
+                            x: ((e.pageX - treeX - 20) / treeWidth) * 100,
+                            y: ((e.pageY - treeY - 20) / treeHeight) * 100,
+                          },
+                        })
+                      );
+                    }
                   }
                 }}
                 coords={currentTree.coords}
               />
+              {treeState.map((toy) => {
+                const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
+                if (!isChoosen) {
+                  return '';
+                }
+                return (
+                  <img
+                    key={toy.id}
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData('application/toy', toy.id);
+                    }}
+                    className="tree__toy"
+                    style={{ left: `${toy.coords.x}%`, top: `${toy.coords.y}%` }}
+                    src={getImgUrl(toy.toy.num)}
+                    alt=""
+                  />
+                );
+              })}
             </div>
           </div>
           <div className="tree-page__column">
@@ -98,10 +151,10 @@ export const ChrictmasTree: React.FC = function () {
                     <img
                       id="img"
                       onDragStart={(e) => {
-                        e.dataTransfer.setData('application/my-app', (e.target as Element).id);
+                        e.dataTransfer.setData('application/newToy', toy.num);
                         e.dataTransfer.effectAllowed = 'copy';
                       }}
-                      src={`https://raw.githubusercontent.com/kolem1/stage1-tasks/christmas-task/assets/toys/${toy.num}.png`}
+                      src={getImgUrl(toy.num)}
                       alt=""
                     />
                   </div>
