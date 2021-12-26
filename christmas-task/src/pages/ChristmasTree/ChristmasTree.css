@@ -74,12 +74,17 @@
 }
 
 .tree {
-  position: relative;
-
   margin: 0 10px;
-  height: 714px;
   display: flex;
   justify-content: center;
+}
+
+.tree__img-wrapper {
+  position: relative;
+}
+
+.tree__img {
+  height: 714px;
 }
 
 .tree__toy {

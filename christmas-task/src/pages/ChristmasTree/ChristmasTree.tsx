@@ -78,6 +78,21 @@ export const ChrictmasTree: React.FC = function () {
     }
   };
 
+  function determineSize(toy: IToy) {
+    let size: number;
+    switch (toy.size) {
+      case 'большой':
+        size = 50;
+        break;
+      case 'средний':
+        size = 45;
+        break;
+      default:
+        size = 40;
+    }
+    return size;
+  }
+
   return (
     <div className="tree-page">
       <div className="container">
@@ -115,54 +130,46 @@ export const ChrictmasTree: React.FC = function () {
           </div>
           <div className="tree-page__column tree-page__column--tree">
             <div className="tree" style={{ background: `url(${currentBG.img}) center / cover` }}>
-              <img src={currentTree.img} useMap="#image-map" alt="" />
-              <Map
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  e.dataTransfer.dropEffect = 'copy';
-                }}
-                onDrop={handleTreeDrop}
-                coords={currentTree.coords}
-              />
-              {treeState.map((toy) => {
-                const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
-                if (!isChoosen) {
-                  return '';
-                }
-                let size: number;
-                switch (toy.toy.size) {
-                  case 'большой':
-                    size = 50;
-                    break;
-                  case 'средний':
-                    size = 45;
-                    break;
-                  default:
-                    size = 40;
-                }
-                return (
-                  <img
-                    key={toy.id}
-                    onDragStart={(e) => {
-                      e.dataTransfer.setData('application/toy', toy.id);
-                    }}
-                    onDragEnd={(e) => {
-                      if (e.dataTransfer.dropEffect === 'none') {
-                        setTreeState(treeState.filter((item) => item.id !== toy.id));
-                      }
-                    }}
-                    className="tree__toy"
-                    style={{
-                      left: `${toy.coords.x}%`,
-                      top: `${toy.coords.y}%`,
-                      width: size,
-                      height: size,
-                    }}
-                    src={getImgUrl(toy.toy.num)}
-                    alt=""
-                  />
-                );
-              })}
+              <div className="tree__img-wrapper">
+                <img className="tree__img" src={currentTree.img} useMap="#image-map" alt="" />
+                <Map
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'copy';
+                  }}
+                  onDrop={handleTreeDrop}
+                  coords={currentTree.coords}
+                />
+                {treeState.map((toy) => {
+                  const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
+                  if (!isChoosen) {
+                    return '';
+                  }
+                  const size = determineSize(toy.toy);
+                  return (
+                    <img
+                      key={toy.id}
+                      onDragStart={(e) => {
+                        e.dataTransfer.setData('application/toy', toy.id);
+                      }}
+                      onDragEnd={(e) => {
+                        if (e.dataTransfer.dropEffect === 'none') {
+                          setTreeState(treeState.filter((item) => item.id !== toy.id));
+                        }
+                      }}
+                      className="tree__toy"
+                      style={{
+                        left: `${toy.coords.x}%`,
+                        top: `${toy.coords.y}%`,
+                        width: size,
+                        height: size,
+                      }}
+                      src={getImgUrl(toy.toy.num)}
+                      alt=""
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div className="tree-page__column">
