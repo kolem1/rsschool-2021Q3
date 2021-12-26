@@ -41,3 +41,5 @@ export interface IFilterConfig {
 }
 
 export type FavoriteResponse = 'deleted' | 'added' | 'full';
+
+export type DrawFunction = (context: CanvasRenderingContext2D, frameCount: number) => void;

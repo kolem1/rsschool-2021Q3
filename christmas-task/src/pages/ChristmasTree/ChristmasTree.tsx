@@ -6,6 +6,7 @@ import { copyObj, getImgUrl } from '../../utils/index';
 import { trees, backgrounds } from './treesParam';
 import { Map } from '../../components';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { Garland } from '../../components/Garland/Garland';
 
 interface IToyOnTree {
   id: string;
@@ -54,15 +55,15 @@ export const ChrictmasTree: React.FC = function () {
   }
 
   const handleTreeDrop = (e: React.DragEvent) => {
-    function getCoords(tree: HTMLElement, toy: IToy) {
+    function getCoords(tree: HTMLElement) {
+      const coords = e.dataTransfer.getData('coords').split(' ');
       const treeX = tree.offsetLeft;
       const treeY = tree.offsetTop;
       const treeWidth = tree.offsetWidth;
       const treeHeight = tree.offsetHeight;
-      const size = determineSize(toy);
       return {
-        x: ((e.pageX - treeX - size / 2) / treeWidth) * 100,
-        y: ((e.pageY - treeY - size / 2) / treeHeight) * 100,
+        x: ((e.pageX - treeX - Number(coords[0])) / treeWidth) * 100,
+        y: ((e.pageY - treeY - Number(coords[1])) / treeHeight) * 100,
       };
     }
 
@@ -80,7 +81,7 @@ export const ChrictmasTree: React.FC = function () {
         toy = {
           id: String(new Date().getTime()),
           toy: currentToy,
-          coords: getCoords(tree, currentToy),
+          coords: getCoords(tree),
         };
         setTreeState(treeState.concat(toy));
       } else if (movedToy) {
@@ -90,7 +91,7 @@ export const ChrictmasTree: React.FC = function () {
         setTreeState(
           previousState.concat({
             ...toy,
-            coords: getCoords(tree, toy.toy),
+            coords: getCoords(tree),
           })
         );
       }
@@ -144,6 +145,9 @@ export const ChrictmasTree: React.FC = function () {
                   onDrop={handleTreeDrop}
                   coords={currentTree.coords}
                 />
+                <div className="tree__garland">
+                  <Garland width={500} height={700} minAngle={1.2} maxAngle={Math.PI - 1.2} startPos={100} />
+                </div>
                 {treeState.map((toy) => {
                   const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
                   if (!isChoosen) {
@@ -154,6 +158,7 @@ export const ChrictmasTree: React.FC = function () {
                     <img
                       key={toy.id}
                       onDragStart={(e) => {
+                        e.dataTransfer.setData('coords', `${e.nativeEvent.offsetX} ${e.nativeEvent.offsetY}`);
                         e.dataTransfer.setData('application/toy', toy.id);
                       }}
                       onDragEnd={(e) => {
@@ -189,6 +194,7 @@ export const ChrictmasTree: React.FC = function () {
                         <img
                           id="img"
                           onDragStart={(e) => {
+                            e.dataTransfer.setData('coords', `${e.nativeEvent.offsetX} ${e.nativeEvent.offsetY}`);
                             e.dataTransfer.setData('application/newToy', toy.num);
                           }}
                           src={getImgUrl(toy.num)}
