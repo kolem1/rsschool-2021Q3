@@ -185,15 +185,18 @@ export const ChrictmasTree: React.FC = function () {
                   <div className="tree-card" key={toy.num}>
                     <div className="tree-card__count">{toy.count - currentCount}</div>
                     <div className="tree-card__img-wrapper">
-                      <img
-                        id="img"
-                        draggable={toy.count - currentCount > 0}
-                        onDragStart={(e) => {
-                          e.dataTransfer.setData('application/newToy', toy.num);
-                        }}
-                        src={getImgUrl(toy.num)}
-                        alt=""
-                      />
+                      {toy.count - currentCount > 0 ? (
+                        <img
+                          id="img"
+                          onDragStart={(e) => {
+                            e.dataTransfer.setData('application/newToy', toy.num);
+                          }}
+                          src={getImgUrl(toy.num)}
+                          alt=""
+                        />
+                      ) : (
+                        ''
+                      )}
                     </div>
                   </div>
                 );
