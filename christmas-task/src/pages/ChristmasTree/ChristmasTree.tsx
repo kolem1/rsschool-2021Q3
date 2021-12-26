@@ -38,46 +38,6 @@ export const ChrictmasTree: React.FC = function () {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFavorites, toysData]);
 
-  const handleTreeDrop = (e: React.DragEvent) => {
-    function getCoords(tree: HTMLElement) {
-      const treeX = tree.offsetLeft;
-      const treeY = tree.offsetTop;
-      const treeWidth = tree.offsetWidth;
-      const treeHeight = tree.offsetHeight;
-      return {
-        x: ((e.pageX - treeX - 20) / treeWidth) * 100,
-        y: ((e.pageY - treeY - 20) / treeHeight) * 100,
-      };
-    }
-
-    e.preventDefault();
-    const target = e.target as HTMLElement;
-    const tree: HTMLElement | null = target.closest('.tree');
-    const newToy = e.dataTransfer.getData('application/newToy');
-    const movedToy = e.dataTransfer.getData('application/toy');
-    if (tree) {
-      let toy: IToyOnTree;
-      if (newToy) {
-        toy = {
-          id: String(new Date().getTime()),
-          toy: choosenToys.find((currentToy) => currentToy.num === newToy) as IToy,
-          coords: getCoords(tree),
-        };
-        setTreeState(treeState.concat(toy));
-      } else if (movedToy) {
-        toy = treeState.find((currentToy) => currentToy.id === movedToy) as IToyOnTree;
-        const previousState = treeState.filter((item) => item !== toy);
-
-        setTreeState(
-          previousState.concat({
-            ...toy,
-            coords: getCoords(tree),
-          })
-        );
-      }
-    }
-  };
-
   function determineSize(toy: IToy) {
     let size: number;
     switch (toy.size) {
@@ -92,6 +52,50 @@ export const ChrictmasTree: React.FC = function () {
     }
     return size;
   }
+
+  const handleTreeDrop = (e: React.DragEvent) => {
+    function getCoords(tree: HTMLElement, toy: IToy) {
+      const treeX = tree.offsetLeft;
+      const treeY = tree.offsetTop;
+      const treeWidth = tree.offsetWidth;
+      const treeHeight = tree.offsetHeight;
+      const size = determineSize(toy);
+      return {
+        x: ((e.pageX - treeX - size / 2) / treeWidth) * 100,
+        y: ((e.pageY - treeY - size / 2) / treeHeight) * 100,
+      };
+    }
+
+    e.preventDefault();
+    const target = e.target as HTMLElement;
+    const tree: HTMLElement | null = target.closest('.tree__img-wrapper');
+
+    const newToy = e.dataTransfer.getData('application/newToy');
+
+    const movedToy = e.dataTransfer.getData('application/toy');
+    if (tree) {
+      let toy: IToyOnTree;
+      if (newToy) {
+        const currentToy = choosenToys.find((t) => t.num === newToy) as IToy;
+        toy = {
+          id: String(new Date().getTime()),
+          toy: currentToy,
+          coords: getCoords(tree, currentToy),
+        };
+        setTreeState(treeState.concat(toy));
+      } else if (movedToy) {
+        toy = treeState.find((currentToy) => currentToy.id === movedToy) as IToyOnTree;
+        const previousState = treeState.filter((item) => item !== toy);
+
+        setTreeState(
+          previousState.concat({
+            ...toy,
+            coords: getCoords(tree, toy.toy),
+          })
+        );
+      }
+    }
+  };
 
   return (
     <div className="tree-page">
@@ -153,7 +157,7 @@ export const ChrictmasTree: React.FC = function () {
                         e.dataTransfer.setData('application/toy', toy.id);
                       }}
                       onDragEnd={(e) => {
-                        if (e.dataTransfer.dropEffect === 'none') {
+                        if (e.dataTransfer.dropEffect !== 'copy') {
                           setTreeState(treeState.filter((item) => item.id !== toy.id));
                         }
                       }}
@@ -183,10 +187,9 @@ export const ChrictmasTree: React.FC = function () {
                     <div className="tree-card__img-wrapper">
                       <img
                         id="img"
+                        draggable={toy.count - currentCount > 0}
                         onDragStart={(e) => {
-                          if (toy.count - currentCount > 0) {
-                            e.dataTransfer.setData('application/newToy', toy.num);
-                          }
+                          e.dataTransfer.setData('application/newToy', toy.num);
                         }}
                         src={getImgUrl(toy.num)}
                         alt=""
