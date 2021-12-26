@@ -3,6 +3,7 @@ import { Flipped } from 'react-flip-toolkit';
 import { IToy } from '../../types/index';
 import './ToyCard.css';
 import { MainContext } from '../../App';
+import { getImgUrl } from '../../utils';
 
 interface IToyItem {
   toy: IToy;
@@ -30,11 +31,7 @@ export const ToyCard: React.FC<IToyItem> = function ({ toy }) {
       <button type="button" className={`card${toy.userFavorite ? ' active' : ''}`} onClick={handleClick}>
         <h3 className="card__title">{toy.name}</h3>
         <div className="card__img-wrapper">
-          <img
-            className="card__img"
-            src={`https://raw.githubusercontent.com/kolem1/stage1-tasks/christmas-task/assets/toys/${toy.num}.png`}
-            alt=""
-          />
+          <img className="card__img" src={getImgUrl(toy.num)} alt="" />
         </div>
         <div className="card__props">
           <div className="card__prop">Количество: {toy.count}</div>
