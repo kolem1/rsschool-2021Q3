@@ -26,8 +26,16 @@ export const ChrictmasTree: React.FC = function () {
     if (userFavorites && userFavorites.length > 0) {
       setChoosenToys(copyObj(userFavorites));
     } else if (toysData) {
-      setChoosenToys(toysData.filter((toy, i) => i < 20));
+      setChoosenToys(toysData.slice(0, 19));
     }
+    if (choosenToys.length) {
+      setTreeState(
+        treeState.filter((item) => {
+          return choosenToys.find((toy) => toy.num === item.toy.num);
+        })
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFavorites, toysData]);
 
   const handleTreeDrop = (e: React.DragEvent) => {
@@ -121,14 +129,35 @@ export const ChrictmasTree: React.FC = function () {
                 if (!isChoosen) {
                   return '';
                 }
+                let size: number;
+                switch (toy.toy.size) {
+                  case 'большой':
+                    size = 50;
+                    break;
+                  case 'средний':
+                    size = 45;
+                    break;
+                  default:
+                    size = 40;
+                }
                 return (
                   <img
                     key={toy.id}
                     onDragStart={(e) => {
                       e.dataTransfer.setData('application/toy', toy.id);
                     }}
+                    onDragEnd={(e) => {
+                      if (e.dataTransfer.dropEffect === 'none') {
+                        setTreeState(treeState.filter((item) => item.id !== toy.id));
+                      }
+                    }}
                     className="tree__toy"
-                    style={{ left: `${toy.coords.x}%`, top: `${toy.coords.y}%` }}
+                    style={{
+                      left: `${toy.coords.x}%`,
+                      top: `${toy.coords.y}%`,
+                      width: size,
+                      height: size,
+                    }}
                     src={getImgUrl(toy.toy.num)}
                     alt=""
                   />
