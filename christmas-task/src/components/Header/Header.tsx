@@ -30,9 +30,11 @@ export const Header: React.FC<IHeader> = function ({ favoriteCount }) {
               </li>
             </ul>
           </nav>
-          <Link to="/favorites" className="header__favorite">
-            <span>{favoriteCount || 0}</span>
-          </Link>
+          <div className="header__favorite-wrapper">
+            <Link to="/favorites" className="header__favorite">
+              <span>{favoriteCount || 0}</span>
+            </Link>
+          </div>
         </div>
       </div>
     </header>

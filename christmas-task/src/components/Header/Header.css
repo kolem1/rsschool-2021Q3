@@ -63,7 +63,7 @@
   transition: all 0.5s;
 }
 
-.header__favorite:hover {
+.header__favorite-wrapper:hover .header__favorite {
   opacity: 1;
   transform: rotateY(360deg);
 }
