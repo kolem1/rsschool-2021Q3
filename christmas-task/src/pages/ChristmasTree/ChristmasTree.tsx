@@ -46,10 +46,10 @@ export const ChrictmasTree: React.FC = function () {
   const [garlandColor, setGarlandColor] = useState(colorChecks[0]);
   const [garlandIsOn, setGarlandIsOn] = useState(false);
 
-  const [soundIsOn, setSoundIsOn] = useState(true);
-
+  const [soundIsOn, setSoundIsOn] = useLocalStorage('kolem1-christmasSound', false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [firstClick, setFirstClick] = useState(false);
+
   useEffect(() => {
     if (!firstClick && soundIsOn) {
       const handleFirstClick = () => {
@@ -64,6 +64,32 @@ export const ChrictmasTree: React.FC = function () {
       audioRef.current?.pause();
     }
   }, [soundIsOn, firstClick]);
+
+  const [snowIsOn, setSnowIsOn] = useState(false);
+  const snowRef = useRef<HTMLDivElement>(null);
+
+  function createSnowFlake(wrapper: HTMLDivElement) {
+    const snowFlake = document.createElement('span');
+    snowFlake.classList.add('snowflake');
+    snowFlake.style.left = `${Math.random() * wrapper.offsetWidth}px`;
+    snowFlake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    snowFlake.style.opacity = String(Math.random());
+    const size = `${Math.random() * 10 + 10}px`;
+    snowFlake.style.width = size;
+    snowFlake.style.height = size;
+
+    wrapper.append(snowFlake);
+
+    setTimeout(() => {
+      snowFlake.remove();
+    }, 5000);
+  }
+
+  useEffect(() => {
+    if (snowRef.current) {
+      setInterval(createSnowFlake, 50, snowRef.current);
+    }
+  }, [snowIsOn]);
 
   useEffect(() => {
     if (userFavorites && userFavorites.length > 0) {
@@ -99,8 +125,9 @@ export const ChrictmasTree: React.FC = function () {
   const handleTreeDrop = (e: React.DragEvent) => {
     function getCoords(tree: HTMLElement) {
       const coords = e.dataTransfer.getData('coords').split(' ');
-      const treeX = tree.offsetLeft;
-      const treeY = tree.offsetTop;
+      const treeRect = tree.getBoundingClientRect();
+      const treeX = treeRect.left + window.scrollX;
+      const treeY = treeRect.top + window.scrollY;
       const treeWidth = tree.offsetWidth;
       const treeHeight = tree.offsetHeight;
       return {
@@ -152,6 +179,7 @@ export const ChrictmasTree: React.FC = function () {
         <div className="tree-page__inner">
           <div className="tree-page__column">
             Музыка <input type="checkbox" checked={soundIsOn} onChange={(e) => setSoundIsOn(e.target.checked)} />
+            Снег <input type="checkbox" checked={snowIsOn} onChange={(e) => setSnowIsOn(e.target.checked)} />
             <h2 className="tree-page__title">Выберите ёлку</h2>
             <div className="tree-page__grid">
               {trees.map((tree) => (
@@ -201,6 +229,7 @@ export const ChrictmasTree: React.FC = function () {
           </div>
           <div className="tree-page__column tree-page__column--tree">
             <div className="tree" style={{ background: `url(${currentBG.img}) center / cover` }}>
+              {snowIsOn ? <div ref={snowRef} className="snow" /> : ''}
               <div className="tree__img-wrapper">
                 <img className="tree__img" src={currentTree.img} useMap="#image-map" alt="" />
                 <Map

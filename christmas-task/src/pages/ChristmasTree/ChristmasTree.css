@@ -78,6 +78,7 @@
 }
 
 .tree {
+  position: relative;
   margin: 0 10px;
   display: flex;
   justify-content: center;
@@ -111,4 +112,37 @@
   height: 100%;
 
   pointer-events: none;
+}
+
+.snow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+  top: -20px;
+
+  background-image: url('https://raw.githubusercontent.com/kolem1/stage1-tasks/christmas-task/assets/svg/snow.svg');
+  background-size: contain;
+  background-position: center;
+
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(105vh);
+  }
 }
