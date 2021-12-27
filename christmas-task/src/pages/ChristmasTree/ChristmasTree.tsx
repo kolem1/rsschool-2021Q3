@@ -12,19 +12,23 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 const colorChecks = [
   {
     id: 1,
-    color: '255, 0, 0',
+    color: '247, 0, 118',
   },
   {
     id: 2,
-    color: '0, 255, 0',
+    color: '0, 247, 165',
   },
   {
     id: 3,
-    color: '0, 0, 255',
+    color: '0, 255, 255',
   },
   {
     id: 4,
-    color: ['255, 0, 0', '0, 255, 0', '0, 0, 255'],
+    color: '255, 255, 0',
+  },
+  {
+    id: 5,
+    color: ['247, 0, 118', '0, 247, 165', '0, 255, 255', '255, 255, 0'],
   },
 ];
 
@@ -93,7 +97,7 @@ export const ChrictmasTree: React.FC = function () {
     if (userFavorites && userFavorites.length > 0) {
       setChoosenToys(copyObj(userFavorites));
     } else if (toysData) {
-      setChoosenToys(toysData.slice(0, 19));
+      setChoosenToys(toysData.slice(0, 20));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFavorites, toysData]);
