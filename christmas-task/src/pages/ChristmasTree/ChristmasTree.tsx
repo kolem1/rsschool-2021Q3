@@ -338,18 +338,28 @@ export const ChrictmasTree: React.FC = function () {
             {Boolean(savedTrees.length) && <h2 className="tree-page__title">Вы нарядили</h2>}
             <div className="tree-page__grid">
               {savedTrees.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className="tree-card"
-                  onClick={() => {
-                    setSaved(item.treeState, item.favorites, item.currentTree);
-                  }}
-                >
-                  <div className="tree-card__img-wrapper">
-                    <img key={item.id} src={item.dataImg} alt="" />
-                  </div>
-                </button>
+                <div key={item.id} className="saved-tree">
+                  <button
+                    type="button"
+                    className="tree-card"
+                    onClick={() => {
+                      setSaved(item.treeState, item.favorites, item.currentTree);
+                    }}
+                  >
+                    <div className="tree-card__img-wrapper">
+                      <img key={item.id} src={item.dataImg} alt="" />
+                    </div>
+                  </button>
+                  <button
+                    className="saved-tree__delete"
+                    type="button"
+                    onClick={() => {
+                      setSavedTrees(savedTrees.filter((tree) => tree.id !== item.id));
+                    }}
+                  >
+                    <span className="visually-hidden">Удалить дерево</span>
+                  </button>
+                </div>
               ))}
             </div>
             <div className="tree-page__buttons">

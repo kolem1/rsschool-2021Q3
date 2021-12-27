@@ -47,6 +47,7 @@
   position: relative;
 
   padding-top: 100%;
+  width: 100%;
 
   background: radial-gradient(rgba(200, 190, 185, 1), rgba(200, 190, 185, 0.7));
   border-radius: 15px;
@@ -147,4 +148,54 @@
 
 .tree-check__check {
   margin-right: 10px;
+}
+
+.saved-tree {
+  position: relative;
+}
+
+.saved-tree__delete {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 1;
+
+  padding: 0;
+
+  width: 20px;
+  height: 20px;
+
+  border: none;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.5;
+
+  cursor: pointer;
+
+  transition: opacity 0.3s;
+}
+
+.saved-tree__delete:hover {
+  opacity: 1;
+}
+
+.saved-tree__delete:before,
+.saved-tree__delete:after {
+  content: ' ';
+
+  position: absolute;
+  top: 0;
+  left: 10px;
+
+  height: 20px;
+  width: 2px;
+  background-color: #333;
+}
+
+.saved-tree__delete:before {
+  transform: rotate(-45deg);
+}
+
+.saved-tree__delete:after {
+  transform: rotate(45deg);
 }
