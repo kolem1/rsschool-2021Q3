@@ -105,6 +105,7 @@ export const ChrictmasTree: React.FC = function () {
     setSnowIsOn(false);
     setGarlandColor(colorChecks[0]);
     setGarlandIsOn(false);
+    setTreeState([]);
   }
 
   function determineSize(toy: IToy) {
@@ -226,7 +227,7 @@ export const ChrictmasTree: React.FC = function () {
                     key={check.id}
                     value={Array.isArray(check.color) ? check.color[0] : check.color}
                     color={`rgb(${check.color})`}
-                    className="filter-item"
+                    className="tree-check"
                     checked={garlandColor === check}
                     handleChange={() => {
                       setGarlandColor(check);
@@ -351,9 +352,16 @@ export const ChrictmasTree: React.FC = function () {
                 </button>
               ))}
             </div>
-            <button type="button" onClick={saveTree}>
-              Сохранить елку
-            </button>
+            <div className="tree-page__buttons">
+              <button className="button" type="button" onClick={saveTree}>
+                Сохранить елку
+              </button>
+              {savedTrees.length > 0 && (
+                <button className="button" type="button" onClick={() => setSavedTrees([])}>
+                  Очистить хранилище
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

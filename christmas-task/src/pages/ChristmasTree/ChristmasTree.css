@@ -30,11 +30,17 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+
+  margin-bottom: 20px;
 }
 
 .tree-page__garlands {
   display: flex;
   margin-bottom: 20px;
+}
+
+.tree-page__buttons button:not(:last-child) {
+  margin-right: 10px;
 }
 
 .tree-card {
@@ -137,4 +143,8 @@
   overflow: hidden;
 
   pointer-events: none;
+}
+
+.tree-check__check {
+  margin-right: 10px;
 }
