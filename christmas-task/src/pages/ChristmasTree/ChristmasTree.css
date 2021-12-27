@@ -122,24 +122,7 @@
   bottom: 0;
   z-index: 10;
 
+  overflow: hidden;
+
   pointer-events: none;
-}
-
-.snowflake {
-  position: absolute;
-  top: -20px;
-
-  background-size: contain;
-  background-position: center;
-
-  animation: fall linear forwards;
-}
-
-@keyframes fall {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(105vh);
-  }
 }

@@ -50,4 +50,20 @@ export const backgrounds = [
     id: 4,
     img: getImgUrl('4', 'bg', 'jpg'),
   },
+  {
+    id: 5,
+    img: getImgUrl('5', 'bg', 'jpg'),
+  },
+  {
+    id: 6,
+    img: getImgUrl('6', 'bg', 'jpg'),
+  },
+  {
+    id: 7,
+    img: getImgUrl('7', 'bg', 'jpg'),
+  },
+  {
+    id: 8,
+    img: getImgUrl('8', 'bg', 'jpg'),
+  },
 ];
