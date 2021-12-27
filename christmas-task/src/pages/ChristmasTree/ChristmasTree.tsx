@@ -65,7 +65,7 @@ export const ChrictmasTree: React.FC = function () {
     }
   }, [soundIsOn, firstClick]);
 
-  const [snowIsOn, setSnowIsOn] = useState(false);
+  const [snowIsOn, setSnowIsOn] = useLocalStorage('kolem1-snow', false);
   const snowRef = useRef<HTMLDivElement>(null);
 
   function createSnowFlake(wrapper: HTMLDivElement) {
@@ -106,6 +106,15 @@ export const ChrictmasTree: React.FC = function () {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFavorites, toysData]);
+
+  function resetSettings() {
+    setCurrentTree(trees[0]);
+    setCurrentBG(backgrounds[0]);
+    setSoundIsOn(false);
+    setSnowIsOn(false);
+    setGarlandColor(colorChecks[0]);
+    setGarlandIsOn(false);
+  }
 
   function determineSize(toy: IToy) {
     let size: number;
@@ -226,6 +235,9 @@ export const ChrictmasTree: React.FC = function () {
               })}
             </div>
             <input type="checkbox" checked={garlandIsOn} onChange={(e) => setGarlandIsOn(e.target.checked)} />
+            <button type="button" onClick={resetSettings}>
+              Очистить настройки
+            </button>
           </div>
           <div className="tree-page__column tree-page__column--tree">
             <div className="tree" style={{ background: `url(${currentBG.img}) center / cover` }}>
