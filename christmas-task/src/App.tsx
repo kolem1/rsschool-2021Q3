@@ -17,6 +17,7 @@ interface IMainContext {
   favoriteCount: number;
   resetAll: () => void;
   userFavorites: IToy[];
+  setFavoriteToys: (favorites: string[]) => void;
 }
 
 export const MainContext = React.createContext<Partial<IMainContext>>({});
@@ -33,6 +34,7 @@ const App: React.FC = function () {
     favoriteCount,
     resetAll,
     userFavorites,
+    setFavoriteToys,
   ] = useToysData([]);
 
   const context = useMemo(
@@ -47,6 +49,7 @@ const App: React.FC = function () {
       favoriteCount,
       resetAll,
       userFavorites,
+      setFavoriteToys,
     }),
     [
       toysData,
@@ -59,6 +62,7 @@ const App: React.FC = function () {
       favoriteCount,
       resetAll,
       userFavorites,
+      setFavoriteToys,
     ]
   );
   return (

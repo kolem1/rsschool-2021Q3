@@ -37,7 +37,8 @@ export default function useToysData(
   setFavorite: (num: string) => FavoriteResponse,
   favoritesCount: number,
   resetAll: () => void,
-  userFavorites: IToy[]
+  userFavorites: IToy[],
+  setFavoriteToys: React.Dispatch<React.SetStateAction<string[]>>
 ] {
   const [toysData, setToysData] = useState<IToy[]>(initialValue);
   const [favoriteToys, setFavoriteToys] = useLocalStorage<string[]>('kolem1-favoriteToys', []);
@@ -106,5 +107,6 @@ export default function useToysData(
     favoritesCount,
     resetAll,
     userFavorites,
+    setFavoriteToys,
   ];
 }
