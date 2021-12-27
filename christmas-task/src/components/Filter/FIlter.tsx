@@ -87,7 +87,7 @@ export const Filter: React.FC = function () {
                     color={check.color}
                     className="filter-item"
                     checked={filterConfig?.valueFilter.color.includes(check.value) || false}
-                    onChange={(value, isTrue) => {
+                    handleChange={(value, isTrue) => {
                       handleCheckboxChange('color', value, isTrue);
                     }}
                   />

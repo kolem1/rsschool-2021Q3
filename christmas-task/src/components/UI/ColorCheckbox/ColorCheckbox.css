@@ -13,8 +13,13 @@
   padding-top: 100%;
 }
 
-.color-check__checked:hover::after {
+.color-check__checkbox:not(:disabled) + .color-check__checked:hover::after {
   opacity: 0.5;
+}
+
+.color-check__checkbox:disabled + .color-check__checked {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .color-check__checked::after {
@@ -36,6 +41,6 @@
   transition: all 0.3s;
 }
 
-.color-check__checkbox:checked + .color-check__checked::after {
+.color-check__checkbox:not(:disabled):checked + .color-check__checked::after {
   opacity: 1;
 }

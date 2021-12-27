@@ -1,6 +1,6 @@
 import { getImgUrl } from '../../utils';
 
-interface ITree {
+export interface ITree {
   id: number;
   img: string;
   coords: string;

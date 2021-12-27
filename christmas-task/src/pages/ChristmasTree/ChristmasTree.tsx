@@ -4,7 +4,7 @@ import { MainContext } from '../../App';
 import './ChristmasTree.css';
 import { IToy } from '../../types/index';
 import { copyObj, getImgUrl } from '../../utils/index';
-import { trees, backgrounds } from './treesParam';
+import { trees, backgrounds, ITree } from './treesParam';
 import { Map, Snow, Garland, AudioPlayer } from '../../components';
 import { Checkbox, ColorCheckbox } from '../../components/UI';
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -35,8 +35,8 @@ interface IToyOnTree {
 }
 
 export const ChrictmasTree: React.FC = function () {
-  const [currentTree, setCurrentTree] = useState(trees[0]);
-  const [currentBG, setCurrentBG] = useState(backgrounds[0]);
+  const [currentTree, setCurrentTree] = useLocalStorage('kolem1-currentTree', trees[0]);
+  const [currentBG, setCurrentBG] = useLocalStorage('kolem1-currentBG', backgrounds[0]);
   const [treeState, setTreeState] = useLocalStorage<IToyOnTree[]>('kolem1-treeState', []);
 
   const [choosenToys, setChoosenToys] = useState<IToy[]>([]);
@@ -50,15 +50,22 @@ export const ChrictmasTree: React.FC = function () {
   const [soundIsOn, setSoundIsOn] = useLocalStorage('kolem1-christmasSound', false);
 
   const [savedTrees, setSavedTrees] = useLocalStorage<
-    { id: number; treeState: IToyOnTree[]; favorites: string[]; dataImg: string }[]
+    {
+      id: number;
+      treeState: IToyOnTree[];
+      favorites: string[];
+      dataImg: string;
+      currentTree: ITree;
+    }[]
   >('kolem1-savedTrees', []);
 
   const treeRef = useRef<HTMLDivElement>(null);
 
-  function setSaved(tree: IToyOnTree[], favorites: string[]) {
+  function setSaved(state: IToyOnTree[], favorites: string[], tree: ITree) {
     if (setFavoriteToys) {
-      setTreeState(tree);
+      setTreeState(state);
       setFavoriteToys(favorites);
+      setCurrentTree(tree);
     }
   }
 
@@ -76,6 +83,7 @@ export const ChrictmasTree: React.FC = function () {
           treeState,
           favorites: userFavorites.map((toy) => toy.num),
           dataImg,
+          currentTree,
         })
       );
     }
@@ -202,25 +210,32 @@ export const ChrictmasTree: React.FC = function () {
                 </button>
               ))}
             </div>
-            <h2 className="tree-page__title">Гирлянда</h2>
+            <div className="tree-page__settings-item">
+              <h2 className="tree-page__settings-title">Гирлянда</h2>
+              <Checkbox
+                label="Включить гирлянду"
+                checked={garlandIsOn}
+                onChange={(e) => setGarlandIsOn(e.target.checked)}
+              />
+            </div>
             <div className="tree-page__garlands">
               {colorChecks.map((check) => {
                 return (
                   <ColorCheckbox
+                    disabled={!garlandIsOn}
                     key={check.id}
                     value={Array.isArray(check.color) ? check.color[0] : check.color}
                     color={`rgb(${check.color})`}
                     className="filter-item"
                     checked={garlandColor === check}
-                    onChange={() => {
+                    handleChange={() => {
                       setGarlandColor(check);
                     }}
                   />
                 );
               })}
             </div>
-            <input type="checkbox" checked={garlandIsOn} onChange={(e) => setGarlandIsOn(e.target.checked)} />
-            <button type="button" onClick={resetSettings}>
+            <button className="button" type="button" onClick={resetSettings}>
               Очистить настройки
             </button>
           </div>
@@ -327,7 +342,7 @@ export const ChrictmasTree: React.FC = function () {
                   type="button"
                   className="tree-card"
                   onClick={() => {
-                    setSaved(item.treeState, item.favorites);
+                    setSaved(item.treeState, item.favorites, item.currentTree);
                   }}
                 >
                   <div className="tree-card__img-wrapper">

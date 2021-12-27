@@ -1,25 +1,34 @@
 import React from 'react';
 import './ColorCheckbox.css';
 
-interface IColorCheckbox {
+interface IColorCheckbox extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string;
-  checked: boolean;
   color: string;
-  className: string;
-  onChange: (value: string, isTrue: boolean) => void;
+  handleChange: (value: string, isTrue: boolean) => void;
 }
 
-export const ColorCheckbox: React.FC<IColorCheckbox> = function ({ value, checked, color, className, onChange }) {
+export const ColorCheckbox: React.FC<IColorCheckbox> = function ({
+  value,
+  disabled,
+  color,
+  className,
+  handleChange,
+  ...rest
+}) {
   return (
-    <label className={`${className}__check color-check`} style={{ backgroundColor: color }}>
+    <label
+      className={`${className}__check color-check`}
+      style={{ backgroundColor: color, opacity: disabled ? 0.5 : 1 }}
+    >
       <span className="visually-hidden">{value}</span>
       <input
         type="checkbox"
-        checked={checked}
+        disabled={disabled}
         onChange={(event) => {
-          onChange(value, event.target.checked);
+          handleChange(value, event.target.checked);
         }}
         className="color-check__checkbox visually-hidden"
+        {...rest}
       />
       <span className="color-check__checked" />
     </label>
