@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { MainContext } from '../../App';
 import './ChristmasTree.css';
 import { IToy } from '../../types/index';
@@ -45,6 +45,25 @@ export const ChrictmasTree: React.FC = function () {
 
   const [garlandColor, setGarlandColor] = useState(colorChecks[0]);
   const [garlandIsOn, setGarlandIsOn] = useState(false);
+
+  const [soundIsOn, setSoundIsOn] = useState(true);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [firstClick, setFirstClick] = useState(false);
+  useEffect(() => {
+    if (!firstClick && soundIsOn) {
+      const handleFirstClick = () => {
+        audioRef.current?.play();
+        setFirstClick(true);
+        document.body.removeEventListener('click', handleFirstClick);
+      };
+      document.body.addEventListener('click', handleFirstClick);
+    } else if (soundIsOn) {
+      audioRef.current?.play();
+    } else {
+      audioRef.current?.pause();
+    }
+  }, [soundIsOn, firstClick]);
 
   useEffect(() => {
     if (userFavorites && userFavorites.length > 0) {
@@ -123,9 +142,16 @@ export const ChrictmasTree: React.FC = function () {
 
   return (
     <div className="tree-page">
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+      <audio
+        ref={audioRef}
+        loop
+        src="https://raw.githubusercontent.com/kolem1/stage1-tasks/christmas-task/assets/audio/audio.mp3"
+      />
       <div className="container">
         <div className="tree-page__inner">
           <div className="tree-page__column">
+            Музыка <input type="checkbox" checked={soundIsOn} onChange={(e) => setSoundIsOn(e.target.checked)} />
             <h2 className="tree-page__title">Выберите ёлку</h2>
             <div className="tree-page__grid">
               {trees.map((tree) => (
