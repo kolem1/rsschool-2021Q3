@@ -110,6 +110,7 @@ export const ChrictmasTree: React.FC = function () {
     const size = `${Math.random() * 10 + 10}px`;
     snowFlake.style.width = size;
     snowFlake.style.height = size;
+    snowFlake.style.backgroundImage = `url(${process.env.PUBLIC_URL}/assets/svg/snow.svg)`;
 
     wrapper.append(snowFlake);
 
