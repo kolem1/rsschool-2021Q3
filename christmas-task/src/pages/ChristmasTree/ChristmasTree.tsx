@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
+import html2canvas from 'html2canvas';
 import { MainContext } from '../../App';
 import './ChristmasTree.css';
 import { IToy } from '../../types/index';
@@ -41,7 +42,7 @@ export const ChrictmasTree: React.FC = function () {
 
   const [choosenToys, setChoosenToys] = useState<IToy[]>([]);
 
-  const { userFavorites, toysData } = useContext(MainContext);
+  const { userFavorites, toysData, setFavoriteToys } = useContext(MainContext);
 
   const [garlandColor, setGarlandColor] = useState(colorChecks[0]);
   const [garlandIsOn, setGarlandIsOn] = useState(false);
@@ -49,6 +50,38 @@ export const ChrictmasTree: React.FC = function () {
   const [soundIsOn, setSoundIsOn] = useLocalStorage('kolem1-christmasSound', false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [firstClick, setFirstClick] = useState(false);
+
+  const [savedTrees, setSavedTrees] = useLocalStorage<
+    { id: number; treeState: IToyOnTree[]; favorites: string[]; dataImg: string }[]
+  >('kolem1-savedTrees', []);
+
+  const treeRef = useRef<HTMLDivElement>(null);
+
+  function setSaved(tree: IToyOnTree[], favorites: string[]) {
+    if (setFavoriteToys) {
+      setTreeState(tree);
+      setFavoriteToys(favorites);
+    }
+  }
+
+  async function saveTree() {
+    const tree = treeRef.current;
+    if (tree && userFavorites) {
+      const canvas = await html2canvas(tree, {
+        useCORS: true,
+        backgroundColor: null,
+      });
+      const dataImg = canvas.toDataURL('image/jpg');
+      setSavedTrees(
+        savedTrees.concat({
+          id: new Date().getTime(),
+          treeState,
+          favorites: userFavorites.map((toy) => toy.num),
+          dataImg,
+        })
+      );
+    }
+  }
 
   useEffect(() => {
     if (!firstClick && soundIsOn) {
@@ -97,13 +130,13 @@ export const ChrictmasTree: React.FC = function () {
     } else if (toysData) {
       setChoosenToys(toysData.slice(0, 19));
     }
-    if (choosenToys.length) {
-      setTreeState(
-        treeState.filter((item) => {
-          return choosenToys.find((toy) => toy.num === item.toy.num);
-        })
-      );
-    }
+    // if (choosenToys.length) {
+    //   setTreeState(
+    //     treeState.filter((item) => {
+    //       return choosenToys.find((toy) => toy.num === item.toy.num);
+    //     })
+    //   );
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFavorites, toysData]);
 
@@ -179,11 +212,7 @@ export const ChrictmasTree: React.FC = function () {
   return (
     <div className="tree-page">
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <audio
-        ref={audioRef}
-        loop
-        src="https://raw.githubusercontent.com/kolem1/stage1-tasks/christmas-task/assets/audio/audio.mp3"
-      />
+      <audio ref={audioRef} loop src={`${process.env.PUBLIC_URL}/assets/audio/audio.mp3`} />
       <div className="container">
         <div className="tree-page__inner">
           <div className="tree-page__column">
@@ -243,15 +272,47 @@ export const ChrictmasTree: React.FC = function () {
             <div className="tree" style={{ background: `url(${currentBG.img}) center / cover` }}>
               {snowIsOn ? <div ref={snowRef} className="snow" /> : ''}
               <div className="tree__img-wrapper">
-                <img className="tree__img" src={currentTree.img} useMap="#image-map" alt="" />
-                <Map
-                  onDragOver={(e) => {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'copy';
-                  }}
-                  onDrop={handleTreeDrop}
-                  coords={currentTree.coords}
-                />
+                <div ref={treeRef}>
+                  <img className="tree__img" src={currentTree.img} useMap="#image-map" alt="" />
+                  <Map
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      e.dataTransfer.dropEffect = 'copy';
+                    }}
+                    onDrop={handleTreeDrop}
+                    coords={currentTree.coords}
+                  />
+                  {treeState.map((toy) => {
+                    const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
+                    if (!isChoosen) {
+                      return '';
+                    }
+                    const size = determineSize(toy.toy);
+                    return (
+                      <img
+                        key={toy.id}
+                        onDragStart={(e) => {
+                          e.dataTransfer.setData('coords', `${e.nativeEvent.offsetX} ${e.nativeEvent.offsetY}`);
+                          e.dataTransfer.setData('application/toy', toy.id);
+                        }}
+                        onDragEnd={(e) => {
+                          if (e.dataTransfer.dropEffect !== 'copy') {
+                            setTreeState(treeState.filter((item) => item.id !== toy.id));
+                          }
+                        }}
+                        className="tree__toy"
+                        style={{
+                          left: `${toy.coords.x}%`,
+                          top: `${toy.coords.y}%`,
+                          width: size,
+                          height: size,
+                        }}
+                        src={getImgUrl(toy.toy.num)}
+                        alt=""
+                      />
+                    );
+                  })}
+                </div>
                 {garlandIsOn ? (
                   <div className="tree__garland">
                     <Garland
@@ -266,36 +327,6 @@ export const ChrictmasTree: React.FC = function () {
                 ) : (
                   ''
                 )}
-                {treeState.map((toy) => {
-                  const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
-                  if (!isChoosen) {
-                    return '';
-                  }
-                  const size = determineSize(toy.toy);
-                  return (
-                    <img
-                      key={toy.id}
-                      onDragStart={(e) => {
-                        e.dataTransfer.setData('coords', `${e.nativeEvent.offsetX} ${e.nativeEvent.offsetY}`);
-                        e.dataTransfer.setData('application/toy', toy.id);
-                      }}
-                      onDragEnd={(e) => {
-                        if (e.dataTransfer.dropEffect !== 'copy') {
-                          setTreeState(treeState.filter((item) => item.id !== toy.id));
-                        }
-                      }}
-                      className="tree__toy"
-                      style={{
-                        left: `${toy.coords.x}%`,
-                        top: `${toy.coords.y}%`,
-                        width: size,
-                        height: size,
-                      }}
-                      src={getImgUrl(toy.toy.num)}
-                      alt=""
-                    />
-                  );
-                })}
               </div>
             </div>
           </div>
@@ -326,6 +357,26 @@ export const ChrictmasTree: React.FC = function () {
                 );
               })}
             </div>
+            {Boolean(savedTrees.length) && <h2 className="tree-page__title">Вы нарядили</h2>}
+            <div className="tree-page__grid">
+              {savedTrees.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className="tree-card"
+                  onClick={() => {
+                    setSaved(item.treeState, item.favorites);
+                  }}
+                >
+                  <div className="tree-card__img-wrapper">
+                    <img key={item.id} src={item.dataImg} alt="" />
+                  </div>
+                </button>
+              ))}
+            </div>
+            <button type="button" onClick={saveTree}>
+              Сохранить елку
+            </button>
           </div>
         </div>
       </div>
