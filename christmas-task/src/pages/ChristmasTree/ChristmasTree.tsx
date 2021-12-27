@@ -7,6 +7,26 @@ import { trees, backgrounds } from './treesParam';
 import { Map } from '../../components';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { Garland } from '../../components/Garland/Garland';
+import { ColorCheckbox } from '../../components/UI';
+
+const colorChecks = [
+  {
+    id: 1,
+    color: '255, 0, 0',
+  },
+  {
+    id: 2,
+    color: '0, 255, 0',
+  },
+  {
+    id: 3,
+    color: '0, 0, 255',
+  },
+  {
+    id: 4,
+    color: ['255, 0, 0', '0, 255, 0', '0, 0, 255'],
+  },
+];
 
 interface IToyOnTree {
   id: string;
@@ -22,6 +42,9 @@ export const ChrictmasTree: React.FC = function () {
   const [choosenToys, setChoosenToys] = useState<IToy[]>([]);
 
   const { userFavorites, toysData } = useContext(MainContext);
+
+  const [garlandColor, setGarlandColor] = useState(colorChecks[0]);
+  const [garlandIsOn, setGarlandIsOn] = useState(false);
 
   useEffect(() => {
     if (userFavorites && userFavorites.length > 0) {
@@ -132,6 +155,23 @@ export const ChrictmasTree: React.FC = function () {
               ))}
             </div>
             <h2 className="tree-page__title">Гирлянда</h2>
+            <div className="tree-page__garlands">
+              {colorChecks.map((check) => {
+                return (
+                  <ColorCheckbox
+                    key={check.id}
+                    value={Array.isArray(check.color) ? check.color[0] : check.color}
+                    color={`rgb(${check.color})`}
+                    className="filter-item"
+                    checked={garlandColor === check}
+                    onChange={() => {
+                      setGarlandColor(check);
+                    }}
+                  />
+                );
+              })}
+            </div>
+            <input type="checkbox" checked={garlandIsOn} onChange={(e) => setGarlandIsOn(e.target.checked)} />
           </div>
           <div className="tree-page__column tree-page__column--tree">
             <div className="tree" style={{ background: `url(${currentBG.img}) center / cover` }}>
@@ -145,9 +185,20 @@ export const ChrictmasTree: React.FC = function () {
                   onDrop={handleTreeDrop}
                   coords={currentTree.coords}
                 />
-                <div className="tree__garland">
-                  <Garland width={500} height={700} minAngle={1.2} maxAngle={Math.PI - 1.2} startPos={100} />
-                </div>
+                {garlandIsOn ? (
+                  <div className="tree__garland">
+                    <Garland
+                      width={500}
+                      height={700}
+                      minAngle={1.2}
+                      maxAngle={Math.PI - 1.2}
+                      startPos={100}
+                      color={garlandColor.color}
+                    />
+                  </div>
+                ) : (
+                  ''
+                )}
                 {treeState.map((toy) => {
                   const isChoosen = choosenToys.some((item) => item.num === toy.toy.num);
                   if (!isChoosen) {

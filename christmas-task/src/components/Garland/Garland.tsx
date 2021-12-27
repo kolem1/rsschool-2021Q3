@@ -7,7 +7,7 @@ interface IGarlandProps {
   minAngle: number;
   maxAngle: number;
   startPos: number;
-  color?: string;
+  color?: string | string[];
   step?: number;
 }
 
@@ -42,16 +42,24 @@ export const Garland: React.FC<IGarlandProps> = function ({
 
   return (
     <div className="garland">
-      {items.map((item) => (
-        <div
-          className="garland__item"
-          style={{
-            left: `${item.x}%`,
-            top: `${item.y}%`,
-            backgroundColor: color,
-          }}
-        />
-      ))}
+      {items.map((item) => {
+        let mainColor = color;
+        if (Array.isArray(color)) {
+          const random = Math.floor(Math.random() * color.length);
+          mainColor = color[random];
+        }
+        return (
+          <div
+            className="garland__item"
+            style={{
+              left: `${item.x}%`,
+              top: `${item.y}%`,
+              animationDuration: `${2 + Math.floor(Math.random() * 5)}s`,
+              ['--main-color' as string]: mainColor,
+            }}
+          />
+        );
+      })}
     </div>
   );
 };

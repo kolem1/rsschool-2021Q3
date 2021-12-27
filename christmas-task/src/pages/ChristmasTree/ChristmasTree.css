@@ -21,6 +21,10 @@
   grid-gap: 10px;
 }
 
+.tree-page__garlands {
+  display: flex;
+}
+
 .tree-card {
   position: relative;
 
