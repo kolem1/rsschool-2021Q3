@@ -114,7 +114,7 @@
   pointer-events: none;
 }
 
-.snow {
+.tree__snow {
   position: absolute;
   top: 0;
   left: 0;
@@ -123,8 +123,6 @@
   z-index: 10;
 
   pointer-events: none;
-
-  overflow: hidden;
 }
 
 .snowflake {

@@ -4,3 +4,5 @@ export * from './Footer/Footer';
 export * from './Header/Header';
 export * from './LottieAnimation/LottieAnimation';
 export * from './Map/Map';
+export * from './Snow/Snow';
+export * from './Garland/Garland';

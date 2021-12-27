@@ -5,10 +5,9 @@ import './ChristmasTree.css';
 import { IToy } from '../../types/index';
 import { copyObj, getImgUrl } from '../../utils/index';
 import { trees, backgrounds } from './treesParam';
-import { Map } from '../../components';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { Garland } from '../../components/Garland/Garland';
+import { Map, Snow, Garland } from '../../components';
 import { ColorCheckbox } from '../../components/UI';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const colorChecks = [
   {
@@ -99,31 +98,6 @@ export const ChrictmasTree: React.FC = function () {
   }, [soundIsOn, firstClick]);
 
   const [snowIsOn, setSnowIsOn] = useLocalStorage('kolem1-snow', false);
-  const snowRef = useRef<HTMLDivElement>(null);
-
-  function createSnowFlake(wrapper: HTMLDivElement) {
-    const snowFlake = document.createElement('span');
-    snowFlake.classList.add('snowflake');
-    snowFlake.style.left = `${Math.random() * wrapper.offsetWidth}px`;
-    snowFlake.style.animationDuration = `${Math.random() * 3 + 2}s`;
-    snowFlake.style.opacity = String(Math.random());
-    const size = `${Math.random() * 10 + 10}px`;
-    snowFlake.style.width = size;
-    snowFlake.style.height = size;
-    snowFlake.style.backgroundImage = `url(${process.env.PUBLIC_URL}/assets/svg/snow.svg)`;
-
-    wrapper.append(snowFlake);
-
-    setTimeout(() => {
-      snowFlake.remove();
-    }, 5000);
-  }
-
-  useEffect(() => {
-    if (snowRef.current) {
-      setInterval(createSnowFlake, 50, snowRef.current);
-    }
-  }, [snowIsOn]);
 
   useEffect(() => {
     if (userFavorites && userFavorites.length > 0) {
@@ -131,13 +105,6 @@ export const ChrictmasTree: React.FC = function () {
     } else if (toysData) {
       setChoosenToys(toysData.slice(0, 19));
     }
-    // if (choosenToys.length) {
-    //   setTreeState(
-    //     treeState.filter((item) => {
-    //       return choosenToys.find((toy) => toy.num === item.toy.num);
-    //     })
-    //   );
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userFavorites, toysData]);
 
@@ -271,7 +238,13 @@ export const ChrictmasTree: React.FC = function () {
           </div>
           <div className="tree-page__column tree-page__column--tree">
             <div className="tree" style={{ background: `url(${currentBG.img}) center / cover` }}>
-              {snowIsOn ? <div ref={snowRef} className="snow" /> : ''}
+              {snowIsOn ? (
+                <div className="tree__snow">
+                  <Snow />
+                </div>
+              ) : (
+                ''
+              )}
               <div className="tree__img-wrapper">
                 <div ref={treeRef}>
                   <img className="tree__img" src={currentTree.img} useMap="#image-map" alt="" />
