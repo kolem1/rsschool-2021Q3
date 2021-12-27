@@ -22,6 +22,7 @@ export const Garland: React.FC<IGarlandProps> = function ({
 }) {
   let radius = startPos;
   const items: {
+    id: number;
     x: number;
     y: number;
   }[] = [];
@@ -33,6 +34,7 @@ export const Garland: React.FC<IGarlandProps> = function ({
       angle += 20 / radius;
 
       items.push({
+        id: items.length,
         x: (Math.abs(radius * Math.cos(angle) + middleX) / width) * 100,
         y: ((radius * Math.sin(angle)) / height) * 100,
       });
@@ -45,11 +47,12 @@ export const Garland: React.FC<IGarlandProps> = function ({
       {items.map((item) => {
         let mainColor = color;
         if (Array.isArray(color)) {
-          const random = Math.floor(Math.random() * color.length);
-          mainColor = color[random];
+          const index = item.id % color.length;
+          mainColor = color[index];
         }
         return (
           <div
+            key={item.id}
             className="garland__item"
             style={{
               left: `${item.x}%`,
