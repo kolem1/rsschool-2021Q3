@@ -5,7 +5,7 @@ import './ChristmasTree.css';
 import { IToy } from '../../types/index';
 import { copyObj, getImgUrl } from '../../utils/index';
 import { trees, backgrounds } from './treesParam';
-import { Map, Snow, Garland } from '../../components';
+import { Map, Snow, Garland, AudioPlayer } from '../../components';
 import { ColorCheckbox } from '../../components/UI';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -45,10 +45,9 @@ export const ChrictmasTree: React.FC = function () {
 
   const [garlandColor, setGarlandColor] = useState(colorChecks[0]);
   const [garlandIsOn, setGarlandIsOn] = useState(false);
+  const [snowIsOn, setSnowIsOn] = useLocalStorage('kolem1-snow', false);
 
   const [soundIsOn, setSoundIsOn] = useLocalStorage('kolem1-christmasSound', false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [firstClick, setFirstClick] = useState(false);
 
   const [savedTrees, setSavedTrees] = useLocalStorage<
     { id: number; treeState: IToyOnTree[]; favorites: string[]; dataImg: string }[]
@@ -81,23 +80,6 @@ export const ChrictmasTree: React.FC = function () {
       );
     }
   }
-
-  useEffect(() => {
-    if (!firstClick && soundIsOn) {
-      const handleFirstClick = () => {
-        audioRef.current?.play();
-        setFirstClick(true);
-        document.body.removeEventListener('click', handleFirstClick);
-      };
-      document.body.addEventListener('click', handleFirstClick);
-    } else if (soundIsOn) {
-      audioRef.current?.play();
-    } else {
-      audioRef.current?.pause();
-    }
-  }, [soundIsOn, firstClick]);
-
-  const [snowIsOn, setSnowIsOn] = useLocalStorage('kolem1-snow', false);
 
   useEffect(() => {
     if (userFavorites && userFavorites.length > 0) {
@@ -180,7 +162,7 @@ export const ChrictmasTree: React.FC = function () {
   return (
     <div className="tree-page">
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-      <audio ref={audioRef} loop src={`${process.env.PUBLIC_URL}/assets/audio/audio.mp3`} />
+      <AudioPlayer isOn={soundIsOn} loop src={`${process.env.PUBLIC_URL}/assets/audio/audio.mp3`} />
       <div className="container">
         <div className="tree-page__inner">
           <div className="tree-page__column">

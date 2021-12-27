@@ -6,3 +6,4 @@ export * from './LottieAnimation/LottieAnimation';
 export * from './Map/Map';
 export * from './Snow/Snow';
 export * from './Garland/Garland';
+export * from './AudioPlayer/AudioPlayer';
