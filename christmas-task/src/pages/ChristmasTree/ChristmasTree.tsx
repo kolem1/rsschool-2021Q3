@@ -6,7 +6,7 @@ import { IToy } from '../../types/index';
 import { copyObj, getImgUrl } from '../../utils/index';
 import { trees, backgrounds } from './treesParam';
 import { Map, Snow, Garland, AudioPlayer } from '../../components';
-import { ColorCheckbox } from '../../components/UI';
+import { Checkbox, ColorCheckbox } from '../../components/UI';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 const colorChecks = [
@@ -166,8 +166,14 @@ export const ChrictmasTree: React.FC = function () {
       <div className="container">
         <div className="tree-page__inner">
           <div className="tree-page__column">
-            Музыка <input type="checkbox" checked={soundIsOn} onChange={(e) => setSoundIsOn(e.target.checked)} />
-            Снег <input type="checkbox" checked={snowIsOn} onChange={(e) => setSnowIsOn(e.target.checked)} />
+            <div className="tree-page__settings-item">
+              <h2 className="tree-page__settings-title">Музыка</h2>
+              <Checkbox label="Включить музыку" checked={soundIsOn} onChange={(e) => setSoundIsOn(e.target.checked)} />
+            </div>
+            <div className="tree-page__settings-item">
+              <h2 className="tree-page__settings-title">Снег</h2>
+              <Checkbox label="Включить снег" checked={snowIsOn} onChange={(e) => setSnowIsOn(e.target.checked)} />
+            </div>
             <h2 className="tree-page__title">Выберите ёлку</h2>
             <div className="tree-page__grid">
               {trees.map((tree) => (

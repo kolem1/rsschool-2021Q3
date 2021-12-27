@@ -4,7 +4,6 @@ import './Checkbox.css';
 interface ICheckbox extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   checked: boolean;
-  className: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

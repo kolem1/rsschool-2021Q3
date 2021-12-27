@@ -15,6 +15,17 @@
   max-width: 50%;
 }
 
+.tree-page__settings-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tree-page__settings-title {
+  margin: 0;
+  margin-right: 10px;
+}
+
 .tree-page__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
