@@ -147,7 +147,7 @@ export const ChrictmasTree: React.FC = function () {
     }
   };
 
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
     <div className="tree-page">
