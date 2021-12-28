@@ -67,3 +67,30 @@ export const backgrounds = [
     img: getImgUrl('8', 'bg', 'jpg'),
   },
 ];
+
+export const colorChecks = [
+  {
+    id: 1,
+    color: '247, 0, 118',
+  },
+  {
+    id: 2,
+    color: '0, 247, 165',
+  },
+  {
+    id: 3,
+    color: '0, 255, 255',
+  },
+  {
+    id: 4,
+    color: '255, 255, 0',
+  },
+  {
+    id: 4,
+    color: '192, 0, 255',
+  },
+  {
+    id: 6,
+    color: ['247, 0, 118', '0, 247, 165', '0, 255, 255', '255, 255, 0', '192, 0, 255'],
+  },
+];

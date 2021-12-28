@@ -1,45 +1,26 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import { MainContext } from '../../App';
-import './ChristmasTree.css';
 import { IToy } from '../../types/index';
 import { copyObj, getImgUrl } from '../../utils/index';
-import { trees, backgrounds, ITree } from './treesParam';
+import { trees, backgrounds, ITree, colorChecks } from './treesParam';
 import { Map, Snow, Garland, AudioPlayer } from '../../components';
 import { Checkbox, ColorCheckbox } from '../../components/UI';
 import useLocalStorage from '../../hooks/useLocalStorage';
-
-const colorChecks = [
-  {
-    id: 1,
-    color: '247, 0, 118',
-  },
-  {
-    id: 2,
-    color: '0, 247, 165',
-  },
-  {
-    id: 3,
-    color: '0, 255, 255',
-  },
-  {
-    id: 4,
-    color: '255, 255, 0',
-  },
-  {
-    id: 4,
-    color: '192, 0, 255',
-  },
-  {
-    id: 6,
-    color: ['247, 0, 118', '0, 247, 165', '0, 255, 255', '255, 255, 0', '192, 0, 255'],
-  },
-];
+import './ChristmasTree.css';
 
 interface IToyOnTree {
   id: string;
   toy: IToy;
   coords: { x: number; y: number };
+}
+
+interface ISavedTree {
+  id: number;
+  treeState: IToyOnTree[];
+  favorites: string[];
+  dataImg: string;
+  currentTree: ITree;
 }
 
 export const ChrictmasTree: React.FC = function () {
@@ -48,8 +29,15 @@ export const ChrictmasTree: React.FC = function () {
   const [treeState, setTreeState] = useLocalStorage<IToyOnTree[]>('kolem1-treeState', []);
 
   const [choosenToys, setChoosenToys] = useState<IToy[]>([]);
-
   const { userFavorites, toysData, setFavoriteToys } = useContext(MainContext);
+
+  useEffect(() => {
+    if (userFavorites && userFavorites.length > 0) {
+      setChoosenToys(copyObj(userFavorites));
+    } else if (toysData) {
+      setChoosenToys(toysData.slice(0, 20));
+    }
+  }, [userFavorites, toysData]);
 
   const [garlandColor, setGarlandColor] = useState(colorChecks[0]);
   const [garlandIsOn, setGarlandIsOn] = useState(false);
@@ -57,15 +45,7 @@ export const ChrictmasTree: React.FC = function () {
 
   const [soundIsOn, setSoundIsOn] = useLocalStorage('kolem1-christmasSound', false);
 
-  const [savedTrees, setSavedTrees] = useLocalStorage<
-    {
-      id: number;
-      treeState: IToyOnTree[];
-      favorites: string[];
-      dataImg: string;
-      currentTree: ITree;
-    }[]
-  >('kolem1-savedTrees', []);
+  const [savedTrees, setSavedTrees] = useLocalStorage<ISavedTree[]>('kolem1-savedTrees', []);
 
   const treeRef = useRef<HTMLDivElement>(null);
 
@@ -96,15 +76,6 @@ export const ChrictmasTree: React.FC = function () {
       );
     }
   }
-
-  useEffect(() => {
-    if (userFavorites && userFavorites.length > 0) {
-      setChoosenToys(copyObj(userFavorites));
-    } else if (toysData) {
-      setChoosenToys(toysData.slice(0, 20));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userFavorites, toysData]);
 
   function resetSettings() {
     setCurrentTree(trees[0]);
@@ -176,13 +147,23 @@ export const ChrictmasTree: React.FC = function () {
     }
   };
 
+  const [showSettings, setShowSettings] = useState(true);
+
   return (
     <div className="tree-page">
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <AudioPlayer isOn={soundIsOn} loop src={`${process.env.PUBLIC_URL}/assets/audio/audio.mp3`} />
       <div className="container">
         <div className="tree-page__inner">
-          <div className="tree-page__column">
+          <button
+            type="button"
+            className={`burger ${showSettings ? 'active' : ''}`}
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            <span className="visually-hidden">Показать настройки</span>
+            <span className="burger__line" />
+          </button>
+          <div className={`tree-page__column tree-page__column--settings ${showSettings ? 'active' : ''}`}>
             <div className="tree-page__settings-item">
               <h2 className="tree-page__settings-title">Музыка</h2>
               <Checkbox label="Включить музыку" checked={soundIsOn} onChange={(e) => setSoundIsOn(e.target.checked)} />
@@ -316,7 +297,7 @@ export const ChrictmasTree: React.FC = function () {
               </div>
             </div>
           </div>
-          <div className="tree-page__column">
+          <div className="tree-page__column tree-page__column--toys">
             <h2 className="tree-page__title">Игрушки</h2>
             <div className="tree-page__grid">
               {choosenToys.map((toy) => {
