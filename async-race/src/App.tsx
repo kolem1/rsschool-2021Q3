@@ -1,13 +1,15 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Header } from './components/Header/Header';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppView } from './AppView';
+import { Garage } from './pages';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Header />
-      </div>
+      <AppView>
+        <Routes>
+          <Route path="/" element={<Garage />}></Route>
+        </Routes>
+      </AppView>
     </BrowserRouter>
   );
 };

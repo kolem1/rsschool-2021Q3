@@ -28,6 +28,9 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "settings": {
+    "import/extensions": "never"
+  },
   "rules": {
     "linebreak-style": "off",
     "react-hooks/rules-of-hooks": "error",
@@ -47,6 +50,7 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "@typescript-eslint/default-param-last": "off"
   }
 }
