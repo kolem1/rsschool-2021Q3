@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { CarSvg, Container } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
-import { createCar } from '../../api';
+import { createCar, deleteCar } from '../../api';
 import { ICarParams } from '../../types/cars';
 import { TextInput } from '../../components/UI';
 
@@ -12,7 +12,9 @@ export const Garage = () => {
   const dispatch = useDispatch();
   const defaultState = { name: '', color: '#ffffff' };
   const [createdCar, setCreatedCar] = useState<ICarParams>(defaultState);
-  const totalPages = Math.ceil(total / 7);
+  const carsLimit = 7;
+  const totalPages = Math.ceil(total / carsLimit);
+  console.log(page);
 
   useEffect(() => {
     dispatch(fetchCars(page));
@@ -48,6 +50,15 @@ export const Garage = () => {
         <h1>Garage ({total})</h1>
         {cars.map((car) => (
           <div key={car.id}>
+            <button
+              type="button"
+              onClick={async () => {
+                await deleteCar(car.id);
+                dispatch(fetchCars(page));
+              }}
+            >
+              Remove
+            </button>
             {car.name}
             <div
               style={{
@@ -60,7 +71,7 @@ export const Garage = () => {
         ))}
         <div>
           <button
-            disabled={page === 1}
+            disabled={page === 1 || total === 0}
             onClick={() => {
               dispatch(setCarsPage(page - 1));
               dispatch(fetchCars(page));
@@ -69,7 +80,7 @@ export const Garage = () => {
             prev
           </button>
           <button
-            disabled={page === totalPages}
+            disabled={page === totalPages || total === 0}
             onClick={async () => {
               dispatch(setCarsPage(page + 1));
               dispatch(fetchCars(page));
