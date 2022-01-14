@@ -1,0 +1,122 @@
+import { ICarParams } from '../types/cars';
+import { getRandomColor } from './getRandomColor';
+import { getRandomItemFromArray } from './getRandomItemFromArray';
+
+const carsBrands = [
+  'Audi',
+  'Alfa Romeo',
+  'Alpina',
+  'Aston Martin',
+  'Axon',
+  'Ford',
+  'Ferrari',
+  'Fiat',
+  'GAZ',
+  'GMC',
+  'Honda',
+  'Hummer',
+  'Hyundai',
+  'Infiniti',
+  'Isuzu',
+  'JAC',
+  'Jaguar',
+  'Jeep',
+  'Kamaz',
+  'Lada',
+  'Lexus',
+  'Lotus',
+  'MAN',
+  'Maybach',
+  'MAZ',
+  'Mazda',
+  'McLaren',
+  'Nissan',
+  'Opel',
+  'Paccar',
+  'Pagani',
+  'Pontiac',
+  'Porsche',
+  'Renault',
+  'Å koda',
+  'Smart',
+  'Subaru',
+  'Suzuki',
+  'Tesla',
+  'Toyota',
+  'UAZ',
+  'Volvo',
+  'ZAZ',
+  'XPeng',
+  'TVR',
+  'Saab',
+  'RAM',
+  'Chevrolet',
+  'Mazzanti',
+  'Daewoo'
+];
+
+const carsModels = [
+  'Roadster',
+  'S',
+  'X',
+  '3',
+  'Y',
+  'Cybertruck',
+  'X5',
+  'X7',
+  'X3',
+  'X6',
+  'GT4',
+  'FXX',
+  '599 GTO',
+  'Enzo',
+  '458 Italia',
+  '250 GTO',
+  'Priora',
+  '4x4',
+  'Rio',
+  'Focus',
+  'Kalina',
+  'Vesta',
+  'Spark',
+  'Lacetti',
+  'Nexia',
+  'Matiz',
+  'Cobalt',
+  'Captiva',
+  'A7',
+  'A5',
+  'A3',
+  'A8',
+  'TT',
+  'Corolla',
+  'Camry',
+  'RAV4',
+  'Impreza',
+  'WRX',
+  'ES',
+  'LS',
+  'RX',
+  'GX',
+  'LX',
+  'GS',
+  'LC500',
+  'Gallardo',
+  'Aventador',
+  '911',
+  'Cayenne',
+  'FX37'
+];
+
+export function generateCar(): ICarParams {
+  const model = getRandomItemFromArray(carsModels);
+  const brand = getRandomItemFromArray(carsBrands);
+  const name = `${brand} ${model}`;
+
+  const color = getRandomColor();
+
+  return {
+    name,
+    color
+  };
+}
