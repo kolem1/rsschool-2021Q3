@@ -37,8 +37,8 @@ export const Garage = () => {
             onClick={async () => {
               if (createdCar.name.trim()) {
                 await createCar(createdCar);
-                dispatch(fetchCars());
                 setCreatedCar(defaultState);
+                dispatch(fetchCars(page));
               }
             }}
           >
