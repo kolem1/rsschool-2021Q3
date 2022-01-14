@@ -1,19 +1,20 @@
 import { Dispatch } from 'redux';
-import { Car, CarsAction, CarsActionTypes } from '../../types/cars';
+import { ICar, CarsAction, CarsActionTypes } from '../../types/cars';
 
 export const fetchCars = (page = 1, limit = 10) => {
   return async (dispatch: Dispatch<CarsAction>) => {
     try {
       dispatch({ type: CarsActionTypes.FETCH_CARS });
-      const response = await fetch(`http://127.0.0.1:3000/garage?_page=${page}&_limit=${limit}`);
-      const data = (await response.json()) as Car[];
-      setTimeout(() => {
-        dispatch({ type: CarsActionTypes.FETCH_CARS_SUCCESS, payload: data });
-      }, 500);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/garage?_page=${page}&_limit=${limit}`
+      );
+      const data = (await response.json()) as ICar[];
+      const total = Number(response.headers.get('X-Total-Count'));
+      dispatch({ type: CarsActionTypes.FETCH_CARS_SUCCESS, payload: { data, total } });
     } catch (e) {
       dispatch({
         type: CarsActionTypes.FETCH_CARS_ERROR,
-        payload: 'Произошла ошибка при загрузке списка дел'
+        payload: 'Произошла ошибка при загрузке'
       });
     }
   };

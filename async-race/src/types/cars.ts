@@ -1,11 +1,15 @@
-export interface Car {
+export interface ICarParams {
   name: string;
   color: string;
+}
+
+export interface ICar extends ICarParams {
   id: number;
 }
 
-export interface CarsState {
-  cars: Car[];
+export interface ICarsState {
+  cars: ICar[];
+  total: number;
   loading: boolean;
   error: null | string;
   page: number;
@@ -16,26 +20,27 @@ export enum CarsActionTypes {
   FETCH_CARS = 'FETCH_CARS',
   FETCH_CARS_SUCCESS = 'FETCH_CARS_SUCCESS',
   FETCH_CARS_ERROR = 'FETCH_CARS_ERROR',
-  SET_CARS_PAGE = 'SET_CARs_PAGE'
+  SET_CARS_PAGE = 'SET_CARs_PAGE',
+  CREATE_CAR = 'CREATE_CAR'
 }
-interface FetchCarsAction {
+interface IFetchCarsAction {
   type: CarsActionTypes.FETCH_CARS;
 }
-interface FetchCarsSuccessAction {
+interface IFetchCarsSuccessAction {
   type: CarsActionTypes.FETCH_CARS_SUCCESS;
-  payload: Car[];
+  payload: { data: ICar[]; total: number };
 }
-interface FetchCarsErrorAction {
+interface IFetchCarsErrorAction {
   type: CarsActionTypes.FETCH_CARS_ERROR;
   payload: string;
 }
-interface SetCarsPage {
+interface ISetCarsPage {
   type: CarsActionTypes.SET_CARS_PAGE;
   payload: number;
 }
 
 export type CarsAction =
-  | FetchCarsAction
-  | FetchCarsErrorAction
-  | FetchCarsSuccessAction
-  | SetCarsPage;
+  | IFetchCarsAction
+  | IFetchCarsErrorAction
+  | IFetchCarsSuccessAction
+  | ISetCarsPage;
