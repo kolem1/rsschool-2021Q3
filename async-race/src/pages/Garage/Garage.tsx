@@ -3,18 +3,22 @@ import { useDispatch } from 'react-redux';
 import { CarSvg, Container } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
-import { createCar, deleteCar } from '../../api';
-import { ICarParams } from '../../types/cars';
+import { createCar, deleteCar, updateCar } from '../../api';
+import { ICarParams, ICar } from '../../types/cars';
 import { TextInput } from '../../components/UI';
 
 export const Garage = () => {
   const { page, cars, total } = useTypedSelector((state) => state.cars);
   const dispatch = useDispatch();
-  const defaultState = { name: '', color: '#ffffff' };
-  const [createdCar, setCreatedCar] = useState<ICarParams>(defaultState);
+
+  const defaultCreatedCar = { name: '', color: '#ffffff' };
+  const [createdCar, setCreatedCar] = useState<ICarParams>(defaultCreatedCar);
+
   const carsLimit = 7;
   const totalPages = Math.ceil(total / carsLimit);
-  console.log(page);
+
+  const defaultSelectedCar = { id: 0, name: '', color: '#ffffff' };
+  const [selectedCar, setSelectedCar] = useState<ICar>(defaultSelectedCar);
 
   useEffect(() => {
     dispatch(fetchCars(page));
@@ -39,17 +43,51 @@ export const Garage = () => {
             onClick={async () => {
               if (createdCar.name.trim()) {
                 await createCar(createdCar);
-                setCreatedCar(defaultState);
+                setCreatedCar(defaultCreatedCar);
                 dispatch(fetchCars(page));
               }
             }}
           >
-            CreateCar
+            Create Car
+          </button>
+        </div>
+        <div>
+          <TextInput
+            value={selectedCar.name}
+            onChange={({ target }) => setSelectedCar({ ...selectedCar, name: target.value })}
+            disabled={!selectedCar.id}
+          />
+          <input
+            type="color"
+            value={selectedCar.color}
+            onChange={({ target }) => setSelectedCar({ ...selectedCar, color: target.value })}
+            disabled={!selectedCar.id}
+          />
+          <button
+            type="button"
+            onClick={async () => {
+              if (selectedCar.name.trim()) {
+                await updateCar(selectedCar);
+                setSelectedCar(defaultSelectedCar);
+                dispatch(fetchCars(page));
+              }
+            }}
+            disabled={!selectedCar.id}
+          >
+            Update Car
           </button>
         </div>
         <h1>Garage ({total})</h1>
         {cars.map((car) => (
           <div key={car.id}>
+            <button
+              type="button"
+              onClick={async () => {
+                setSelectedCar(car);
+              }}
+            >
+              Select
+            </button>
             <button
               type="button"
               onClick={async () => {
