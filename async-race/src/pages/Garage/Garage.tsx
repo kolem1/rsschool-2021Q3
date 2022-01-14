@@ -2,27 +2,28 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CarSvg, Container } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { fetchCars } from '../../store/actions/carsActions';
+import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
 import { createCar } from '../../api';
 import { ICarParams } from '../../types/cars';
+import { TextInput } from '../../components/UI';
 
 export const Garage = () => {
-  const cars = useTypedSelector((state) => state.cars);
+  const { page, cars, total } = useTypedSelector((state) => state.cars);
   const dispatch = useDispatch();
   const defaultState = { name: '', color: '#ffffff' };
   const [createdCar, setCreatedCar] = useState<ICarParams>(defaultState);
+  const totalPages = Math.ceil(total / 7);
 
   useEffect(() => {
-    dispatch(fetchCars());
+    dispatch(fetchCars(page));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page]);
 
   return (
     <div>
       <Container>
         <div>
-          <input
-            type="text"
+          <TextInput
             value={createdCar.name}
             onChange={({ target }) => setCreatedCar({ ...createdCar, name: target.value })}
           />
@@ -34,16 +35,18 @@ export const Garage = () => {
           <button
             type="button"
             onClick={async () => {
-              await createCar(createdCar);
-              dispatch(fetchCars());
-              setCreatedCar(defaultState);
+              if (createdCar.name.trim()) {
+                await createCar(createdCar);
+                dispatch(fetchCars());
+                setCreatedCar(defaultState);
+              }
             }}
           >
             CreateCar
           </button>
         </div>
-        <h1>Garage ({cars.total})</h1>
-        {cars.cars.map((car) => (
+        <h1>Garage ({total})</h1>
+        {cars.map((car) => (
           <div key={car.id}>
             {car.name}
             <div
@@ -55,6 +58,26 @@ export const Garage = () => {
             </div>
           </div>
         ))}
+        <div>
+          <button
+            disabled={page === 1}
+            onClick={() => {
+              dispatch(setCarsPage(page - 1));
+              dispatch(fetchCars(page));
+            }}
+          >
+            prev
+          </button>
+          <button
+            disabled={page === totalPages}
+            onClick={async () => {
+              dispatch(setCarsPage(page + 1));
+              dispatch(fetchCars(page));
+            }}
+          >
+            Next
+          </button>
+        </div>
       </Container>
     </div>
   );

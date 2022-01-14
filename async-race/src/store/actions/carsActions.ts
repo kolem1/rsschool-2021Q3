@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { ICar, CarsAction, CarsActionTypes } from '../../types/cars';
 
-export const fetchCars = (page = 1, limit = 10) => {
+export const fetchCars = (page = 1, limit = 7) => {
   return async (dispatch: Dispatch<CarsAction>) => {
     try {
       dispatch({ type: CarsActionTypes.FETCH_CARS });
