@@ -1,4 +1,5 @@
 import { ICarParams, ICar, IWinner } from '../types/cars';
+import { generateCar } from '../utils';
 
 export const createCar = async ({ name, color }: ICarParams) => {
   await fetch(`${process.env.REACT_APP_API_URL}/garage`, {
@@ -32,4 +33,15 @@ export const updateCar = async ({ id, name, color }: ICar) => {
     },
     body: JSON.stringify({ name, color })
   });
+};
+
+export const generateCars = async () => {
+  const carsNumber = 100;
+  const promises: Promise<void>[] = [];
+  for (let i = 0; i < carsNumber; i++) {
+    const car = generateCar();
+    const promise = createCar(car);
+    promises.push(promise);
+  }
+  return Promise.all(promises);
 };

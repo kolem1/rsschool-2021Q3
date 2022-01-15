@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { CarSvg, Container } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
-import { createCar, deleteCar, updateCar } from '../../api';
+import { createCar, deleteCar, updateCar, generateCars } from '../../api';
 import { ICarParams, ICar } from '../../types/cars';
 import { TextInput } from '../../components/UI';
 
@@ -28,6 +28,14 @@ export const Garage = () => {
   return (
     <div>
       <Container>
+        <button
+          onClick={async () => {
+            await generateCars();
+            dispatch(fetchCars(page));
+          }}
+        >
+          Generate Cars
+        </button>
         <div>
           <TextInput
             value={createdCar.name}
