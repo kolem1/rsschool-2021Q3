@@ -22,6 +22,17 @@ export interface ICarsState {
   limit: number;
 }
 
+export interface IEngine {
+  velocity: number;
+  distance: number;
+}
+
+export interface IDrivedEngine {
+  succes: true;
+}
+
+export type EngineResponse = IEngine | IDrivedEngine;
+
 export enum CarsActionTypes {
   FETCH_CARS = 'FETCH_CARS',
   FETCH_CARS_SUCCESS = 'FETCH_CARS_SUCCESS',

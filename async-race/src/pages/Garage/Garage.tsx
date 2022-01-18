@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { CarSvg, Container } from '../../components';
+import { Car, Container } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
 import { createCar, deleteCar, updateCar, generateCars } from '../../api';
@@ -20,6 +20,8 @@ export const Garage = () => {
   const defaultSelectedCar = { id: 0, name: '', color: '#ffffff' };
   const [selectedCar, setSelectedCar] = useState<ICar>(defaultSelectedCar);
 
+  const [raceIsStarted, setRaceIsStarted] = useState(false);
+
   useEffect(() => {
     dispatch(fetchCars(page));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,6 +30,13 @@ export const Garage = () => {
   return (
     <div>
       <Container>
+        <button
+          onClick={() => {
+            setRaceIsStarted(true);
+          }}
+        >
+          Race
+        </button>
         <button
           onClick={async () => {
             await generateCars();
@@ -86,8 +95,11 @@ export const Garage = () => {
           </button>
         </div>
         <h1>Garage ({total})</h1>
+        <h2>
+          Page {page} {totalPages > 1 && `from ${totalPages}`}
+        </h2>
         {cars.map((car) => (
-          <div key={car.id}>
+          <Car key={car.id} car={car} started={raceIsStarted}>
             <button
               type="button"
               onClick={async () => {
@@ -105,15 +117,7 @@ export const Garage = () => {
             >
               Remove
             </button>
-            {car.name}
-            <div
-              style={{
-                width: 100
-              }}
-            >
-              <CarSvg color={car.color} />
-            </div>
-          </div>
+          </Car>
         ))}
         <div>
           <button
