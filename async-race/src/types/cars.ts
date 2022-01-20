@@ -7,12 +7,6 @@ export interface ICar extends ICarParams {
   id: number;
 }
 
-export interface IWinner {
-  id: number;
-  wins: number;
-  time: number;
-}
-
 export interface ICarsState {
   cars: ICar[];
   total: number;

@@ -1,28 +1,36 @@
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Transition, TransitionStatus } from 'react-transition-group';
 import { CarSvg } from '..';
 import { driveEngine, startEngine, stopEngine } from '../../api';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { addResult } from '../../store/actions/raceActions';
 import { ICar } from '../../types/cars';
+import styles from './Car.module.css';
 
 interface ICarProps {
   car: ICar;
-  started?: boolean;
 }
 
-export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, started = false, children }) => {
+export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
+  const dispatch = useDispatch();
   const [duration, setDuration] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [position, setPosition] = useState(0);
+  const { raceIsStarted, winnerIsVacant } = useTypedSelector((state) => state.race);
 
   const carRef = useRef<HTMLDivElement>(null);
 
-  const startCar = async () => {
+  const startCar = async (isRace = false) => {
     const { distance, velocity } = await startEngine(car.id);
-    const time = distance / velocity;
+    const time = Math.round(distance / velocity);
     setDuration(time);
     setIsStarted(true);
     try {
-      await driveEngine(car.id);
+      const result = await driveEngine(car.id);
+      if (winnerIsVacant && isRace) {
+        dispatch(addResult({ id: car.id, time: Math.round(time / 100) / 10, result }));
+      }
       setIsStarted(false);
       setPosition(100);
     } catch (err) {
@@ -38,10 +46,14 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, started = false, ch
   };
 
   useEffect(() => {
-    if (started) {
-      startCar();
+    if (raceIsStarted) {
+      startCar(true);
+    } else {
+      setDuration(0);
+      setPosition(0);
     }
-  }, [started]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [raceIsStarted]);
 
   const defaultStyle = {
     transition: `left ${duration}ms linear`,
@@ -60,9 +72,9 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, started = false, ch
       <div>{children}</div>
       <h3 style={{ margin: 0 }}>{car.name}</h3>
       <div>
-        <button onClick={startCar}>Start</button>
+        <button onClick={() => startCar()}>Start</button>
         <button
-          onClick={async () => {
+          onClick={() => {
             stopEngine(car.id);
             setDuration(0);
             setIsStarted(false);
@@ -73,18 +85,8 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, started = false, ch
           Stop
         </button>
       </div>
-      <div
-        style={{
-          display: 'flex'
-        }}
-      >
-        <div
-          style={{
-            height: 35,
-            flexGrow: 1,
-            position: 'relative'
-          }}
-        >
+      <div className={styles.wrapper}>
+        <div className={styles.track}>
           <Transition
             in={isStarted}
             timeout={{
@@ -95,10 +97,8 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, started = false, ch
             {(state: TransitionStatus) => (
               <div
                 ref={carRef}
+                className={styles.car}
                 style={{
-                  width: 100,
-                  position: 'absolute',
-                  bottom: 0,
                   ...defaultStyle,
                   ...transitionStyles[state as keyof typeof transitionStyles]
                 }}

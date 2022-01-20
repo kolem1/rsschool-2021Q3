@@ -3,12 +3,14 @@ import { useDispatch } from 'react-redux';
 import { Car, Container } from '../../components';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
-import { createCar, deleteCar, updateCar, generateCars } from '../../api';
+import { createCar, deleteCar, updateCar, generateCars, setWinner } from '../../api';
 import { ICarParams, ICar } from '../../types/cars';
 import { TextInput } from '../../components/UI';
+import { startRace, stopRace } from '../../store/actions/raceActions';
 
 export const Garage = () => {
   const { page, cars, total } = useTypedSelector((state) => state.cars);
+  const { raceIsStarted, winner } = useTypedSelector((state) => state.race);
   const dispatch = useDispatch();
 
   const defaultCreatedCar = { name: '', color: '#ffffff' };
@@ -20,22 +22,34 @@ export const Garage = () => {
   const defaultSelectedCar = { id: 0, name: '', color: '#ffffff' };
   const [selectedCar, setSelectedCar] = useState<ICar>(defaultSelectedCar);
 
-  const [raceIsStarted, setRaceIsStarted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [winningCar, setWinningCar] = useState<ICar | null>(null);
 
   useEffect(() => {
     dispatch(fetchCars(page));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+  useEffect(() => {
+    if (winner) {
+      setWinner(winner.id, winner.time);
+      const car = cars.find((item) => item.id === winner.id);
+      if (!car) throw new Error('Winner is not found');
+      setWinningCar(car);
+      setShowModal(true);
+      setTimeout(() => setShowModal(false), 4000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [winner]);
+
   return (
     <div>
       <Container>
-        <button
-          onClick={() => {
-            setRaceIsStarted(true);
-          }}
-        >
+        <button onClick={() => dispatch(startRace())} disabled={raceIsStarted}>
           Race
+        </button>
+        <button onClick={() => dispatch(stopRace())} disabled={!raceIsStarted}>
+          Reset
         </button>
         <button
           onClick={async () => {
@@ -60,8 +74,15 @@ export const Garage = () => {
             onClick={async () => {
               if (createdCar.name.trim()) {
                 await createCar(createdCar);
+                let lastPage = totalPages;
+                console.log(cars.length);
+                if (total % carsLimit === 0) {
+                  lastPage += 1;
+                }
+                console.log(lastPage);
                 setCreatedCar(defaultCreatedCar);
-                dispatch(fetchCars(page));
+                dispatch(setCarsPage(lastPage));
+                dispatch(fetchCars(lastPage));
               }
             }}
           >
@@ -99,7 +120,7 @@ export const Garage = () => {
           Page {page} {totalPages > 1 && `from ${totalPages}`}
         </h2>
         {cars.map((car) => (
-          <Car key={car.id} car={car} started={raceIsStarted}>
+          <Car key={car.id} car={car}>
             <button
               type="button"
               onClick={async () => {
@@ -140,6 +161,18 @@ export const Garage = () => {
           </button>
         </div>
       </Container>
+      {showModal && (
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            top: '50%',
+            left: '50%'
+          }}
+        >
+          Winner is {winningCar && winningCar.name}({winner && winner.time}s)
+        </div>
+      )}
     </div>
   );
 };

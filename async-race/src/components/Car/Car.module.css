@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+}
+
+.track {
+  height: 35px;
+  flex-grow: 1;
+  position: relative;
+}
+
+.car {
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+}
