@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppView } from './AppView';
-import { Garage } from './pages';
+import { Garage, Winners } from './pages';
 
 const App = () => {
   return (
@@ -8,6 +8,7 @@ const App = () => {
       <AppView>
         <Routes>
           <Route path="/" element={<Garage />}></Route>
+          <Route path="/winners" element={<Winners />}></Route>
         </Routes>
       </AppView>
     </BrowserRouter>
