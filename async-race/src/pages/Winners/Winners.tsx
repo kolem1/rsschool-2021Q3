@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchWinners } from '../../store/actions/winnersActions';
+import { fetchWinners, setSortAndOrder, setWinnersPage } from '../../store/actions/winnersActions';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { Container, CarSvg } from '../../components';
+import { OrderType, SortType } from '../../types/winners';
 
 export const Winners = () => {
-  const { page, winners, total } = useTypedSelector((state) => state.winners);
+  const { page, winners, total, sort, order } = useTypedSelector((state) => state.winners);
   const dispatch = useDispatch();
-  console.log(winners);
+  console.log(sort, order);
 
   const winnersLimit = 10;
   const totalPages = Math.ceil(total / winnersLimit);
 
   useEffect(() => {
-    dispatch(fetchWinners(page));
+    dispatch(fetchWinners(page, sort, order));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, sort, order]);
 
   return (
     <div>
@@ -28,11 +29,44 @@ export const Winners = () => {
           <table>
             <thead>
               <tr>
-                <th>Number</th>
+                <th
+                  onClick={() => {
+                    let newOrder = OrderType.ASC;
+                    if (sort === SortType.id) {
+                      newOrder = order === OrderType.ASC ? OrderType.DESC : OrderType.ASC;
+                    }
+                    dispatch(setSortAndOrder(SortType.id, newOrder));
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Number
+                </th>
                 <th>Car</th>
                 <th>Name</th>
-                <th>Wins</th>
-                <th>Best Time (seconds)</th>
+                <th
+                  onClick={() => {
+                    let newOrder = OrderType.ASC;
+                    if (sort === SortType.wins) {
+                      newOrder = order === OrderType.ASC ? OrderType.DESC : OrderType.ASC;
+                    }
+                    dispatch(setSortAndOrder(SortType.wins, newOrder));
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Wins
+                </th>
+                <th
+                  onClick={() => {
+                    let newOrder = OrderType.ASC;
+                    if (sort === SortType.time) {
+                      newOrder = order === OrderType.ASC ? OrderType.DESC : OrderType.ASC;
+                    }
+                    dispatch(setSortAndOrder(SortType.time, newOrder));
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Best Time (seconds)
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +83,26 @@ export const Winners = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div>
+          <button
+            disabled={page === 1 || total === 0}
+            onClick={() => {
+              dispatch(setWinnersPage(page - 1));
+              dispatch(fetchWinners(page));
+            }}
+          >
+            prev
+          </button>
+          <button
+            disabled={page === totalPages || total === 0}
+            onClick={async () => {
+              dispatch(setWinnersPage(page + 1));
+              dispatch(fetchWinners(page));
+            }}
+          >
+            Next
+          </button>
         </div>
       </Container>
     </div>

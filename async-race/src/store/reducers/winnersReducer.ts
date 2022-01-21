@@ -1,10 +1,18 @@
-import { WinnersAction, WinnersActionTypes, IWinnersState } from '../../types/winners';
+import {
+  WinnersAction,
+  WinnersActionTypes,
+  IWinnersState,
+  SortType,
+  OrderType
+} from '../../types/winners';
 
 const initialState: IWinnersState = {
   winners: [],
   total: 0,
   page: 1,
   error: null,
+  sort: SortType.id,
+  order: OrderType.ASC,
   loading: false
 };
 
@@ -23,6 +31,8 @@ export const winnersReducer = (state = initialState, action: WinnersAction): IWi
       return { ...state, loading: false, error: action.payload };
     case WinnersActionTypes.SET_WINNERS_PAGE:
       return { ...state, page: action.payload };
+    case WinnersActionTypes.SET_SORT_AND_ORDER_TYPE:
+      return { ...state, sort: action.payload.sort, order: action.payload.order };
     default:
       return state;
   }

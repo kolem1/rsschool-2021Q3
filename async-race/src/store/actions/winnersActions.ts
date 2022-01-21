@@ -1,13 +1,20 @@
 import { Dispatch } from 'redux';
 import { getCar } from '../../api';
-import { IWinner, IWinnerView, WinnersAction, WinnersActionTypes } from '../../types/winners';
+import {
+  IWinner,
+  IWinnerView,
+  OrderType,
+  SortType,
+  WinnersAction,
+  WinnersActionTypes
+} from '../../types/winners';
 
-export const fetchWinners = (page = 1, limit = 10) => {
+export const fetchWinners = (page = 1, sort = SortType.id, order = OrderType.ASC, limit = 10) => {
   return async (dispatch: Dispatch<WinnersAction>) => {
     try {
       dispatch({ type: WinnersActionTypes.FETCH_WINNERS });
       const winnersResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/winners?_page=${page}&_limit=${limit}`
+        `${process.env.REACT_APP_API_URL}/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`
       );
       const winners = (await winnersResponse.json()) as IWinner[];
 
@@ -32,6 +39,10 @@ export const fetchWinners = (page = 1, limit = 10) => {
     }
   };
 };
+
+export function setSortAndOrder(sort: SortType, order: OrderType) {
+  return { type: WinnersActionTypes.SET_SORT_AND_ORDER_TYPE, payload: { sort, order } };
+}
 
 export function setWinnersPage(page: number): WinnersAction {
   return { type: WinnersActionTypes.SET_WINNERS_PAGE, payload: page };
