@@ -7,7 +7,7 @@ export const fetchWinners = (page = 1, limit = 10) => {
     try {
       dispatch({ type: WinnersActionTypes.FETCH_WINNERS });
       const winnersResponse = await fetch(
-        `${process.env.REACT_APP_API_URL}/garage?_page=${page}&_limit=${limit}`
+        `${process.env.REACT_APP_API_URL}/winners?_page=${page}&_limit=${limit}`
       );
       const winners = (await winnersResponse.json()) as IWinner[];
 
