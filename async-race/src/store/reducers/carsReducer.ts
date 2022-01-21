@@ -5,7 +5,6 @@ const initialState: ICarsState = {
   total: 0,
   page: 1,
   error: null,
-  limit: 10,
   loading: false
 };
 

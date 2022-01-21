@@ -28,12 +28,14 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     setIsStarted(true);
     try {
       const result = await driveEngine(car.id);
+      stopEngine(car.id);
       if (winnerIsVacant && isRace) {
         dispatch(addResult({ id: car.id, time: Math.round(time / 100) / 10, result }));
       }
       setIsStarted(false);
       setPosition(100);
     } catch (err) {
+      stopEngine(car.id);
       const carEl = carRef.current;
       if (!carEl) throw new Error('Car Element is not find');
       const computedStyle = window.getComputedStyle(carEl);
@@ -72,7 +74,9 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       <div>{children}</div>
       <h3 style={{ margin: 0 }}>{car.name}</h3>
       <div>
-        <button onClick={() => startCar()}>Start</button>
+        <button onClick={() => startCar()} disabled={isStarted || raceIsStarted}>
+          Start
+        </button>
         <button
           onClick={() => {
             stopEngine(car.id);

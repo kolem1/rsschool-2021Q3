@@ -36,6 +36,12 @@ export const updateCar = async ({ id, name, color }: ICar) => {
   });
 };
 
+export const getCar = async (id: number) => {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/garage/${id}`);
+  const car = (await response.json()) as ICar;
+  return car;
+};
+
 export const generateCars = async () => {
   const carsNumber = 100;
   const promises: Promise<void>[] = [];

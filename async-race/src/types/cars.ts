@@ -13,7 +13,6 @@ export interface ICarsState {
   loading: boolean;
   error: null | string;
   page: number;
-  limit: number;
 }
 
 export interface IEngine {
@@ -31,8 +30,7 @@ export enum CarsActionTypes {
   FETCH_CARS = 'FETCH_CARS',
   FETCH_CARS_SUCCESS = 'FETCH_CARS_SUCCESS',
   FETCH_CARS_ERROR = 'FETCH_CARS_ERROR',
-  SET_CARS_PAGE = 'SET_CARs_PAGE',
-  CREATE_CAR = 'CREATE_CAR'
+  SET_CARS_PAGE = 'SET_CARs_PAGE'
 }
 interface IFetchCarsAction {
   type: CarsActionTypes.FETCH_CARS;
