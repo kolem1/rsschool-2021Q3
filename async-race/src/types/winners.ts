@@ -9,7 +9,7 @@ export interface IWinner {
 export type IWinnerView = IWinner & ICar;
 
 export interface IWinnersState {
-  cars: IWinnerView[];
+  winners: IWinnerView[];
   total: number;
   loading: boolean;
   error: null | string;

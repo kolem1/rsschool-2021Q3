@@ -1,7 +1,7 @@
 import { WinnersAction, WinnersActionTypes, IWinnersState } from '../../types/winners';
 
 const initialState: IWinnersState = {
-  cars: [],
+  winners: [],
   total: 0,
   page: 1,
   error: null,
@@ -13,7 +13,12 @@ export const winnersReducer = (state = initialState, action: WinnersAction): IWi
     case WinnersActionTypes.FETCH_WINNERS:
       return { ...state, loading: true };
     case WinnersActionTypes.FETCH_WINNERS_SUCCESS:
-      return { ...state, loading: false, cars: action.payload.data, total: action.payload.total };
+      return {
+        ...state,
+        loading: false,
+        winners: action.payload.data,
+        total: action.payload.total
+      };
     case WinnersActionTypes.FETCH_WINNERS_ERROR:
       return { ...state, loading: false, error: action.payload };
     case WinnersActionTypes.SET_WINNERS_PAGE:
