@@ -1,12 +1,10 @@
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Transition, TransitionStatus } from 'react-transition-group';
-import { CarSvg } from '..';
 import { driveEngine, startEngine, stopEngine } from '../../api';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { addResult } from '../../store/actions/raceActions';
 import { ICar } from '../../types/cars';
-import styles from './Car.module.css';
+import { CarView } from './CarView';
 
 interface ICarProps {
   car: ICar;
@@ -47,6 +45,13 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     }
   };
 
+  const handleStopClick = () => {
+    stopEngine(car.id);
+    setDuration(0);
+    setIsStarted(false);
+    setPosition(0);
+  };
+
   useEffect(() => {
     if (raceIsStarted) {
       startCar(true);
@@ -57,68 +62,18 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [raceIsStarted]);
 
-  const defaultStyle = {
-    transition: `left ${duration}ms linear`,
-    left: 0
-  };
-
-  const transitionStyles = {
-    entering: { left: '100%' },
-    entered: { left: '100%' },
-    exiting: { left: `${position}%` },
-    exited: { left: `${position}%` }
-  };
-
   return (
-    <div style={{ marginBottom: 20 }}>
-      <div>{children}</div>
-      <h3 style={{ margin: 0 }}>{car.name}</h3>
-      <div>
-        <button onClick={() => startCar()} disabled={isStarted || raceIsStarted}>
-          Start
-        </button>
-        <button
-          onClick={() => {
-            stopEngine(car.id);
-            setDuration(0);
-            setIsStarted(false);
-            setPosition(0);
-          }}
-          disabled={position === 0 && !isStarted}
-        >
-          Stop
-        </button>
-      </div>
-      <div className={styles.wrapper}>
-        <div className={styles.track}>
-          <Transition
-            in={isStarted}
-            timeout={{
-              enter: duration,
-              exit: 0
-            }}
-          >
-            {(state: TransitionStatus) => (
-              <div
-                ref={carRef}
-                className={styles.car}
-                style={{
-                  ...defaultStyle,
-                  ...transitionStyles[state as keyof typeof transitionStyles]
-                }}
-              >
-                <CarSvg color={car.color} />
-              </div>
-            )}
-            {/* <CarSvg color={car.color} /> */}
-          </Transition>
-        </div>
-        <div
-          style={{
-            width: 150
-          }}
-        ></div>
-      </div>
-    </div>
+    <CarView
+      car={car}
+      position={position}
+      animationDuration={duration}
+      raceIsStarted={raceIsStarted}
+      carIsStarted={isStarted}
+      handleStartButton={startCar}
+      handleStopButton={handleStopClick}
+      ref={carRef}
+    >
+      {children}
+    </CarView>
   );
 };
