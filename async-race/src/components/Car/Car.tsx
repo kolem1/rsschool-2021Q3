@@ -26,12 +26,14 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     setIsStarted(true);
     try {
       const result = await driveEngine(car.id);
-      stopEngine(car.id);
-      if (winnerIsVacant && isRace) {
-        dispatch(addResult({ id: car.id, time: Math.round(time / 100) / 10, result }));
+      if (isStarted) {
+        stopEngine(car.id);
+        if (winnerIsVacant && isRace) {
+          dispatch(addResult({ id: car.id, time: Math.round(time / 100) / 10, result }));
+        }
+        setIsStarted(false);
+        setPosition(100);
       }
-      setIsStarted(false);
-      setPosition(100);
     } catch (err) {
       stopEngine(car.id);
       const carEl = carRef.current;
@@ -56,6 +58,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     if (raceIsStarted) {
       startCar(true);
     } else {
+      setIsStarted(false);
       setDuration(0);
       setPosition(0);
     }
