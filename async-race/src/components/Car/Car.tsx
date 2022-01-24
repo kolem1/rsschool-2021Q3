@@ -21,6 +21,12 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
 
   const carRef = useRef<HTMLDivElement>(null);
 
+  const resetCar = () => {
+    setIsStarted(false);
+    setDuration(0);
+    setPosition(0);
+  };
+
   const startCar = async (isRace = false) => {
     const { distance, velocity } = await startEngine(car.id);
     if (!mountedRef.current) return;
@@ -50,18 +56,14 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
 
   const handleStopClick = () => {
     stopEngine(car.id);
-    setDuration(0);
-    setIsStarted(false);
-    setPosition(0);
+    resetCar();
   };
 
   useEffect(() => {
     if (raceIsStarted) {
       startCar(true);
     } else {
-      setIsStarted(false);
-      setDuration(0);
-      setPosition(0);
+      resetCar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [raceIsStarted]);
