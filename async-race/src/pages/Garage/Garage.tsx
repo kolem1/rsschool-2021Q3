@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { Car, CarEditor, Container } from '../../components';
+import { Car, CarEditor, Page, PageCounter, PageTitle } from '../../components';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
 import { createCar, deleteCar, updateCar, generateCars, setWinner } from '../../api';
 import { ICarParams, ICar } from '../../types/cars';
@@ -88,95 +88,93 @@ export const Garage = () => {
   }, []);
 
   return (
-    <div>
-      <Container>
-        <div className={styles.buttonsWrapper}>
+    <Page>
+      <div className={styles.buttonsWrapper}>
+        <Button
+          className={styles.notLastButton}
+          onClick={() => dispatch(startRace())}
+          disabled={raceIsStarted}
+        >
+          Race
+        </Button>
+        <Button
+          className={styles.notLastButton}
+          onClick={() => dispatch(stopRace())}
+          disabled={!raceIsStarted}
+        >
+          Reset
+        </Button>
+        <Button
+          isAccent
+          onClick={async () => {
+            await generateCars();
+            dispatch(fetchCars(page));
+          }}
+        >
+          Generate Cars
+        </Button>
+      </div>
+      <CarEditor
+        buttonText="Create Car"
+        car={createdCar}
+        handleTextChange={onCreatedTextChange}
+        handleColorChange={onCreatedColorChange}
+        handleSubmit={onSubmitCreatedCar}
+      />
+      <CarEditor
+        buttonText="Update Car"
+        car={selectedCar}
+        handleTextChange={onEditedTextChange}
+        handleColorChange={onEditedColorChange}
+        handleSubmit={onSubmitEditedCar}
+        disabled={!selectedCar.id}
+      />
+      <PageTitle>Garage ({total})</PageTitle>
+      <PageCounter>
+        Page {page} {totalPages > 1 && `from ${totalPages}`}
+      </PageCounter>
+      {cars.map((car) => (
+        <Car key={car.id} car={car}>
           <Button
             className={styles.notLastButton}
-            onClick={() => dispatch(startRace())}
-            disabled={raceIsStarted}
-          >
-            Race
-          </Button>
-          <Button
-            className={styles.notLastButton}
-            onClick={() => dispatch(stopRace())}
-            disabled={!raceIsStarted}
-          >
-            Reset
-          </Button>
-          <Button
-            isAccent
+            type="button"
             onClick={async () => {
-              await generateCars();
+              setSelectedCar(car);
+            }}
+          >
+            Select
+          </Button>
+          <Button
+            type="button"
+            onClick={async () => {
+              await deleteCar(car.id);
               dispatch(fetchCars(page));
             }}
           >
-            Generate Cars
+            Remove
           </Button>
-        </div>
-        <CarEditor
-          buttonText="Create Car"
-          car={createdCar}
-          handleTextChange={onCreatedTextChange}
-          handleColorChange={onCreatedColorChange}
-          handleSubmit={onSubmitCreatedCar}
-        />
-        <CarEditor
-          buttonText="Update Car"
-          car={selectedCar}
-          handleTextChange={onEditedTextChange}
-          handleColorChange={onEditedColorChange}
-          handleSubmit={onSubmitEditedCar}
-          disabled={!selectedCar.id}
-        />
-        <h1>Garage ({total})</h1>
-        <h2>
-          Page {page} {totalPages > 1 && `from ${totalPages}`}
-        </h2>
-        {cars.map((car) => (
-          <Car key={car.id} car={car}>
-            <Button
-              className={styles.notLastButton}
-              type="button"
-              onClick={async () => {
-                setSelectedCar(car);
-              }}
-            >
-              Select
-            </Button>
-            <Button
-              type="button"
-              onClick={async () => {
-                await deleteCar(car.id);
-                dispatch(fetchCars(page));
-              }}
-            >
-              Remove
-            </Button>
-          </Car>
-        ))}
-        <div>
-          <Button
-            isAccent
-            disabled={page === 1 || total === 0}
-            onClick={() => {
-              dispatch(setCarsPage(page - 1));
-            }}
-          >
-            prev
-          </Button>
-          <Button
-            isAccent
-            disabled={page === totalPages || total === 0}
-            onClick={async () => {
-              dispatch(setCarsPage(page + 1));
-            }}
-          >
-            Next
-          </Button>
-        </div>
-      </Container>
+        </Car>
+      ))}
+      <div className={styles.pagination}>
+        <Button
+          isAccent
+          disabled={page === 1 || total === 0}
+          onClick={() => {
+            dispatch(setCarsPage(page - 1));
+          }}
+        >
+          prev
+        </Button>
+        <Button
+          isAccent
+          disabled={page === totalPages || total === 0}
+          onClick={async () => {
+            dispatch(setCarsPage(page + 1));
+          }}
+        >
+          Next
+        </Button>
+      </div>
       {showModal && (
         <div
           style={{
@@ -189,6 +187,6 @@ export const Garage = () => {
           Winner is {winningCar && winningCar.name}({winner && winner.time}s)
         </div>
       )}
-    </div>
+    </Page>
   );
 };

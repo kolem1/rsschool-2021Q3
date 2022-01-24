@@ -1,6 +1,11 @@
 .buttonsWrapper {
   margin-bottom: 10px;
 }
+
 .notLastButton {
   margin-right: 10px;
+}
+
+.pagination {
+  margin-top: auto;
 }
