@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.color {
+  margin: 0 10px;
+}

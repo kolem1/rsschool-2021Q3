@@ -3,3 +3,4 @@ export * from './CarSvg/CarSvg';
 export * from './Header/Header';
 export * from './Nav/Nav';
 export * from './Car/Car';
+export * from './CarEditor/CarEditor';

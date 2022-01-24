@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { Car, Container } from '../../components';
+import { Car, CarEditor, Container } from '../../components';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
 import { createCar, deleteCar, updateCar, generateCars, setWinner } from '../../api';
 import { ICarParams, ICar } from '../../types/cars';
-import { TextInput } from '../../components/UI';
+import { Button } from '../../components/UI';
 import { startRace, stopRace } from '../../store/actions/raceActions';
+import styles from './Garage.module.css';
 
 export const Garage = () => {
   const { page, cars, total } = useTypedSelector((state) => state.cars);
@@ -25,9 +26,44 @@ export const Garage = () => {
   const [showModal, setShowModal] = useState(false);
   const [winningCar, setWinningCar] = useState<ICar | null>(null);
 
+  const onEditedTextChange: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
+    setSelectedCar({ ...selectedCar, name: target.value });
+
+  const onEditedColorChange: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
+    setSelectedCar({ ...selectedCar, color: target.value });
+
+  const onSubmitEditedCar = async () => {
+    if (selectedCar.name.trim()) {
+      await updateCar(selectedCar);
+      setSelectedCar(defaultSelectedCar);
+      dispatch(fetchCars(page));
+    }
+  };
+
+  const onCreatedTextChange: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
+    setCreatedCar({ ...createdCar, name: target.value });
+
+  const onCreatedColorChange: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
+    setCreatedCar({ ...createdCar, color: target.value });
+
+  const onSubmitCreatedCar = async () => {
+    if (createdCar.name.trim()) {
+      await createCar(createdCar);
+      let lastPage = totalPages;
+      console.log(cars.length);
+      if (total % carsLimit === 0) {
+        lastPage += 1;
+      }
+      console.log(lastPage);
+      setCreatedCar(defaultCreatedCar);
+      dispatch(setCarsPage(lastPage));
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchCars(page));
     dispatch(stopRace());
+    setSelectedCar(defaultSelectedCar);
     setShowModal(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
@@ -54,90 +90,62 @@ export const Garage = () => {
   return (
     <div>
       <Container>
-        <button onClick={() => dispatch(startRace())} disabled={raceIsStarted}>
-          Race
-        </button>
-        <button onClick={() => dispatch(stopRace())} disabled={!raceIsStarted}>
-          Reset
-        </button>
-        <button
-          onClick={async () => {
-            await generateCars();
-            dispatch(fetchCars(page));
-          }}
-        >
-          Generate Cars
-        </button>
-        <div>
-          <TextInput
-            value={createdCar.name}
-            onChange={({ target }) => setCreatedCar({ ...createdCar, name: target.value })}
-          />
-          <input
-            type="color"
-            value={createdCar.color}
-            onChange={({ target }) => setCreatedCar({ ...createdCar, color: target.value })}
-          />
-          <button
-            type="button"
+        <div className={styles.buttonsWrapper}>
+          <Button
+            className={styles.notLastButton}
+            onClick={() => dispatch(startRace())}
+            disabled={raceIsStarted}
+          >
+            Race
+          </Button>
+          <Button
+            className={styles.notLastButton}
+            onClick={() => dispatch(stopRace())}
+            disabled={!raceIsStarted}
+          >
+            Reset
+          </Button>
+          <Button
+            isAccent
             onClick={async () => {
-              if (createdCar.name.trim()) {
-                await createCar(createdCar);
-                let lastPage = totalPages;
-                console.log(cars.length);
-                if (total % carsLimit === 0) {
-                  lastPage += 1;
-                }
-                console.log(lastPage);
-                setCreatedCar(defaultCreatedCar);
-                dispatch(setCarsPage(lastPage));
-              }
+              await generateCars();
+              dispatch(fetchCars(page));
             }}
           >
-            Create Car
-          </button>
+            Generate Cars
+          </Button>
         </div>
-        <div>
-          <TextInput
-            value={selectedCar.name}
-            onChange={({ target }) => setSelectedCar({ ...selectedCar, name: target.value })}
-            disabled={!selectedCar.id}
-          />
-          <input
-            type="color"
-            value={selectedCar.color}
-            onChange={({ target }) => setSelectedCar({ ...selectedCar, color: target.value })}
-            disabled={!selectedCar.id}
-          />
-          <button
-            type="button"
-            onClick={async () => {
-              if (selectedCar.name.trim()) {
-                await updateCar(selectedCar);
-                setSelectedCar(defaultSelectedCar);
-                dispatch(fetchCars(page));
-              }
-            }}
-            disabled={!selectedCar.id}
-          >
-            Update Car
-          </button>
-        </div>
+        <CarEditor
+          buttonText="Create Car"
+          car={createdCar}
+          handleTextChange={onCreatedTextChange}
+          handleColorChange={onCreatedColorChange}
+          handleSubmit={onSubmitCreatedCar}
+        />
+        <CarEditor
+          buttonText="Update Car"
+          car={selectedCar}
+          handleTextChange={onEditedTextChange}
+          handleColorChange={onEditedColorChange}
+          handleSubmit={onSubmitEditedCar}
+          disabled={!selectedCar.id}
+        />
         <h1>Garage ({total})</h1>
         <h2>
           Page {page} {totalPages > 1 && `from ${totalPages}`}
         </h2>
         {cars.map((car) => (
           <Car key={car.id} car={car}>
-            <button
+            <Button
+              className={styles.notLastButton}
               type="button"
               onClick={async () => {
                 setSelectedCar(car);
               }}
             >
               Select
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
               onClick={async () => {
                 await deleteCar(car.id);
@@ -145,26 +153,28 @@ export const Garage = () => {
               }}
             >
               Remove
-            </button>
+            </Button>
           </Car>
         ))}
         <div>
-          <button
+          <Button
+            isAccent
             disabled={page === 1 || total === 0}
             onClick={() => {
               dispatch(setCarsPage(page - 1));
             }}
           >
             prev
-          </button>
-          <button
+          </Button>
+          <Button
+            isAccent
             disabled={page === totalPages || total === 0}
             onClick={async () => {
               dispatch(setCarsPage(page + 1));
             }}
           >
             Next
-          </button>
+          </Button>
         </div>
       </Container>
       {showModal && (

@@ -1,4 +1,8 @@
 .input {
   padding: 5px;
-  background-color: #ccc;
+  background-color: #c1fbff;
+}
+
+.input:disabled {
+  opacity: 0.6;
 }

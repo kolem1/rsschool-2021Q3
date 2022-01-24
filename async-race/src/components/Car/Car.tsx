@@ -62,6 +62,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
 
   useEffect(() => {
     if (raceIsStarted) {
+      resetCar();
       startCar(true);
     } else {
       startedRef.current = false;

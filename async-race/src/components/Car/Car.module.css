@@ -1,8 +1,11 @@
-.flex {
+.header {
   display: flex;
+  align-items: center;
 }
 
 .road {
+  display: flex;
+
   padding-top: 20px;
 
   border-bottom: 1px dashed #fff;
@@ -11,6 +14,8 @@
 .title {
   margin: 0;
   margin-left: 10px;
+
+  font-size: 24px;
 }
 
 .track {
@@ -37,4 +42,8 @@
 
 .buttons {
   margin-right: 10px;
+}
+
+.launchButton {
+  margin-right: 5px;
 }

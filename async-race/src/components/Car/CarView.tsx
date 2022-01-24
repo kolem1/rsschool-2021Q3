@@ -43,13 +43,14 @@ const CarViewComponent = forwardRef(
     };
     return (
       <div style={{ marginBottom: 20 }}>
-        <div className={styles.flex}>
+        <div className={styles.header}>
           <div>{children}</div>
           <h3 className={styles.title}>{car.name}</h3>
         </div>
         <div className={`${styles.flex} ${styles.road}`}>
           <div className={styles.buttons}>
             <EngineButton
+              className={styles.launchButton}
               onClick={handleStartButton}
               disabled={position !== 0 || carIsStarted || raceIsStarted}
             >
