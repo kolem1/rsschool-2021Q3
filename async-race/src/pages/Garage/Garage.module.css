@@ -5,3 +5,15 @@
 .notLastButton {
   margin-right: 10px;
 }
+
+.popupInner {
+  display: flex;
+  align-items: center;
+
+  text-align: center;
+}
+
+.flag {
+  display: inline-block;
+  height: 50px;
+}

@@ -1,9 +1,10 @@
 import { FC, memo, ChangeEventHandler } from 'react';
 import { ICar, ICarParams } from '../../types/cars';
 import { IRaceResult } from '../../types/race';
-import { Car, CarEditor, Page, PageCounter, PageTitle, Pagination } from '../../components';
+import { Car, CarEditor, Page, PageCounter, PageTitle, Pagination, Popup } from '../../components';
 import { Button } from '../../components/UI';
 import styles from './Garage.module.css';
+import flag from './img/flag.png';
 
 interface IGarageViewParams {
   raceIsStarted: boolean;
@@ -126,16 +127,15 @@ const GarageViewComponent: FC<IGarageViewParams> = ({
         }}
       />
       {showModal && (
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: 10,
-            top: '50%',
-            left: '50%'
-          }}
-        >
-          Winner is {winningCar && winningCar.name}({winner && winner.time}s)
-        </div>
+        <Popup>
+          <div className={styles.popupInner}>
+            <img className={styles.flag} src={flag} alt="" />
+            <span>
+              Winner is {winningCar && winningCar.name}({winner && winner.time}s)
+            </span>
+            <img className={styles.flag} src={flag} alt="" />
+          </div>
+        </Popup>
       )}
     </Page>
   );

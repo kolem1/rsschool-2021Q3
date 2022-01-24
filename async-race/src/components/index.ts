@@ -8,3 +8,4 @@ export * from './PageTitle/PageTitle';
 export * from './PageCounter/PageCounter';
 export * from './Page/Page';
 export * from './Pagination/Pagination';
+export * from './Popup/Popup';
