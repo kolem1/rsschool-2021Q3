@@ -9,7 +9,7 @@ import { GarageView } from './GarageView';
 
 export const Garage = () => {
   const { page, cars, total } = useTypedSelector((state) => state.cars);
-  const { raceIsStarted, winner } = useTypedSelector((state) => state.race);
+  const { raceIsStarted, winner, results } = useTypedSelector((state) => state.race);
   const dispatch = useDispatch();
 
   const defaultCreatedCar = { name: '', color: '#ffffff' };
@@ -23,6 +23,8 @@ export const Garage = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [winningCar, setWinningCar] = useState<ICar | null>(null);
+
+  const [disableReset, setDisableReset] = useState(true);
 
   const onEditedTextChange: ChangeEventHandler<HTMLInputElement> = ({ target }) =>
     setSelectedCar({ ...selectedCar, name: target.value });
@@ -78,6 +80,14 @@ export const Garage = () => {
   }, [winner]);
 
   useEffect(() => {
+    if (results === carsLimit) {
+      setDisableReset(false);
+    } else {
+      setDisableReset(true);
+    }
+  }, [results]);
+
+  useEffect(() => {
     return () => {
       dispatch(stopRace());
     };
@@ -86,6 +96,7 @@ export const Garage = () => {
 
   return (
     <GarageView
+      disableReset={disableReset}
       raceIsStarted={raceIsStarted}
       handleStartRaceClick={() => dispatch(startRace())}
       handleStopRaceClick={() => dispatch(stopRace())}

@@ -3,7 +3,8 @@ import { IRaceState, RaceAction, RaseActionTypes } from '../../types/race';
 const initialState: IRaceState = {
   raceIsStarted: false,
   winnerIsVacant: false,
-  winner: null
+  winner: null,
+  results: 0
 };
 
 export const raceReducer = (state = initialState, action: RaceAction): IRaceState => {
@@ -14,9 +15,16 @@ export const raceReducer = (state = initialState, action: RaceAction): IRaceStat
       return initialState;
     case RaseActionTypes.ADD_RESULT:
       if (state.winnerIsVacant) {
-        return { ...state, winner: action.raceResult, winnerIsVacant: false };
+        return {
+          ...state,
+          winner: action.raceResult,
+          winnerIsVacant: false,
+          results: state.results + 1
+        };
       }
-      return state;
+      return { ...state, results: state.results + 1 };
+    case RaseActionTypes.CHECK_IN:
+      return { ...state, results: state.results + 1 };
     default:
       return state;
   }

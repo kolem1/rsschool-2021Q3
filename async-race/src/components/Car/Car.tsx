@@ -2,7 +2,7 @@ import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { driveEngine, startEngine, stopEngine } from '../../api';
 import { useTypedSelector, useStartedRef } from '../../hooks';
-import { addResult } from '../../store/actions/raceActions';
+import { addResult, checkIn } from '../../store/actions/raceActions';
 import { ICar } from '../../types/cars';
 import { CarView } from './CarView';
 
@@ -15,7 +15,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
   const [duration, setDuration] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [position, setPosition] = useState(0);
-  const { raceIsStarted, winnerIsVacant } = useTypedSelector((state) => state.race);
+  const { raceIsStarted } = useTypedSelector((state) => state.race);
 
   const startedRef = useStartedRef();
 
@@ -38,12 +38,15 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       const result = await driveEngine(car.id);
       stopEngine(car.id);
       if (!startedRef.current) return;
-      if (winnerIsVacant && isRace) {
+      if (isRace) {
         dispatch(addResult({ id: car.id, time: Math.round(time / 10) / 100, result }));
       }
     } catch (err) {
       stopEngine(car.id);
       if (!startedRef.current) return;
+      if (isRace) {
+        dispatch(checkIn());
+      }
       const carEl = carRef.current;
       if (!carEl) throw new Error('Car is not found');
       const computedStyle = window.getComputedStyle(carEl);

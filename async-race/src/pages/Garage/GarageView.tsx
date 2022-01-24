@@ -8,6 +8,7 @@ import flag from './img/flag.png';
 
 interface IGarageViewParams {
   raceIsStarted: boolean;
+  disableReset: boolean;
   handleStartRaceClick: () => void;
   handleStopRaceClick: () => void;
   hanldeGenerateCarsClick: () => Promise<void>;
@@ -34,6 +35,7 @@ interface IGarageViewParams {
 
 const GarageViewComponent: FC<IGarageViewParams> = ({
   raceIsStarted,
+  disableReset,
   handleStartRaceClick,
   handleStopRaceClick,
   hanldeGenerateCarsClick,
@@ -70,7 +72,7 @@ const GarageViewComponent: FC<IGarageViewParams> = ({
         <Button
           className={styles.notLastButton}
           onClick={handleStopRaceClick}
-          disabled={!raceIsStarted}
+          disabled={disableReset}
         >
           Reset
         </Button>

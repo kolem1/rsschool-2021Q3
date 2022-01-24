@@ -11,3 +11,7 @@ export function stopRace(): RaceAction {
 export function addResult(raceResult: IRaceResult): RaceAction {
   return { type: RaseActionTypes.ADD_RESULT, raceResult };
 }
+
+export function checkIn(): RaceAction {
+  return { type: RaseActionTypes.CHECK_IN };
+}
