@@ -1,13 +1,11 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { Car, CarEditor, Page, PageCounter, PageTitle, Pagination } from '../../components';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
 import { createCar, deleteCar, updateCar, generateCars, setWinner } from '../../api';
 import { ICarParams, ICar } from '../../types/cars';
-import { Button } from '../../components/UI';
 import { startRace, stopRace } from '../../store/actions/raceActions';
-import styles from './Garage.module.css';
+import { GarageView } from './GarageView';
 
 export const Garage = () => {
   const { page, cars, total } = useTypedSelector((state) => state.cars);
@@ -88,97 +86,40 @@ export const Garage = () => {
   }, []);
 
   return (
-    <Page>
-      <div className={styles.buttonsWrapper}>
-        <Button
-          className={styles.notLastButton}
-          onClick={() => dispatch(startRace())}
-          disabled={raceIsStarted}
-        >
-          Race
-        </Button>
-        <Button
-          className={styles.notLastButton}
-          onClick={() => dispatch(stopRace())}
-          disabled={!raceIsStarted}
-        >
-          Reset
-        </Button>
-        <Button
-          isAccent
-          onClick={async () => {
-            await generateCars();
-            dispatch(fetchCars(page));
-          }}
-        >
-          Generate Cars
-        </Button>
-      </div>
-      <CarEditor
-        buttonText="Create Car"
-        car={createdCar}
-        handleTextChange={onCreatedTextChange}
-        handleColorChange={onCreatedColorChange}
-        handleSubmit={onSubmitCreatedCar}
-      />
-      <CarEditor
-        buttonText="Update Car"
-        car={selectedCar}
-        handleTextChange={onEditedTextChange}
-        handleColorChange={onEditedColorChange}
-        handleSubmit={onSubmitEditedCar}
-        disabled={!selectedCar.id}
-      />
-      <PageTitle>Garage ({total})</PageTitle>
-      <PageCounter>
-        Page {page} {totalPages > 1 && `from ${totalPages}`}
-      </PageCounter>
-      {cars.map((car) => (
-        <Car key={car.id} car={car}>
-          <Button
-            className={styles.notLastButton}
-            type="button"
-            onClick={async () => {
-              setSelectedCar(car);
-            }}
-          >
-            Select
-          </Button>
-          <Button
-            type="button"
-            onClick={async () => {
-              await deleteCar(car.id);
-              dispatch(fetchCars(page));
-            }}
-          >
-            Remove
-          </Button>
-        </Car>
-      ))}
-      <Pagination
-        handleNextClick={() => {
-          dispatch(setCarsPage(page + 1));
-        }}
-        handlePrevClick={() => {
-          dispatch(setCarsPage(page - 1));
-        }}
-        disabled={{
-          prev: page === 1 || total === 0,
-          next: page === totalPages || total === 0
-        }}
-      />
-      {showModal && (
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: 10,
-            top: '50%',
-            left: '50%'
-          }}
-        >
-          Winner is {winningCar && winningCar.name}({winner && winner.time}s)
-        </div>
-      )}
-    </Page>
+    <GarageView
+      raceIsStarted={raceIsStarted}
+      handleStartRaceClick={() => dispatch(startRace())}
+      handleStopRaceClick={() => dispatch(stopRace())}
+      hanldeGenerateCarsClick={async () => {
+        await generateCars();
+        dispatch(fetchCars(page));
+      }}
+      createdCar={createdCar}
+      selectedCar={selectedCar}
+      onCreatedTextChange={onCreatedTextChange}
+      onCreatedColorChange={onCreatedColorChange}
+      onSubmitCreatedCar={onSubmitCreatedCar}
+      onEditedTextChange={onEditedTextChange}
+      onEditedColorChange={onEditedColorChange}
+      onSubmitEditedCar={onSubmitEditedCar}
+      total={total}
+      page={page}
+      totalPages={totalPages}
+      cars={cars}
+      setSelectedCar={setSelectedCar}
+      onRemoveCarClick={async (carId) => {
+        await deleteCar(carId);
+        dispatch(fetchCars(page));
+      }}
+      onNextPageClick={() => {
+        dispatch(setCarsPage(page + 1));
+      }}
+      onPrevPageClick={() => {
+        dispatch(setCarsPage(page - 1));
+      }}
+      showModal={showModal}
+      winningCar={winningCar}
+      winner={winner}
+    />
   );
 };

@@ -11,7 +11,7 @@ export const raceReducer = (state = initialState, action: RaceAction): IRaceStat
     case RaseActionTypes.START_RACE:
       return { ...state, raceIsStarted: true, winnerIsVacant: true };
     case RaseActionTypes.FINISH_RACE:
-      return { ...state, raceIsStarted: false, winnerIsVacant: false };
+      return initialState;
     case RaseActionTypes.ADD_RESULT:
       if (state.winnerIsVacant) {
         return { ...state, winner: action.raceResult, winnerIsVacant: false };
