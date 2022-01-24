@@ -56,7 +56,10 @@ const CarViewComponent = forwardRef(
             >
               A
             </EngineButton>
-            <EngineButton onClick={handleStopButton} disabled={position === 0 && !carIsStarted}>
+            <EngineButton
+              onClick={handleStopButton}
+              disabled={(position === 0 && !carIsStarted) || raceIsStarted}
+            >
               B
             </EngineButton>
           </div>
