@@ -2,7 +2,7 @@ import { forwardRef, memo, ReactNode, ForwardedRef } from 'react';
 import { Transition, TransitionStatus } from 'react-transition-group';
 import { CarSvg } from '..';
 import { ICar } from '../../types/cars';
-import { Button } from '../UI';
+import { EngineButton } from '../UI';
 import styles from './Car.module.css';
 
 interface ICarProps {
@@ -49,15 +49,15 @@ const CarViewComponent = forwardRef(
         </div>
         <div className={`${styles.flex} ${styles.road}`}>
           <div className={styles.buttons}>
-            <Button
+            <EngineButton
               onClick={handleStartButton}
               disabled={position !== 0 || carIsStarted || raceIsStarted}
             >
               A
-            </Button>
-            <Button onClick={handleStopButton} disabled={position === 0 && !carIsStarted}>
+            </EngineButton>
+            <EngineButton onClick={handleStopButton} disabled={position === 0 && !carIsStarted}>
               B
-            </Button>
+            </EngineButton>
           </div>
           <div className={styles.track}>
             <Transition

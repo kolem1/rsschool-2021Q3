@@ -1,0 +1,23 @@
+.button {
+  --color: rgba(139, 241, 125, 0.8);
+
+  width: 25px;
+  height: 25px;
+
+  color: var(--color);
+
+  border: 1px solid var(--color);
+  border-radius: 5px;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.button:hover {
+  --color: rgba(139, 241, 125, 1);
+}
+
+.button:disabled {
+  --color: rgba(139, 241, 125, 0.4);
+  cursor: auto;
+}
