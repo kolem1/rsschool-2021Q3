@@ -31,7 +31,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       stopEngine(car.id);
       if (mountedRef.current) {
         if (winnerIsVacant && isRace) {
-          dispatch(addResult({ id: car.id, time: Math.round(time / 100) / 10, result }));
+          dispatch(addResult({ id: car.id, time: Math.round(time / 10) / 100, result }));
         }
         setIsStarted(false);
         setPosition(100);
