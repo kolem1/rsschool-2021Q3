@@ -7,3 +7,26 @@
 .item {
   margin-right: 20px;
 }
+
+.link {
+  position: relative;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #fff;
+  transform: scale(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.link:hover::after {
+  transform: scale(1);
+  transform-origin: left;
+}

@@ -17,7 +17,11 @@ export const Nav: FC<NavProps> = ({ links }) => (
       {links &&
         links.map((link) => (
           <li key={link.path} className={styles.item}>
-            {<Link to={link.path}>{link.text}</Link>}
+            {
+              <Link className={styles.link} to={link.path}>
+                {link.text}
+              </Link>
+            }
           </li>
         ))}
     </ul>
