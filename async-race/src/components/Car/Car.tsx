@@ -23,18 +23,16 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
 
   const startCar = async (isRace = false) => {
     const { distance, velocity } = await startEngine(car.id);
+    if (!mountedRef.current) return;
     const time = Math.round(distance / velocity);
     setDuration(time);
     setIsStarted(true);
     try {
       const result = await driveEngine(car.id);
       stopEngine(car.id);
-      if (mountedRef.current) {
-        if (winnerIsVacant && isRace) {
-          dispatch(addResult({ id: car.id, time: Math.round(time / 10) / 100, result }));
-        }
-        setIsStarted(false);
-        setPosition(100);
+      if (!mountedRef.current) return;
+      if (winnerIsVacant && isRace) {
+        dispatch(addResult({ id: car.id, time: Math.round(time / 10) / 100, result }));
       }
     } catch (err) {
       stopEngine(car.id);
