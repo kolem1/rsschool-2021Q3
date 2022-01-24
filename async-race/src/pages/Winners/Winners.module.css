@@ -1,0 +1,41 @@
+.button {
+  padding: 0;
+
+  color: inherit;
+
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  min-height: 375px;
+}
+
+.table th {
+  padding: 5px 10px;
+
+  background-color: rgb(56, 106, 243);
+}
+
+.table td {
+  padding: 5px 10px;
+}
+
+.table tr {
+  vertical-align: top;
+}
+
+.winsCol {
+  min-width: 75px;
+}
+
+.TimeCol {
+  min-width: 150px;
+}
