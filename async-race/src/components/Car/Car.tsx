@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { driveEngine, startEngine, stopEngine } from '../../api';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector, useStartedRef } from '../../hooks';
 import { addResult } from '../../store/actions/raceActions';
 import { ICar } from '../../types/cars';
 import { CarView } from './CarView';
@@ -17,7 +17,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
   const [position, setPosition] = useState(0);
   const { raceIsStarted, winnerIsVacant } = useTypedSelector((state) => state.race);
 
-  const mountedRef = useRef(true);
+  const startedRef = useStartedRef();
 
   const carRef = useRef<HTMLDivElement>(null);
 
@@ -28,21 +28,22 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
   };
 
   const startCar = async (isRace = false) => {
+    startedRef.current = true;
     const { distance, velocity } = await startEngine(car.id);
-    if (!mountedRef.current) return;
+    if (!startedRef.current) return;
     const time = Math.round(distance / velocity);
     setDuration(time);
     setIsStarted(true);
     try {
       const result = await driveEngine(car.id);
       stopEngine(car.id);
-      if (!mountedRef.current) return;
+      if (!startedRef.current) return;
       if (winnerIsVacant && isRace) {
         dispatch(addResult({ id: car.id, time: Math.round(time / 10) / 100, result }));
       }
     } catch (err) {
       stopEngine(car.id);
-      if (!mountedRef.current) return;
+      if (!startedRef.current) return;
       const carEl = carRef.current;
       if (!carEl) throw new Error('Car is not found');
       const computedStyle = window.getComputedStyle(carEl);
@@ -63,16 +64,11 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     if (raceIsStarted) {
       startCar(true);
     } else {
+      startedRef.current = false;
       resetCar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [raceIsStarted]);
-
-  useEffect(() => {
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
 
   return (
     <CarView
