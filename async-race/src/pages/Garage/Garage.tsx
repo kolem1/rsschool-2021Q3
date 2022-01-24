@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { Car, CarEditor, Page, PageCounter, PageTitle } from '../../components';
+import { Car, CarEditor, Page, PageCounter, PageTitle, Pagination } from '../../components';
 import { fetchCars, setCarsPage } from '../../store/actions/carsActions';
 import { createCar, deleteCar, updateCar, generateCars, setWinner } from '../../api';
 import { ICarParams, ICar } from '../../types/cars';
@@ -155,26 +155,18 @@ export const Garage = () => {
           </Button>
         </Car>
       ))}
-      <div className={styles.pagination}>
-        <Button
-          isAccent
-          disabled={page === 1 || total === 0}
-          onClick={() => {
-            dispatch(setCarsPage(page - 1));
-          }}
-        >
-          prev
-        </Button>
-        <Button
-          isAccent
-          disabled={page === totalPages || total === 0}
-          onClick={async () => {
-            dispatch(setCarsPage(page + 1));
-          }}
-        >
-          Next
-        </Button>
-      </div>
+      <Pagination
+        handleNextClick={() => {
+          dispatch(setCarsPage(page + 1));
+        }}
+        handlePrevClick={() => {
+          dispatch(setCarsPage(page - 1));
+        }}
+        disabled={{
+          prev: page === 1 || total === 0,
+          next: page === totalPages || total === 0
+        }}
+      />
       {showModal && (
         <div
           style={{

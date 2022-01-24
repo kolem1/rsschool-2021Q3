@@ -7,3 +7,4 @@ export * from './CarEditor/CarEditor';
 export * from './PageTitle/PageTitle';
 export * from './PageCounter/PageCounter';
 export * from './Page/Page';
+export * from './Pagination/Pagination';
