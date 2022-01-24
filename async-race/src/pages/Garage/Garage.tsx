@@ -48,13 +48,12 @@ export const Garage = () => {
     if (createdCar.name.trim()) {
       await createCar(createdCar);
       let lastPage = totalPages;
-      console.log(cars.length);
       if (total % carsLimit === 0) {
         lastPage += 1;
       }
-      console.log(lastPage);
       setCreatedCar(defaultCreatedCar);
       dispatch(setCarsPage(lastPage));
+      dispatch(fetchCars(page));
     }
   };
 

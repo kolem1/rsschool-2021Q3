@@ -95,7 +95,7 @@ const GarageViewComponent: FC<IGarageViewParams> = ({
       />
       <PageTitle>Garage ({total})</PageTitle>
       <PageCounter>
-        Page {page} {totalPages > 1 && `from ${totalPages}`}
+        Page {page} {totalPages > 1 && `of ${totalPages}`}
       </PageCounter>
       {cars.map((car) => (
         <Car key={car.id} car={car}>

@@ -35,7 +35,7 @@ const WinnersViewComponnent: FC<IWinnersViewProps> = ({
     <Page>
       <PageTitle>Winners ({total})</PageTitle>
       <PageCounter>
-        Page {page} {totalPages > 1 && `from ${totalPages}`}
+        Page {page} {totalPages > 1 && `of ${totalPages}`}
       </PageCounter>
       <div>
         <table className={styles.table}>

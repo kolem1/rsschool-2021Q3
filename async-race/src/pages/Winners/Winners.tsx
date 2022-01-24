@@ -8,7 +8,6 @@ import { WinnersView } from './WinnersView';
 export const Winners = () => {
   const { page, winners, total, sort, order } = useTypedSelector((state) => state.winners);
   const dispatch = useDispatch();
-  console.log(sort, order);
 
   const winnersLimit = 10;
   const totalPages = Math.ceil(total / winnersLimit);
