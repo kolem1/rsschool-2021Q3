@@ -2,6 +2,7 @@ import { forwardRef, memo, ReactNode, ForwardedRef } from 'react';
 import { Transition, TransitionStatus } from 'react-transition-group';
 import { CarSvg } from '..';
 import { ICar } from '../../types/cars';
+import { Button } from '../UI';
 import styles from './Car.module.css';
 
 interface ICarProps {
@@ -42,17 +43,22 @@ const CarViewComponent = forwardRef(
     };
     return (
       <div style={{ marginBottom: 20 }}>
-        <div>{children}</div>
-        <h3 style={{ margin: 0 }}>{car.name}</h3>
-        <div>
-          <button onClick={handleStartButton} disabled={carIsStarted || raceIsStarted}>
-            Start
-          </button>
-          <button onClick={handleStopButton} disabled={position === 0 && !carIsStarted}>
-            Stop
-          </button>
+        <div className={styles.flex}>
+          <div>{children}</div>
+          <h3 className={styles.title}>{car.name}</h3>
         </div>
-        <div className={styles.wrapper}>
+        <div className={`${styles.flex} ${styles.road}`}>
+          <div className={styles.buttons}>
+            <Button
+              onClick={handleStartButton}
+              disabled={position !== 0 || carIsStarted || raceIsStarted}
+            >
+              A
+            </Button>
+            <Button onClick={handleStopButton} disabled={position === 0 && !carIsStarted}>
+              B
+            </Button>
+          </div>
           <div className={styles.track}>
             <Transition
               in={carIsStarted}
@@ -73,14 +79,9 @@ const CarViewComponent = forwardRef(
                   <CarSvg color={car.color} />
                 </div>
               )}
-              {/* <CarSvg color={car.color} /> */}
             </Transition>
           </div>
-          <div
-            style={{
-              width: 150
-            }}
-          ></div>
+          <div className={styles.finish}></div>
         </div>
       </div>
     );

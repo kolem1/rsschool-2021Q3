@@ -1,15 +1,38 @@
-.wrapper {
+.flex {
   display: flex;
 }
 
+.road {
+  border-bottom: 1px dashed #fff;
+}
+
+.title {
+  margin: 0;
+  margin-left: 10px;
+}
+
 .track {
-  height: 35px;
-  flex-grow: 1;
   position: relative;
+
+  height: 50px;
+  flex-grow: 1;
+
+  background-image: url(./img/flag.png);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .car {
   width: 100px;
   position: absolute;
   bottom: 0;
+}
+
+.finish {
+  width: 150px;
+}
+
+.buttons {
+  margin-right: 10px;
 }

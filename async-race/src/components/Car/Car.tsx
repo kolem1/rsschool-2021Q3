@@ -17,6 +17,8 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
   const [position, setPosition] = useState(0);
   const { raceIsStarted, winnerIsVacant } = useTypedSelector((state) => state.race);
 
+  const mountedRef = useRef(true);
+
   const carRef = useRef<HTMLDivElement>(null);
 
   const startCar = async (isRace = false) => {
@@ -26,8 +28,8 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     setIsStarted(true);
     try {
       const result = await driveEngine(car.id);
-      if (isStarted) {
-        stopEngine(car.id);
+      stopEngine(car.id);
+      if (mountedRef.current) {
         if (winnerIsVacant && isRace) {
           dispatch(addResult({ id: car.id, time: Math.round(time / 100) / 10, result }));
         }
@@ -36,8 +38,9 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       }
     } catch (err) {
       stopEngine(car.id);
+      if (!mountedRef.current) return;
       const carEl = carRef.current;
-      if (!carEl) throw new Error('Car Element is not find');
+      if (!carEl) throw new Error('Car is not found');
       const computedStyle = window.getComputedStyle(carEl);
       setIsStarted(false);
       const left = parseInt(computedStyle.left);
@@ -65,6 +68,12 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [raceIsStarted]);
 
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
   return (
     <CarView
       car={car}
@@ -72,7 +81,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       animationDuration={duration}
       raceIsStarted={raceIsStarted}
       carIsStarted={isStarted}
-      handleStartButton={startCar}
+      handleStartButton={() => startCar()}
       handleStopButton={handleStopClick}
       ref={carRef}
     >

@@ -27,6 +27,8 @@ export const Garage = () => {
 
   useEffect(() => {
     dispatch(fetchCars(page));
+    dispatch(stopRace());
+    setShowModal(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -41,6 +43,13 @@ export const Garage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [winner]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(stopRace());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -82,7 +91,6 @@ export const Garage = () => {
                 console.log(lastPage);
                 setCreatedCar(defaultCreatedCar);
                 dispatch(setCarsPage(lastPage));
-                dispatch(fetchCars(lastPage));
               }
             }}
           >
@@ -145,7 +153,6 @@ export const Garage = () => {
             disabled={page === 1 || total === 0}
             onClick={() => {
               dispatch(setCarsPage(page - 1));
-              dispatch(fetchCars(page));
             }}
           >
             prev
@@ -154,7 +161,6 @@ export const Garage = () => {
             disabled={page === totalPages || total === 0}
             onClick={async () => {
               dispatch(setCarsPage(page + 1));
-              dispatch(fetchCars(page));
             }}
           >
             Next
