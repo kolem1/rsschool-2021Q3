@@ -55,7 +55,6 @@ export const Garage = () => {
       }
       setCreatedCar(defaultCreatedCar);
       dispatch(setCarsPage(lastPage));
-      dispatch(fetchCars(page));
     }
   };
 
@@ -119,7 +118,9 @@ export const Garage = () => {
       setSelectedCar={setSelectedCar}
       onRemoveCarClick={async (carId) => {
         await deleteCar(carId);
-        dispatch(fetchCars(page));
+        let lastPage = page;
+        if (cars.length === 1) lastPage -= 1;
+        dispatch(setCarsPage(lastPage));
       }}
       onNextPageClick={() => {
         dispatch(setCarsPage(page + 1));
