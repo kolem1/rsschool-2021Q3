@@ -36,13 +36,11 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     setIsStarted(true);
     try {
       const result = await driveEngine(car.id);
-      stopEngine(car.id);
       if (!startedRef.current) return;
       if (isRace) {
         dispatch(addResult({ id: car.id, time: Math.round(time / 10) / 100, result }));
       }
     } catch (err) {
-      stopEngine(car.id);
       if (!startedRef.current) return;
       if (isRace) {
         dispatch(checkIn());
@@ -58,8 +56,8 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
     }
   };
 
-  const handleStopClick = () => {
-    stopEngine(car.id);
+  const stopCar = async () => {
+    await stopEngine(car.id);
     resetCar();
   };
 
@@ -69,7 +67,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       startCar(true);
     } else {
       startedRef.current = false;
-      resetCar();
+      stopCar();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [raceIsStarted]);
@@ -82,7 +80,7 @@ export const Car: FC<PropsWithChildren<ICarProps>> = ({ car, children }) => {
       raceIsStarted={raceIsStarted}
       carIsStarted={isStarted}
       handleStartButton={() => startCar()}
-      handleStopButton={handleStopClick}
+      handleStopButton={stopCar}
       ref={carRef}
     >
       {children}
