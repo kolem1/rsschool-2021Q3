@@ -79,12 +79,13 @@ export const Garage = () => {
   }, [winner]);
 
   useEffect(() => {
-    if (results === carsLimit) {
+    console.log(cars.length, results);
+    if (results === cars.length) {
       setDisableReset(false);
     } else {
       setDisableReset(true);
     }
-  }, [results]);
+  }, [results, cars]);
 
   useEffect(() => {
     return () => {
